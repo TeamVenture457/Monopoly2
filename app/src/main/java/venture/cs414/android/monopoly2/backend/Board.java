@@ -11,7 +11,9 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,16 +24,30 @@ import javax.xml.parsers.ParserConfigurationException;
  */
 public class Board {
     private final int NUMBEROFSPACES = 41;
+    private Queue<Card> chanceCards;
+    private Queue<Card> communityChestCards;
     private Space[] boardSpaces;
     private Context context;
 
     public Board(Context context){
         boardSpaces = new Space[NUMBEROFSPACES];
+        chanceCards = new LinkedList<>();
+        communityChestCards = new LinkedList<>();
         this.context = context;
+    }
+
+    public void setupBoard() {
+        fillBoardSpaces();
+        fillCards(CardType.CHANCE);
+        fillCards(CardType.COMMUNITYCHEST);
     }
 
     public Space[] getBoardSpaces() {
         return boardSpaces;
+    }
+
+    public Space getBoardSpace(int position){
+        return boardSpaces[position];
     }
     
     public List<Street> getStreetsOfColor(Colors color){
@@ -45,6 +61,38 @@ public class Board {
             }
         }
         return colorStreets;
+    }
+
+    public void fillCards(CardType cardType){
+        String xmlFilename;
+        Queue<Card> cardQueue;
+        if(cardType.equals(CardType.CHANCE)){
+            cardQueue = chanceCards;
+            xmlFilename = "chanceCards.xml";
+        }
+        else{
+            cardQueue = communityChestCards;
+            xmlFilename = "communityChestCards.xml";
+        }
+        Document chanceCardsDoc = getXMLDoc(xmlFilename);
+        chanceCardsDoc.normalize();
+        NodeList nodeList = chanceCardsDoc.getElementsByTagName("card");
+        for(int index = 0; index < nodeList.getLength(); index++){
+            Node node = nodeList.item(index);
+            CardType thisCardType = cardType;
+            String cardDescription = "";
+            List<String> actionList = new ArrayList<String>();
+
+            if(node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                cardDescription = element.getAttribute("description");
+                for (int i = 0; i < element.getElementsByTagName("action").getLength(); i++) {
+                    actionList.add(element.getElementsByTagName("action").item(i).getTextContent());
+                }
+            }
+            Card thisCard = new Card(actionList, cardDescription, thisCardType);
+            cardQueue.add(thisCard);
+        }
     }
 
     public void fillBoardSpaces(){
@@ -94,9 +142,9 @@ public class Board {
 
     private Street finishStreet(Street street, Element element) {
         int rent1House = Integer.parseInt(element.getElementsByTagName("rent1house").item(0).getTextContent());
-        int rent2House = Integer.parseInt(element.getElementsByTagName("rent2house").item(0).getTextContent());
-        int rent3House = Integer.parseInt(element.getElementsByTagName("rent3house").item(0).getTextContent());
-        int rent4House = Integer.parseInt(element.getElementsByTagName("rent4house").item(0).getTextContent());
+        int rent2House = Integer.parseInt(element.getElementsByTagName("rent2houses").item(0).getTextContent());
+        int rent3House = Integer.parseInt(element.getElementsByTagName("rent3houses").item(0).getTextContent());
+        int rent4House = Integer.parseInt(element.getElementsByTagName("rent4houses").item(0).getTextContent());
         int rentHotel = Integer.parseInt(element.getElementsByTagName("renthotel").item(0).getTextContent());
         int houseCost = Integer.parseInt(element.getElementsByTagName("housecost").item(0).getTextContent());
         int hotelCost = Integer.parseInt(element.getElementsByTagName("hotelcost").item(0).getTextContent());
@@ -204,5 +252,26 @@ public class Board {
                 System.out.println("Unexpected space type " + spaceType + " from space named " + spaceName + ".");
         }
         return thisSpaceType;
+    }
+
+    public void printBoard(){
+        String boardSpacesString = "";
+        for (Space currentSpace : boardSpaces){
+            boardSpacesString += currentSpace.getSpaceDescription();
+        }
+        System.out.println(boardSpacesString);
+    }
+
+    public void printCards(){
+        String chanceCardsString = "";
+        for (Card currentCard : chanceCards){
+            chanceCardsString += currentCard.getCardDescription();
+        }
+        String communityChestCardsString = "";
+        for (Card currentCard : communityChestCards){
+            communityChestCardsString += currentCard.getCardDescription();
+        }
+        System.out.println("Chance Cards:\n" + chanceCardsString);
+        System.out.println("Community Chest Cards:\n" + communityChestCardsString);
     }
 }
