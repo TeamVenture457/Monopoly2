@@ -4,4 +4,10 @@
     <string name="DisplayString">I\'m Rick James Bitch!</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <string name="title_activity_player_select">PlayerSelect</string>
+    <string name="title_activity_sell_property">SellProperty</string>
+    <string name="title_activity_buy_house">BuyHouse</string>
+    <string name="title_activity_sell_house">SellHouse</string>
+    <string name="title_activity_buy_hotel">BuyHotel</string>
+    <string name="title_activity_sell_hotel">SellHotel</string>
+    <string name="title_activity_mortgage_property">MortgageProperty</string>
 </resources>
