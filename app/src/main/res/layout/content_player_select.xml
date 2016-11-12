@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="venture.cs414.android.monopoly2.frontend.PlayerSelect"
+    tools:showIn="@layout/activity_player_select">
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerNumPlayers"
+        android:layout_marginTop="48dp"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/textSelectPlayers"
+        android:layout_alignRight="@+id/spinnerTime"
+        android:layout_alignEnd="@+id/spinnerTime"
+        android:layout_gravity="right"
+        android:layout_alignLeft="@+id/textTimeLimit"
+        android:layout_alignStart="@+id/textTimeLimit" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Game!"
+        android:id="@+id/buttonStartGame"
+        android:layout_marginTop="97dp"
+        android:layout_below="@+id/textMinutes"
+        android:layout_centerHorizontal="true"
+        android:onClick="clickStartGame"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerTime"
+        android:spinnerMode="dropdown"
+        android:layout_alignTop="@+id/textMinutes"
+        android:layout_alignRight="@+id/buttonStartGame"
+        android:layout_alignEnd="@+id/buttonStartGame"
+
+        android:layout_alignLeft="@+id/textTimeLimit"
+        android:layout_alignStart="@+id/textTimeLimit" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Players"
+        android:id="@+id/textPlayers"
+        android:layout_alignTop="@+id/spinnerNumPlayers"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Minutes"
+        android:id="@+id/textMinutes"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/textPlayers"
+        android:layout_alignEnd="@+id/textPlayers" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Select Number of Players"
+        android:id="@+id/textSelectPlayers"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="44dp"
+        android:layout_marginStart="44dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Select Time Limit"
+        android:id="@+id/textTimeLimit"
+        android:layout_marginTop="28dp"
+        android:layout_below="@+id/spinnerNumPlayers"
+        android:layout_toLeftOf="@+id/textPlayers"
+        android:layout_toStartOf="@+id/textPlayers" />
+</RelativeLayout>
