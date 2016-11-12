@@ -23,13 +23,13 @@ import javax.xml.parsers.ParserConfigurationException;
  * Created by James on 11/11/2016.
  */
 public class Board {
-    private final int NUMBEROFSPACES = 41;
     private Queue<Card> chanceCards;
     private Queue<Card> communityChestCards;
     private Space[] boardSpaces;
     private Context context;
 
     public Board(Context context){
+        final int NUMBEROFSPACES = 41;
         boardSpaces = new Space[NUMBEROFSPACES];
         chanceCards = new LinkedList<>();
         communityChestCards = new LinkedList<>();
