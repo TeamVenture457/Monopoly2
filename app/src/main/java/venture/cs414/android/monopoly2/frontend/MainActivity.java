@@ -26,19 +26,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        int numPlayers = getIntent().getIntExtra("numPlayers", 2);
+        int numMinutes = getIntent().getIntExtra("numMinutes", 5);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-
-
-
-        int numMiliSeconds = (10 * 60 * 1000);
+        int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -76,11 +67,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
 
         return super.onOptionsItemSelected(item);
     }
