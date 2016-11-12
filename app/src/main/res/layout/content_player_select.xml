@@ -21,7 +21,6 @@
         android:layout_below="@+id/textSelectPlayers"
         android:layout_alignRight="@+id/spinnerTime"
         android:layout_alignEnd="@+id/spinnerTime"
-        android:layout_gravity="right"
         android:layout_alignLeft="@+id/textTimeLimit"
         android:layout_alignStart="@+id/textTimeLimit" />
 
@@ -44,7 +43,6 @@
         android:layout_alignTop="@+id/textMinutes"
         android:layout_alignRight="@+id/buttonStartGame"
         android:layout_alignEnd="@+id/buttonStartGame"
-
         android:layout_alignLeft="@+id/textTimeLimit"
         android:layout_alignStart="@+id/textTimeLimit" />
 
