@@ -44,6 +44,10 @@ public class Player extends Owner{
         money += amount;
     }
 
+    public boolean canAfford(int amount){
+        return money > amount;
+    }
+
     public int getLocation() {
         return location;
     }
