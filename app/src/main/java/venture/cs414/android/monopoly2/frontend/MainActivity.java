@@ -1,5 +1,6 @@
 package venture.cs414.android.monopoly2.frontend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
 
@@ -68,6 +70,114 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        switch(id) {
+            case R.id.menu_roll:
+                try {
+                    //implement call
+                    //Toast.makeText(getApplicationContext(), "You rolled a " + die1 + " and a " + die2, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error rolling", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_sell_property:
+                try {
+                    //implement call
+                    Intent intent = new Intent(this, SellProperty.class);
+                    //Todo need to pass the serializable object when it is created
+                    //intent.putExtra("difficulty", 1);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_buy_house:
+                try {
+                    //implement call
+                    Intent intent = new Intent(this, BuyHouse.class);
+                    //Todo need to pass the serializable object when it is created
+                    //intent.putExtra("difficulty", 1);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_sell_house:
+                try {
+                    //implement call
+                    Intent intent = new Intent(this, SellHouse.class);
+                    //Todo need to pass the serializable object when it is created
+                    //intent.putExtra("difficulty", 1);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_buy_hotel:
+                try {
+                    //implement call
+                    Intent intent = new Intent(this, BuyHotel.class);
+                    //Todo need to pass the serializable object when it is created
+                    //intent.putExtra("difficulty", 1);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_sell_hotel:
+                try {
+                    //implement call
+                    Intent intent = new Intent(this, SellHotel.class);
+                    //Todo need to pass the serializable object when it is created
+                    //intent.putExtra("difficulty", 1);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_mortgage:
+                try {
+                    //implement call
+                    Intent intent = new Intent(this, MortgageProperty.class);
+                    //Todo need to pass the serializable object when it is created
+                    //intent.putExtra("difficulty", 1);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_end_turn:
+                try {
+                    //implement call
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.menu_quit:
+                try {
+                    //implement call
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+    /*public void sellProperty(View view){
+        Intent intent = new Intent(this, SellProperty.class);
+        //Todo need to pass the serializable object when it is created
+        //intent.putExtra("difficulty", 1);
+        startActivity(intent);
+        finish();
+    }*/
+
+
 }

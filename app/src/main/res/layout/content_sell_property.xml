@@ -12,4 +12,43 @@
     tools:context="venture.cs414.android.monopoly2.frontend.SellProperty"
     tools:showIn="@layout/activity_sell_property">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please choose the property you want to sell, who you want to sell the property to, and how much you want to sell the property for."
+        android:id="@+id/PlayerInstructionsLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SelectPropertyDropDown"
+        android:layout_below="@+id/PlayerInstructionsLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SelectPlayerDropDown"
+        android:layout_below="@+id/SelectPropertyDropDown"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/AmountTextField"
+        android:layout_below="@+id/SelectPlayerDropDown"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:hint="Enter Amount"/>
 </RelativeLayout>
