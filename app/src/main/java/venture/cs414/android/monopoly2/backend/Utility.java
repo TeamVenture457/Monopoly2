@@ -1,5 +1,7 @@
 package venture.cs414.android.monopoly2.backend;
 
+import java.util.List;
+
 /**
  * Created by James on 11/11/2016.
  */
@@ -31,6 +33,10 @@ public class Utility extends Property{
 
     private int getUtilitiesOwned() {
         int numUtilities = 0;
+        List<Property> properties = this.getOwner().getPropertiesOwned();
+        for(Property owned : properties){
+            if(owned instanceof Utility) numUtilities++;
+        }
         //TO-DO get number of utilities owned by owner
 
         return numUtilities;

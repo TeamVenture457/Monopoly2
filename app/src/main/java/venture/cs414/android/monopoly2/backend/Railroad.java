@@ -1,5 +1,7 @@
 package venture.cs414.android.monopoly2.backend;
 
+import java.util.List;
+
 /**
  * Created by James on 11/11/2016.
  */
@@ -16,6 +18,10 @@ public class Railroad extends Property {
 
     private int getRailroadsOwned() {
         int numRailroads = 0;
+        List<Property> properties = this.getOwner().getPropertiesOwned();
+        for(Property owned : properties){
+            if(owned instanceof Railroad) numRailroads++;
+        }
         //TO-DO get number of railroads owned by this railroad's owner
         return numRailroads;
     }
