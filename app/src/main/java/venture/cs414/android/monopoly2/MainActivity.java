@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import venture.cs414.android.monopoly2.backend.Board;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        /*
+        Board gameBoard = new Board(MainActivity.this);
+        gameBoard.setupBoard();
+        gameBoard.printBoard();
+        gameBoard.printCards();
+        */
+
     }
 
     @Override
@@ -43,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        /*
         if (id == R.id.action_settings) {
             return true;
         }
+        */
 
         return super.onOptionsItemSelected(item);
     }
