@@ -3,8 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="venture.cs414.android.monopoly2.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/menu_roll"
+        android:title="Roll"/>
+    <item
+        android:id="@+id/menu_sell_property"
+        android:title="Sell Property"/>
+    <item
+        android:id="@+id/menu_buy_house"
+        android:title="Buy House"/>
+    <item
+        android:id="@+id/menu_sell_house"
+        android:title="Sell House"/>
+    <item
+        android:id="@+id/menu_buy_hotel"
+        android:title="Buy Hotel"/>
+    <item
+        android:id="@+id/menu_sell_hotel"
+        android:title="Sell Hotel"/>
+    <item
+        android:id="@+id/menu_mortgage"
+        android:title="Mortgage Property"/>
+    <item
+        android:id="@+id/menu_end_turn"
+        android:title="End Turn"/>
+    <item
+        android:id="@+id/menu_quit"
+        android:title="Quit"/>
+    <item
+        android:id="@+id/menu_save"
+        android:title="Save Game"/>
+    <item
+        android:id="@+id/menu_load"
+        android:title="Load Game"/>
+    <item
+        android:id="@+id/menu_new"
+        android:title="New Game"/>
 </menu>
