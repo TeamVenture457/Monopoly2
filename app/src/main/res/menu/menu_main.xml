@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="venture.cs414.android.monopoly2.MainActivity">
+    tools:context=".frontend.MainActivity">
     <item
         android:id="@+id/menu_roll"
         android:title="Roll"/>
