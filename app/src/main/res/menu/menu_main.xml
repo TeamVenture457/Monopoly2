@@ -29,7 +29,7 @@
     <item
         android:id="@+id/menu_quit"
         android:title="Quit"/>
-    <item
+    <!--<item
         android:id="@+id/menu_save"
         android:title="Save Game"/>
     <item
@@ -37,5 +37,5 @@
         android:title="Load Game"/>
     <item
         android:id="@+id/menu_new"
-        android:title="New Game"/>
+        android:title="New Game"/>-->
 </menu>
