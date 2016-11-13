@@ -27,7 +27,7 @@ public class GameFacade {
         currentPlayer = players.get(0);
         currentPlayerHasMoved = false;
 
-        board = new Board();
+        board = new Board(context);
 
         bank = Bank.getInstance();
 
@@ -59,29 +59,30 @@ public class GameFacade {
                 returnString = "\nYou got caught speeding and went to jail!";
                 currentPlayerHasMoved = true;
             } else {
-                playerTakesAnotherTurn = true;
-                deed = board.movePlayer(player, diceRoll);
+                currentPlayer.movePlayer(diceRoll);
+                deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
                 returnString += "\nand moved that many spaces!";
                 returnString += "\nAnd you rolled doubles!  Go again!";
                 currentPlayerHasMoved = false;
             }
         } else {
             returnString += "\nand moved that many spaces!";
-            deed = board.movePlayer(player, diceRoll);
-            player.consecutiveTurns = 0;
+            currentPlayer.movePlayer(diceRoll);
+            deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
+            player.resetConsecutiveTurns();
             currentPlayerHasMoved = true;
         }
 
-		/*if(player.getLocation() == 30){
+		if(player.getLocation() == 30){
 			player.putInJail();
 			returnString = "You rolled a " + diceRoll;
 			returnString += "\nand moved that many spaces!";
 			returnString += "\nYou landed in 'Go to Jail' and went straight to jail";
 			currentPlayerHasMoved = true;
 			deed = null;
-		}*/
+		}
 
-        if(deed != null){
+        /*if(deed != null){
             if(!deed.getOwner().equals(bank) && !deed.getOwner().equals(currentPlayer)){
                 Owner owner = deed.getOwner();
                 int numOwned = 0;
@@ -136,7 +137,7 @@ public class GameFacade {
                     // do nothing
                     break;
             }
-        }
+        }*/
 
         return returnString;
     }
