@@ -13,10 +13,10 @@
         <action>collectBank 50</action>
     </card>
     <card description="Get out of Jail, Free">
-        <action>leave jail</action>
+        <action>getOutOfJail</action>
     </card>
     <card description="Go directly to jail - Do not pass Go - Do not collect $200">
-        <action>enter jail</action>
+        <action>goToJail</action>
     </card>
     <card description="Grand Opera Night Opening - Collect $50 from every player for opening night seats">
         <action>collectEachPlayer 50</action>
@@ -42,7 +42,7 @@
     <card description="Receive $25 consultancy fee">
         <action>collectBank 25</action>
     </card>
-    <card description="You are asessed for street repairs - $40 per house -$115 per hotel">
+    <card description="You are assessed for street repairs - $40 per house -$115 per hotel">
         <action>payForBuildings 40 115</action>
     </card>
     <card description="You have won second prize in a beauty contest - Collect $10">

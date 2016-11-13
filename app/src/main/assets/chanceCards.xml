@@ -22,13 +22,13 @@
         <action>collectBank 50</action>
     </card>
     <card description="Get out of Jail, Free - This card may be kept until needed, or traded/sold">
-        <action>leave jail</action>
+        <action>getOutOfJail</action>
     </card>
     <card description="Go Back 3 Spaces">
         <action>moveBack 3</action>
     </card>
     <card description="Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200">
-        <action>enter jail</action>
+        <action>goToJail</action>
     </card>
     <card description="Make general repairs on all your property - For each house pay $25 - for each hotel $100">
         <action>payForBuildings 25 100</action>

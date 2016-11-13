@@ -34,6 +34,7 @@ public class Board {
         chanceCards = new LinkedList<>();
         communityChestCards = new LinkedList<>();
         this.context = context;
+        setupBoard();
     }
 
     public void setupBoard() {
