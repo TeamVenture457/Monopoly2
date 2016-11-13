@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please choose the property you want to purchase a house for."
-        android:id="@+id/PlayerInstructionsLabel-BuyHotel"
+        android:id="@+id/PlayerInstructionsLabelBuyHotel"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -27,17 +27,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Buy Hotel"
-        android:id="@+id/ButtonBuy-BuyHotel"
+        android:id="@+id/ButtonBuyBuyHotel"
         android:layout_marginTop="38dp"
         android:onClick="clickBuyButtonBuyHotel"
-        android:layout_below="@+id/SelectPropertyDropdown-BuyHotel"
+        android:layout_below="@+id/SelectPropertyDropdownBuyHotel"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:id="@+id/ButtonCancel-BuyHotel"
+        android:id="@+id/ButtonCancelBuyHotel"
         android:onClick="clickCancelButtonBuyHotel"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -45,8 +45,8 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SelectPropertyDropdown-BuyHotel"
-        android:layout_below="@+id/PlayerInstructionsLabel-BuyHotel"
+        android:id="@+id/SelectPropertyDropdownBuyHotel"
+        android:layout_below="@+id/PlayerInstructionsLabelBuyHotel"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp" />
 
