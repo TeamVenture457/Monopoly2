@@ -77,15 +77,12 @@ public class MainActivity extends AppCompatActivity {
                     //implement call
                     //Todo where total is get the total of the roll, whatever that call is.
                     //Todo also we need to check doubles and how many doubles have been rolled.
-                    //Not sure where you want to handle these so I left this basic, you can change it
-                    /*if(die1 == die2 && totalDoubles < 2) {
-                        Toast.makeText(getApplicationContext(), "You rolled a " + totalDie + " and you rolled doubles. You get to roll again!", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "You rolled a " + totalDie, Toast.LENGTH_SHORT).show();
-                    }*/
+                    //Ben i think this will all be handled for each call in facade.
+
+                    Toast.makeText(getApplicationContext(), "Testing toast works", Toast.LENGTH_LONG).show();
+
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error rolling", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Error rolling", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.menu_sell_property:
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.menu_buy_house:
@@ -121,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.menu_buy_hotel:
@@ -133,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.menu_sell_hotel:
@@ -145,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.menu_mortgage:
@@ -157,21 +154,22 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.menu_end_turn:
                 try {
                     //implement call
+                    Toast.makeText(getApplicationContext(), "Testing to make sure call works", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.menu_quit:
                 try {
                     //implement call
                 } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 break;
         }
