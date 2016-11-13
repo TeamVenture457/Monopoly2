@@ -92,4 +92,25 @@ public class Player extends Owner{
         }
         location = nextLocation;
     }
+
+    public void putInJail(){
+        location = 40;
+        inJail = true;
+    }
+
+    public void takeOutOfJail(){
+        this.location=10;
+        inJail = false;
+        turnsInJail = 0;
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if(other instanceof Player){
+            Player otherPlayer = (Player) other;
+            return this.name.equals(otherPlayer.getName());
+        }
+
+        return false;
+    }
 }
