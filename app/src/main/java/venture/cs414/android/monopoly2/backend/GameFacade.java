@@ -18,7 +18,20 @@ public class GameFacade {
     private Player currentPlayer;
     private boolean currentPlayerHasMoved;
 
-    public GameFacade(int numPlayers, Context context){
+   private static GameFacade instance = new GameFacade();
+
+    /*public GameFacade(int numPlayers, Context context){
+
+    }*/
+
+    private GameFacade(){
+    }
+
+    public GameFacade getInstance(){
+        return instance;
+    }
+
+    public void setUp(int numPlayers, Context context){
         players = new ArrayList<Player>();
         for (int i = 1; i < numPlayers+1; i++) {
             String playerName = ("Player " + i);
@@ -32,6 +45,28 @@ public class GameFacade {
         bank = Bank.getInstance();
 
         dice = new Dice();
+    }
+
+    public boolean currentPlayerHasMoved() {
+        return currentPlayerHasMoved;
+    }
+
+    public String getCurrentPlayerInfo(){
+        String description = currentPlayer.getName() + "\n"
+                + "Token: " + currentPlayer.getToken() + "\n"
+                + "$" + currentPlayer.getMoney();
+
+        return description;
+    }
+
+    public String getOtherPlayerInfo(){
+        String description = "";
+        for(Player player : players){
+            if(!player.equals(currentPlayer)){
+                description += player.getName() + " (" + player.getToken() + "): $" + player.getMoney() + "\n";
+            }
+        }
+        return description;
     }
 
     public String rollCurrentPlayer(){
