@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please choose the property you want to purchase a house for."
-        android:id="@+id/PlayerInstructionsLabel-BuyHouse"
+        android:id="@+id/PlayerInstructionsLabelBuyHouse"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -27,17 +27,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Buy House"
-        android:id="@+id/ButtonBuy-BuyHouse"
+        android:id="@+id/ButtonBuyBuyHouse"
         android:layout_marginTop="38dp"
         android:onClick="clickBuyButtonBuyHouse"
-        android:layout_below="@+id/SelectPropertyDropdown-BuyHouse"
+        android:layout_below="@+id/SelectPropertyDropdownBuyHouse"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:id="@+id/ButtonCancel-BuyHouse"
+        android:id="@+id/ButtonCancelBuyHouse"
         android:onClick="clickCancelButtonBuyHouse"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -45,8 +45,8 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SelectPropertyDropdown-BuyHouse"
-        android:layout_below="@+id/PlayerInstructionsLabel-BuyHouse"
+        android:id="@+id/SelectPropertyDropdownBuyHouse"
+        android:layout_below="@+id/PlayerInstructionsLabelBuyHouse"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp" />
 

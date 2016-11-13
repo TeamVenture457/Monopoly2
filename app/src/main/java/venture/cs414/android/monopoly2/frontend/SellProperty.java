@@ -1,6 +1,7 @@
 package venture.cs414.android.monopoly2.frontend;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
 
@@ -88,6 +90,16 @@ public class SellProperty extends AppCompatActivity {
 
     public void clickCancelButtonSellProperty(View view){
         //Todo implement code, should pass object back to main and reininitialize that view
+        try {
+            //implement call
+            Intent intent = new Intent(this, MainActivity.class);
+            //Todo need to pass the serializable object when it is created
+            //intent.putExtra("difficulty", 1);
+            startActivity(intent);
+            finish();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

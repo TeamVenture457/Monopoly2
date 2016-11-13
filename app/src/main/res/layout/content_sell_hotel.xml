@@ -12,4 +12,42 @@
     tools:context="venture.cs414.android.monopoly2.frontend.SellHotel"
     tools:showIn="@layout/activity_sell_hotel">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please choose the property you want to sell a hotel for."
+        android:id="@+id/PlayerInstructionsLabelSellHotel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sell Hotel"
+        android:id="@+id/ButtonSellSellHotel"
+        android:layout_marginTop="38dp"
+        android:onClick="clickSellButtonSellHotel"
+        android:layout_below="@+id/SelectPropertyDropdownSellHotel"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/ButtonCancelSellHotel"
+        android:onClick="clickCancelButtonSellHotel"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SelectPropertyDropdownSellHotel"
+        android:layout_below="@+id/PlayerInstructionsLabelSellHotel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp" />
+
 </RelativeLayout>

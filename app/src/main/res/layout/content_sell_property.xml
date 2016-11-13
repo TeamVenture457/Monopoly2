@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please choose the property you want to sell, who you want to sell the property to, and how much you want to sell the property for."
-        android:id="@+id/PlayerInstructionsLabel-SellProperty"
+        android:id="@+id/PlayerInstructionsLabelSellProperty"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -27,8 +27,8 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SelectPropertyDropDown-SellProperty"
-        android:layout_below="@+id/PlayerInstructionsLabel-SellProperty"
+        android:id="@+id/SelectPropertyDropDownSellProperty"
+        android:layout_below="@+id/PlayerInstructionsLabelSellProperty"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
@@ -37,16 +37,16 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SelectPlayerDropDown-SellProperty"
-        android:layout_below="@+id/SelectPropertyDropDown-SellProperty"
+        android:id="@+id/SelectPlayerDropDownSellProperty"
+        android:layout_below="@+id/SelectPropertyDropDownSellProperty"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/AmountTextField-SellProperty"
-        android:layout_below="@+id/SelectPlayerDropDown-SellProperty"
+        android:id="@+id/AmountTextFieldSellProperty"
+        android:layout_below="@+id/SelectPlayerDropDownSellProperty"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -57,18 +57,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sell Property"
-        android:id="@+id/ButtonSell-SellProperty"
-        android:layout_below="@+id/AmountTextField-SellProperty"
+        android:id="@+id/ButtonSellSellProperty"
+        android:layout_below="@+id/AmountTextFieldSellProperty"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
-        android:onClick="clickSellButton" />
+        android:onClick="clickSellButtonSellProperty" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:id="@+id/ButtonCancel-SellProperty"
-        android:layout_below="@+id/ButtonSell-SellProperty"
+        android:id="@+id/ButtonCancelSellProperty"
+        android:layout_below="@+id/ButtonSellSellProperty"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
         android:onClick="clickCancelButtonSellProperty" />
