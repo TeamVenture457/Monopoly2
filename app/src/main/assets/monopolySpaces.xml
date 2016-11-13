@@ -1,0 +1,487 @@
+<?xml version="1.0"?>
+<board>
+      
+   <space name="Go">
+      <position>0</position>
+      <type>other</type>
+   </space>
+
+   <space name="Mediterranean Avenue">
+      <position>1</position>
+      <type>street</type>
+      <color>brown</color>
+      <price>60</price>
+      <rent>2</rent>
+      <rent1house>10</rent1house>
+      <rent2houses>30</rent2houses>
+      <rent3houses>90</rent3houses>
+      <rent4houses>160</rent4houses>
+      <renthotel>250</renthotel>
+      <mortgagevalue>30</mortgagevalue>
+      <housecost>50</housecost>
+      <hotelcost>50</hotelcost>
+   </space>
+
+   <space name="Community Chest">
+      <position>2</position>
+      <type>other</type>
+   </space>
+
+   <space name="Baltic Avenue">
+      <position>3</position>
+      <type>street</type>
+      <color>brown</color>
+      <price>60</price>
+      <rent>4</rent>
+      <rent1house>20</rent1house>
+      <rent2houses>60</rent2houses>
+      <rent3houses>180</rent3houses>
+      <rent4houses>320</rent4houses>
+      <renthotel>450</renthotel>
+      <mortgagevalue>30</mortgagevalue>
+      <housecost>50</housecost>
+      <hotelcost>50</hotelcost>
+   </space>
+
+   <space name="Income Tax">
+      <position>4</position>
+      <type>other</type>
+      <tax>200</tax>
+   </space>
+
+   <space name="Reading Railroad">
+      <position>5</position>
+      <type>railroad</type>
+      <price>200</price>
+      <rent>25</rent>
+      <rent2>50</rent2>
+      <rent3>100</rent3>
+      <rent4>200</rent4>
+      <mortgagevalue>100</mortgagevalue>
+   </space>
+
+   <space name="Oriental Avenue">
+      <position>6</position>
+      <type>street</type>
+      <color>sky</color>
+      <price>100</price>
+      <rent>6</rent>
+      <rent1house>30</rent1house>
+      <rent2houses>90</rent2houses>
+      <rent3houses>270</rent3houses>
+      <rent4houses>400</rent4houses>
+      <renthotel>550</renthotel>
+      <mortgagevalue>50</mortgagevalue>
+      <housecost>50</housecost>
+      <hotelcost>50</hotelcost>
+   </space>
+
+   <space name="Chance">
+      <position>7</position>
+      <type>other</type>
+   </space>
+
+   <space name="Vermont Avenue">
+      <position>8</position>
+      <type>street</type>
+      <color>sky</color>
+      <price>100</price>
+      <rent>6</rent>
+      <rent1house>30</rent1house>
+      <rent2houses>90</rent2houses>
+      <rent3houses>270</rent3houses>
+      <rent4houses>400</rent4houses>
+      <renthotel>550</renthotel>
+      <mortgagevalue>50</mortgagevalue>
+      <housecost>50</housecost>
+      <hotelcost>50</hotelcost>
+   </space>
+
+   <space name="Connecticut Avenue">
+      <position>9</position>
+      <type>street</type>
+      <color>sky</color>
+      <price>120</price>
+      <rent>8</rent>
+      <rent1house>40</rent1house>
+      <rent2houses>100</rent2houses>
+      <rent3houses>300</rent3houses>
+      <rent4houses>450</rent4houses>
+      <renthotel>600</renthotel>
+      <mortgagevalue>60</mortgagevalue>
+      <housecost>50</housecost>
+      <hotelcost>50</hotelcost>
+   </space>
+
+   <space name="In Jail">
+      <position>40</position>
+      <type>other</type>
+   </space>
+
+   <space name="Just Visiting">
+      <position>10</position>
+      <type>other</type>
+   </space>
+
+   <space name="St. Charles Place">
+      <position>11</position>
+      <type>street</type>
+      <color>purple</color>
+      <price>140</price>
+      <rent>10</rent>
+      <rent1house>50</rent1house>
+      <rent2houses>150</rent2houses>
+      <rent3houses>450</rent3houses>
+      <rent4houses>625</rent4houses>
+      <renthotel>750</renthotel>
+      <mortgagevalue>70</mortgagevalue>
+      <housecost>100</housecost>
+      <hotelcost>100</hotelcost>
+   </space>
+
+   <space name="Electric Company">
+      <position>12</position>
+      <type>utility</type>
+      <price>150</price>
+      <rent>0</rent>
+      <utility1>4*roll</utility1>
+      <utility2>10*roll</utility2>
+      <mortgagevalue>75</mortgagevalue>
+   </space>
+
+   <space name="States Avenue">
+      <position>13</position>
+      <type>street</type>
+      <color>purple</color>
+      <price>140</price>
+      <rent>10</rent>
+      <rent1house>50</rent1house>
+      <rent2houses>150</rent2houses>
+      <rent3houses>450</rent3houses>
+      <rent4houses>625</rent4houses>
+      <renthotel>750</renthotel>
+      <mortgagevalue>70</mortgagevalue>
+      <housecost>100</housecost>
+      <hotelcost>100</hotelcost>
+   </space>
+
+   <space name="Virginia Avenue">
+      <position>14</position>
+      <type>street</type>
+      <color>purple</color>
+      <price>160</price>
+      <rent>12</rent>
+      <rent1house>60</rent1house>
+      <rent2houses>180</rent2houses>
+      <rent3houses>500</rent3houses>
+      <rent4houses>700</rent4houses>
+      <renthotel>900</renthotel>
+      <mortgagevalue>80</mortgagevalue>
+      <housecost>100</housecost>
+      <hotelcost>100</hotelcost>
+   </space>
+
+   <space name="Pennsylvania Railroad">
+      <position>15</position>
+      <type>railroad</type>
+      <price>200</price>
+      <rent>25</rent>
+      <rent2>50</rent2>
+      <rent3>100</rent3>
+      <rent4>200</rent4>
+      <mortgagevalue>100</mortgagevalue>
+   </space>
+
+   <space name="St. James Place">
+      <position>16</position>
+      <type>street</type>
+      <color>orange</color>
+      <price>180</price>
+      <rent>14</rent>
+      <rent1house>70</rent1house>
+      <rent2houses>200</rent2houses>
+      <rent3houses>550</rent3houses>
+      <rent4houses>750</rent4houses>
+      <renthotel>950</renthotel>
+      <mortgagevalue>90</mortgagevalue>
+      <housecost>100</housecost>
+      <hotelcost>100</hotelcost>
+   </space>
+
+   <space name="Community Chest">
+      <position>17</position>
+      <type>other</type>
+   </space>
+
+   <space name="Tennessee Avenue">
+      <position>18</position>
+      <type>street</type>
+      <color>orange</color>
+      <price>180</price>
+      <rent>14</rent>
+      <rent1house>70</rent1house>
+      <rent2houses>200</rent2houses>
+      <rent3houses>550</rent3houses>
+      <rent4houses>750</rent4houses>
+      <renthotel>950</renthotel>
+      <mortgagevalue>90</mortgagevalue>
+      <housecost>100</housecost>
+      <hotelcost>100</hotelcost>
+   </space>
+
+   <space name="New York Avenue">
+      <position>19</position>
+      <type>street</type>
+      <color>orange</color>
+      <price>200</price>
+      <rent>16</rent>
+      <rent1house>80</rent1house>
+      <rent2houses>220</rent2houses>
+      <rent3houses>600</rent3houses>
+      <rent4houses>800</rent4houses>
+      <renthotel>1000</renthotel>
+      <mortgagevalue>100</mortgagevalue>
+      <housecost>100</housecost>
+      <hotelcost>100</hotelcost>
+   </space>
+
+   <space name="Free Parking">
+      <position>20</position>
+      <type>other</type>
+   </space>
+
+   <space name="Kentucky Avenue">
+      <position>21</position>
+      <type>street</type>
+      <color>red</color>
+      <price>220</price>
+      <rent>18</rent>
+      <rent1house>90</rent1house>
+      <rent2houses>250</rent2houses>
+      <rent3houses>700</rent3houses>
+      <rent4houses>875</rent4houses>
+      <renthotel>1050</renthotel>
+      <mortgagevalue>110</mortgagevalue>
+      <housecost>150</housecost>
+      <hotelcost>150</hotelcost>
+   </space>
+
+   <space name="Chance">
+      <position>22</position>
+      <type>other</type>
+   </space>
+
+   <space name="Indiana Avenue">
+      <position>23</position>
+      <type>street</type>
+      <color>red</color>
+      <price>220</price>
+      <rent>18</rent>
+      <rent1house>90</rent1house>
+      <rent2houses>250</rent2houses>
+      <rent3houses>700</rent3houses>
+      <rent4houses>875</rent4houses>
+      <renthotel>1050</renthotel>
+      <mortgagevalue>110</mortgagevalue>
+      <housecost>150</housecost>
+      <hotelcost>150</hotelcost>
+   </space>
+
+   <space name="Illinois Avenue">
+      <position>24</position>
+      <type>street</type>
+      <color>red</color>
+      <price>240</price>
+      <rent>20</rent>
+      <rent1house>100</rent1house>
+      <rent2houses>300</rent2houses>
+      <rent3houses>750</rent3houses>
+      <rent4houses>925</rent4houses>
+      <renthotel>1100</renthotel>
+      <mortgagevalue>120</mortgagevalue>
+      <housecost>150</housecost>
+      <hotelcost>150</hotelcost>
+   </space>
+
+   <space name="B&amp;O Railroad">
+      <position>25</position>
+      <type>railroad</type>
+      <price>200</price>
+      <rent>25</rent>
+      <rent2>50</rent2>
+      <rent3>100</rent3>
+      <rent4>200</rent4>
+      <mortgagevalue>100</mortgagevalue>
+   </space>
+
+   <space name="Atlantic Avenue">
+      <position>26</position>
+      <type>street</type>
+      <color>yellow</color>
+      <price>260</price>
+      <rent>22</rent>
+      <rent1house>110</rent1house>
+      <rent2houses>330</rent2houses>
+      <rent3houses>800</rent3houses>
+      <rent4houses>975</rent4houses>
+      <renthotel>1150</renthotel>
+      <mortgagevalue>130</mortgagevalue>
+      <housecost>150</housecost>
+      <hotelcost>150</hotelcost>
+   </space>
+
+   <space name="Ventnor Avenue">
+      <position>27</position>
+      <type>street</type>
+      <color>yellow</color>
+      <price>260</price>
+      <rent>22</rent>
+      <rent1house>110</rent1house>
+      <rent2houses>330</rent2houses>
+      <rent3houses>800</rent3houses>
+      <rent4houses>975</rent4houses>
+      <renthotel>1150</renthotel>
+      <mortgagevalue>130</mortgagevalue>
+      <housecost>150</housecost>
+      <hotelcost>150</hotelcost>
+   </space>
+
+   <space name="Water Company">
+      <position>28</position>
+      <type>utility</type>
+      <price>150</price>
+      <rent>0</rent>
+      <utility1>4*roll</utility1>
+      <utility2>10*roll</utility2>
+      <mortgagevalue>75</mortgagevalue>
+   </space>
+
+   <space name="Marvin Gardens">
+      <position>29</position>
+      <type>street</type>
+      <color>yellow</color>
+      <price>280</price>
+      <rent>24</rent>
+      <rent1house>120</rent1house>
+      <rent2houses>360</rent2houses>
+      <rent3houses>850</rent3houses>
+      <rent4houses>1075</rent4houses>
+      <renthotel>1200</renthotel>
+      <mortgagevalue>140</mortgagevalue>
+      <housecost>150</housecost>
+      <hotelcost>150</hotelcost>
+   </space>
+
+   <space name="Go To Jail">
+      <position>30</position>
+      <type>other</type>
+   </space>
+
+   <space name="Pacific Avenue">
+      <position>31</position>
+      <type>street</type>
+      <color>green</color>
+      <price>300</price>
+      <rent>26</rent>
+      <rent1house>130</rent1house>
+      <rent2houses>390</rent2houses>
+      <rent3houses>900</rent3houses>
+      <rent4houses>1100</rent4houses>
+      <renthotel>1275</renthotel>
+      <mortgagevalue>150</mortgagevalue>
+      <housecost>200</housecost>
+      <hotelcost>200</hotelcost>
+   </space>
+
+   <space name="North Carolina Avenue">
+      <position>32</position>
+      <type>street</type>
+      <color>green</color>
+      <price>300</price>
+      <rent>26</rent>
+      <rent1house>130</rent1house>
+      <rent2houses>390</rent2houses>
+      <rent3houses>900</rent3houses>
+      <rent4houses>1100</rent4houses>
+      <renthotel>1275</renthotel>
+      <mortgagevalue>150</mortgagevalue>
+      <housecost>200</housecost>
+      <hotelcost>200</hotelcost>
+   </space>
+
+   <space name="Community Chest">
+      <position>33</position>
+      <type>other</type>
+   </space>
+
+   <space name="Pennsylvania Avenue">
+      <position>34</position>
+      <type>street</type>
+      <color>green</color>
+      <price>320</price>
+      <rent>28</rent>
+      <rent1house>150</rent1house>
+      <rent2houses>450</rent2houses>
+      <rent3houses>1000</rent3houses>
+      <rent4houses>1200</rent4houses>
+      <renthotel>1400</renthotel>
+      <mortgagevalue>160</mortgagevalue>
+      <housecost>200</housecost>
+      <hotelcost>200</hotelcost>
+   </space>
+
+   <space name="Short Line">
+      <position>35</position>
+      <type>railroad</type>
+      <price>200</price>
+      <rent>25</rent>
+      <rent2>50</rent2>
+      <rent3>100</rent3>
+      <rent4>200</rent4>
+      <mortgagevalue>100</mortgagevalue>
+   </space>
+
+   <space name="Chance">
+      <position>36</position>
+      <type>other</type>
+   </space>
+
+   <space name="Park Place">
+      <position>37</position>
+      <type>street</type>
+      <color>blue</color>
+      <price>350</price>
+      <rent>35</rent>
+      <rent1house>175</rent1house>
+      <rent2houses>500</rent2houses>
+      <rent3houses>1100</rent3houses>
+      <rent4houses>1300</rent4houses>
+      <renthotel>1500</renthotel>
+      <mortgagevalue>175</mortgagevalue>
+      <housecost>200</housecost>
+      <hotelcost>200</hotelcost>
+   </space>
+
+   <space name="Luxury Tax">
+      <position>38</position>
+      <type>other</type>
+      <tax>100</tax>
+   </space>
+
+   <space name="Boardwalk">
+      <position>39</position>
+      <type>street</type>
+      <color>blue</color>
+      <price>400</price>
+      <rent>50</rent>
+      <rent1house>200</rent1house>
+      <rent2houses>600</rent2houses>
+      <rent3houses>1400</rent3houses>
+      <rent4houses>1700</rent4houses>
+      <renthotel>2000</renthotel>
+      <mortgagevalue>200</mortgagevalue>
+      <housecost>200</housecost>
+      <hotelcost>200</hotelcost>
+   </space>
+
+</board>
