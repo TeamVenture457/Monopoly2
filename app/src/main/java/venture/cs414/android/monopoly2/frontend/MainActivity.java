@@ -75,7 +75,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_roll:
                 try {
                     //implement call
-                    //Toast.makeText(getApplicationContext(), "You rolled a " + die1 + " and a " + die2, Toast.LENGTH_SHORT).show();
+                    //Todo where total is get the total of the roll, whatever that call is.
+                    //Todo also we need to check doubles and how many doubles have been rolled.
+                    //Not sure where you want to handle these so I left this basic, you can change it
+                    /*if(die1 == die2 && totalDoubles < 2) {
+                        Toast.makeText(getApplicationContext(), "You rolled a " + totalDie + " and you rolled doubles. You get to roll again!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "You rolled a " + totalDie, Toast.LENGTH_SHORT).show();
+                    }*/
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error rolling", Toast.LENGTH_SHORT).show();
                 }

@@ -12,4 +12,43 @@
     tools:context="venture.cs414.android.monopoly2.frontend.BuyHotel"
     tools:showIn="@layout/activity_buy_hotel">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please choose the property you want to purchase a house for."
+        android:id="@+id/PlayerInstructionsLabel-BuyHotel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buy Hotel"
+        android:id="@+id/ButtonBuy-BuyHotel"
+        android:layout_marginTop="38dp"
+        android:onClick="clickBuyButtonBuyHotel"
+        android:layout_below="@+id/SelectPropertyDropdown-BuyHotel"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/ButtonCancel-BuyHotel"
+        android:onClick="clickCancelButtonBuyHotel"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/SelectPropertyDropdown-BuyHotel"
+        android:layout_below="@+id/PlayerInstructionsLabel-BuyHotel"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp" />
+
+
 </RelativeLayout>
