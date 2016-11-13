@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<chance>
+    <card description="Advance to Go (Collect $200)">
+        <action>moveTo 0</action>
+    </card>
+    <card description="Advance to Illinois Ave. - If you pass Go, collect $200">
+        <action>moveTo 24</action>
+    </card>
+    <card description="Advance to St. Charles Place - If you pass Go, collect $200">
+        <action>moveTo 11</action>
+    </card>
+    <card description="Advance token to nearest Utility. If unowned, you may buy if from the Bank.  If owned, throw dice and pay owner a total ten times the amount thrown.">
+        <action>moveToNext utility</action>
+    </card>
+    <card description="Advance token to nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled.  If Railroad is unowned, you may buy it from the Bank.">
+        <action>moveToNext railroad</action>
+    </card>
+    <card description="Advance token to nearest Railroad and pay owner twice the rental to which he/she is otherwise entitled.  If Railroad is unowned, you may buy it from the Bank.">
+        <action>moveToNext railroad</action>
+    </card>
+    <card description="Bank pays you dividend of $50">
+        <action>collectBank 50</action>
+    </card>
+    <card description="Get out of Jail, Free - This card may be kept until needed, or traded/sold">
+        <action>getOutOfJail</action>
+    </card>
+    <card description="Go Back 3 Spaces">
+        <action>moveBack 3</action>
+    </card>
+    <card description="Go to Jail - Go directly to Jail - Do not pass Go, do not collect $200">
+        <action>goToJail</action>
+    </card>
+    <card description="Make general repairs on all your property - For each house pay $25 - for each hotel $100">
+        <action>payForBuildings 25 100</action>
+    </card>
+    <card description="Pay poor tax of $15">
+        <action>payBank 15</action>
+    </card>
+    <card description="Take a trip to Reading Railroad - If you pass Go, collect $200">
+        <action>moveTo 5</action>
+    </card>
+    <card description="Take a walk on the Boardwalk - Advance token to Boardwalk">
+        <action>moveTo 39</action>
+    </card>
+    <card description="You have been elected Chairman of the Board - Pay each player $50">
+        <action>payEachPlayer 50</action>
+    </card>
+    <card description="Your building and loan matures - Collect $150">
+        <action>collectBank 150</action>
+    </card>
+    <card description="You have won a crossword competition - Collect $100">
+        <action>collectBank 100</action>
+    </card>
+</chance>

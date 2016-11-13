@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
-
+import venture.cs414.android.monopoly2.backend.Board;
 
 
 public class MainActivity extends AppCompatActivity {
