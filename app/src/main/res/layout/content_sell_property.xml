@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="venture.cs414.android.monopoly2.frontend.SellProperty"
     tools:showIn="@layout/activity_sell_property">
@@ -51,4 +52,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:hint="Enter Amount"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sell Property"
+        android:id="@+id/ButtonSell"
+        android:layout_below="@+id/AmountTextField"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:onClick="clickSellButton" />
 </RelativeLayout>
