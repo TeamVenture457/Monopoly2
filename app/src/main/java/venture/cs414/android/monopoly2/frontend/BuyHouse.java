@@ -20,4 +20,16 @@ public class BuyHouse extends AppCompatActivity {
         
     }
 
+    public void clickBuyButtonBuyHouse(View view){
+        notify("Testing if its working");
+    }
+
+    public void clickCancelButtonBuyHouse(View view){
+        //Todo implement code
+    }
+
+    public void notify(String message){
+
+    }
+
 }
