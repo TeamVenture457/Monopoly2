@@ -20,4 +20,16 @@ public class BuyHotel extends AppCompatActivity {
         
     }
 
+    public void clickBuyButtonBuyHotel(View view){
+        notify("Testing if its working");
+    }
+
+    public void clickCancelButtonBuyHotel(View view){
+        //Todo implement code
+    }
+
+    public void notify(String message){
+
+    }
+
 }

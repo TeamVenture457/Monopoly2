@@ -81,8 +81,13 @@ public class SellProperty extends AppCompatActivity {
         blocker.showAtLocation(layout, Gravity.CENTER, 10, 10);
     }
 
-    public void clickSellButton(View view){
+    public void clickSellButtonSellProperty(View view){
+        //Todo you must get the 3 fields that the user chose. These 3 fields need to be flushed out. They are not hooked up right now.
         notify("Testing if its working");
+    }
+
+    public void clickCancelButtonSellProperty(View view){
+        //Todo implement code, should pass object back to main and reininitialize that view
     }
 
 }
