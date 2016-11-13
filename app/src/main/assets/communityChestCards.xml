@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<communityChest>
+    <card description="Advance to Go (Collect $200)">
+        <action>moveTo 0</action>
+    </card>
+    <card description="Bank error in your favor - Collect $50">
+        <action>collectBank 200</action>
+    </card>
+    <card description="Doctor's fees - Pay $50">
+        <action>payBank 50</action>
+    </card>
+    <card description="From sale of stock you get $50">
+        <action>collectBank 50</action>
+    </card>
+    <card description="Get out of Jail, Free">
+        <action>getOutOfJail</action>
+    </card>
+    <card description="Go directly to jail - Do not pass Go - Do not collect $200">
+        <action>goToJail</action>
+    </card>
+    <card description="Grand Opera Night Opening - Collect $50 from every player for opening night seats">
+        <action>collectEachPlayer 50</action>
+    </card>
+    <card description="Holiday Xmas Fund matures - Collect $100">
+        <action>collectBank 100</action>
+    </card>
+    <card description="Income tax refund - Collect $20">
+        <action>collectBank 20</action>
+    </card>
+    <card description="It is your birthday - Collect $10 from each player">
+        <action>collectEachPlayer 10</action>
+    </card>
+    <card description="Life insurance matures - Collect $100">
+        <action>collectBank 100</action>
+    </card>
+    <card description="Pay hospital fees of $100">
+        <action>payBank 100</action>
+    </card>
+    <card description="Pay school tax of $150">
+        <action>payBank 150</action>
+    </card>
+    <card description="Receive $25 consultancy fee">
+        <action>collectBank 25</action>
+    </card>
+    <card description="You are assessed for street repairs - $40 per house -$115 per hotel">
+        <action>payForBuildings 40 115</action>
+    </card>
+    <card description="You have won second prize in a beauty contest - Collect $10">
+        <action>collectBank 10</action>
+    </card>
+    <card description="You inherit $100">
+        <action>collectBank 100</action>
+    </card>
+</communityChest>
+
