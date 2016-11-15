@@ -193,7 +193,7 @@ public class GameFacade {
         return (String[])propertiesCanMortgage.toArray();
     }
 
-    private String[] getMortgagedProperties(){
+    public String[] getMortgagedProperties(){
         List<String> mortgagedProperties = new ArrayList<String>();
         for(Property property : currentPlayer.getPropertiesOwned()){
             if(property.isMortgaged()){
@@ -267,6 +267,49 @@ public class GameFacade {
         return (String[])streetsThatCanBuyAHotel.toArray();
     }
 
+    public String[] getStreetsCanSellHouse(){
+        List<Street> streetsWithHouses = getStreetsWithHouses(currentPlayer);
+        List<String> streetsThatCanSellAHouse = new ArrayList<String>();
+
+        while (!streetsWithHouses.isEmpty()) {
+            List<Street> streetsOfCurrentColor = new ArrayList<Street>();
+            Colors currentColor = null;
+            for (Street currentStreet : streetsWithHouses) {
+                if (streetsWithHouses.indexOf(currentStreet) == 0) {
+                    currentColor = currentStreet.getColor();
+                }
+                if (currentStreet.getColor().equals(currentColor)) {
+                    streetsOfCurrentColor.add(currentStreet);
+                }
+            }
+            int mostHouses = 0;
+            for (Street currentColorStreet : streetsOfCurrentColor) {
+                streetsWithHouses.remove(currentColorStreet);
+                if (currentColorStreet.getNumHouses() > mostHouses) {
+                    mostHouses = currentColorStreet.getNumberOfBuildings();
+                }
+            }
+            for (Street currentColorStreet : streetsOfCurrentColor) {
+                if (currentColorStreet.getNumberOfBuildings() == mostHouses) {
+                    streetsThatCanSellAHouse.add(currentColorStreet.getName());
+                }
+            }
+        }
+        return (String[])streetsThatCanSellAHouse.toArray();
+    }
+
+    public String[] getStreetsCanSellHotel(){
+        List<String> retList = new ArrayList<String>();
+        for(Property prop: currentPlayer.getPropertiesOwned()){
+            if(prop instanceof Street){
+                if(((Street) prop).hasHotel()){
+                    retList.add(prop.getName());
+                }
+            }
+        }
+        return (String[])retList.toArray();
+    }
+
     private List<Street> getStreetsWithAllColors(Player player) {
         List<Street> streetsPlayerOwns = new ArrayList<Street>();
         for(Property property : player.getPropertiesOwned()){
@@ -315,7 +358,6 @@ public class GameFacade {
         }
         return streets;
     }
-
 
     public String advanceTurn(){
         if(currentPlayerHasMoved){
