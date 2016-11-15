@@ -356,44 +356,84 @@ public class GameFacade {
     }
 
     //The following methods assume that the player is able to do the requested action with the specified property
-    public void mortgageProperty(String propName){
+    public String mortgageProperty(String propName){
         Property property = board.getPropertyByName(propName);
+        Player player = (Player)property.getOwner();
         property.mortgage();
-        ((Player)property.getOwner()).addMoney(property.getMortgageValue());
+        player.addMoney(property.getMortgageValue());
+
+        return (player.getName() + " successfully mortgaged " + propName + " for $" + property.getMortgageValue());
     }
 
-    public void unmortgageProperty(String propName){
+    public String unmortgageProperty(String propName){
         Property property = board.getPropertyByName(propName);
-        property.unmortgage();
-        ((Player)property.getOwner()).addMoney(property.getUnmortgageValue());
+        Player player = (Player)property.getOwner();
+        if(player.canAfford(property.getUnmortgageValue())){
+            property.unmortgage();
+            player.removeMoney(property.getUnmortgageValue());
+            return (player.getName() + " successfully unmortgaged " + propName + " for $" + property.getUnmortgageValue());
+        }else{
+            return "You could not afford to do that";
+        }
     }
 
-    public void buyAHouse(String streetName){
+    public String buyAHouse(String streetName){
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
-        street.placeHouse();
-        player.removeMoney(street.getHouseCost());
+        if(player.canAfford(street.getHouseCost()) && bank.hasHouses()) {
+            street.placeHouse();
+            player.removeMoney(street.getHouseCost());
+            bank.removeHouse();
+            return (player.getName() + "successfully bought a house on " + streetName + " for $" + street.getHouseCost());
+        }else{
+            if(!bank.hasHouses()){
+                return "The bank is out of houses!";
+            }
+            return "You cannot afford to do that";
+        }
     }
 
-    public void sellAHouse(String streetName){
+    public String sellAHouse(String streetName){
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
         street.removeHouse();
+        bank.addHouse();
         player.addMoney(street.getHouseCost() / 2);
+
+        return (player.getName() + "successfully sold a house from " + streetName + " for $" + (street.getHouseCost()/2));
     }
 
-    public void buyAHotel(String streetName){
+    public String buyAHotel(String streetName){
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
-        street.placeHotel();
-        player.removeMoney(street.getHotelCost());
+        if(player.canAfford(street.getHotelCost()) && bank.hasHotels()){
+            street.placeHotel();
+            bank.removeHotel();
+            for(int i=0; i<4;i++){
+                bank.addHouse();
+            }
+            player.removeMoney(street.getHotelCost());
+            return (player.getName() + " successfully bought a hotel on " + streetName + " for $" + street.getHotelCost());
+        }else{
+            if(!bank.hasHotels()){
+                return "The bank is out of hotels!";
+            }
+            return "You cannot afford to do that";
+        }
+
     }
 
-    public void sellAHotel(String streetName){
+    public String sellAHotel(String streetName){
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
         street.removeHotel();
+        bank.addHotel();
+        for(int i=0; i<4; i++){
+            bank.removeHouse();
+        }
         player.addMoney(street.getHotelCost()/2);
+
+        return (player.getName() + " successfully sold a hotel from " + streetName + " for $" + (street.getHotelCost()/2));
     }
 
     public String advanceTurn(){
