@@ -20,10 +20,6 @@ public class GameFacade {
 
    private static GameFacade instance = new GameFacade();
 
-    /*public GameFacade(int numPlayers, Context context){
-
-    }*/
-
     private GameFacade(){
     }
 
@@ -357,6 +353,33 @@ public class GameFacade {
             }
         }
         return streets;
+    }
+
+    //The following methods assume that the player is able to do the requested action with the specified property
+    public void mortgageProperty(String propName){
+        Property property = board.getPropertyByName(propName);
+        property.mortgage();
+        ((Player)property.getOwner()).addMoney(property.getMortgageValue());
+    }
+
+    public void unmortgageProperty(String propName){
+        Property property = board.getPropertyByName(propName);
+        property.unmortgage();
+        ((Player)property.getOwner()).addMoney(property.getUnmortgageValue());
+    }
+
+    public void buyAHouse(String streetName){
+        Street street = (Street) board.getPropertyByName(streetName);
+        Player player = (Player)street.getOwner();
+        street.placeHouse();
+        player.removeMoney(street.getHouseCost());
+    }
+
+    public void sellAHouse(String streetName){
+        Street street = (Street) board.getPropertyByName(streetName);
+        Player player = (Player)street.getOwner();
+        street.removeHouse();
+        player.removeMoney(street.getHouseCost()/2);
     }
 
     public String advanceTurn(){
