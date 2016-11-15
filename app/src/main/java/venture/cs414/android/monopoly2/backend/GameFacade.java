@@ -379,7 +379,21 @@ public class GameFacade {
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
         street.removeHouse();
-        player.removeMoney(street.getHouseCost()/2);
+        player.addMoney(street.getHouseCost() / 2);
+    }
+
+    public void buyAHotel(String streetName){
+        Street street = (Street) board.getPropertyByName(streetName);
+        Player player = (Player)street.getOwner();
+        street.placeHotel();
+        player.removeMoney(street.getHotelCost());
+    }
+
+    public void sellAHotel(String streetName){
+        Street street = (Street) board.getPropertyByName(streetName);
+        Player player = (Player)street.getOwner();
+        street.removeHotel();
+        player.addMoney(street.getHotelCost()/2);
     }
 
     public String advanceTurn(){
