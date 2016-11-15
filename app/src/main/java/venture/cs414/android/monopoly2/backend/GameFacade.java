@@ -235,6 +235,38 @@ public class GameFacade {
         return (String[])streetsThatCanBuyAHouse.toArray();
     }
 
+    public String[] getStreetsCanBuyHotel(){
+        List<Street> streetsWithAllColors = getStreetsWithAllColors(currentPlayer);
+        List<String> streetsThatCanBuyAHotel = new ArrayList<String>();
+        while(!streetsWithAllColors.isEmpty()){
+            Colors thisColor = null;
+            List<Street> streetsOfThisColor = new ArrayList<Street>();
+            for(Street street : streetsWithAllColors){
+                if(streetsWithAllColors.indexOf(street) == 0){
+                    thisColor = street.getColor();
+                }
+                if(street.getColor().equals(thisColor)){
+                    streetsOfThisColor.add(street);
+                }
+            }
+            boolean allStreetsHaveMinBuildings = true;
+            for(Street street : streetsOfThisColor){
+                streetsWithAllColors.remove(street);
+                if(street.getNumberOfBuildings() < 4){
+                    allStreetsHaveMinBuildings = false;
+                }
+            }
+            if(allStreetsHaveMinBuildings){
+                for(Street street : streetsOfThisColor){
+                    if(street.getNumHouses() == 4){
+                        streetsThatCanBuyAHotel.add(street.getName());
+                    }
+                }
+            }
+        }
+        return (String[])streetsThatCanBuyAHotel.toArray();
+    }
+
     private List<Street> getStreetsWithAllColors(Player player) {
         List<Street> streetsPlayerOwns = new ArrayList<Street>();
         for(Property property : player.getPropertiesOwned()){
