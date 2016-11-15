@@ -177,4 +177,123 @@ public class GameFacade {
         return returnString;
     }
 
+    public String[] getMortgagableProperties(){
+        List<String> propertiesCanMortgage = new ArrayList<String>();
+        for (Property property : currentPlayer.getPropertiesOwned()) {
+            if (!property.isMortgaged()) {
+                if(property instanceof Street){
+                    if(((Street)property).getNumberOfBuildings() == 0){
+                        propertiesCanMortgage.add(property.getName());
+                    }
+                }else {
+                    propertiesCanMortgage.add(property.getName());
+                }
+            }
+        }
+        return (String[])propertiesCanMortgage.toArray();
+    }
+
+    private String[] getMortgagedProperties(){
+        List<String> mortgagedProperties = new ArrayList<String>();
+        for(Property property : currentPlayer.getPropertiesOwned()){
+            if(property.isMortgaged()){
+                mortgagedProperties.add(property.getName());
+            }
+        }
+        return (String[])mortgagedProperties.toArray();
+    }
+
+    public String[] getStreetsCanBuyHouses(){
+        List<Street> streetsWithAllColors = getStreetsWithAllColors(currentPlayer);
+        List<String> streetsThatCanBuyAHouse = new ArrayList<String>();
+        while(!streetsWithAllColors.isEmpty()){
+            Colors thisColor = null;
+            List<Street> streetsOfThisColor = new ArrayList<Street>();
+            for(Street street : streetsWithAllColors){
+                if(streetsWithAllColors.indexOf(street) == 0){
+                    thisColor = street.getColor();
+                }
+                if(street.getColor().equals(thisColor)){
+                    streetsOfThisColor.add(street);
+                }
+            }
+            int minHouses = 4;
+            for(Street street : streetsOfThisColor){
+                streetsWithAllColors.remove(street);
+                if(street.getNumHouses() < minHouses && !street.hasHotel()){
+                    minHouses = street.getNumHouses();
+                }
+            }
+            if(minHouses < 4){
+                for(Street street : streetsOfThisColor){
+                    if(street.getNumHouses() == minHouses){
+                        streetsThatCanBuyAHouse.add(street.getName());
+                    }
+                }
+            }
+        }
+        return (String[])streetsThatCanBuyAHouse.toArray();
+    }
+
+    private List<Street> getStreetsWithAllColors(Player player) {
+        List<Street> streetsPlayerOwns = new ArrayList<Street>();
+        for(Property property : player.getPropertiesOwned()){
+            if(property instanceof Street){
+                streetsPlayerOwns.add((Street) property);
+            }
+        }
+        List<Street> streetsWithAllColors = new ArrayList<Street>();
+        while (!streetsPlayerOwns.isEmpty()) {
+            Colors thisColor = null;
+            List<Street> streetsOfThisColor = new ArrayList<Street>();
+            for (Street streetOwned : streetsPlayerOwns) {
+                if (streetsPlayerOwns.indexOf(streetOwned) == 0) {
+                    thisColor = streetOwned.getColor();
+                }
+                if(thisColor.equals(streetOwned.getColor())){
+                    streetsOfThisColor.add(streetOwned);
+                }
+            }
+            streetsPlayerOwns.removeAll(streetsOfThisColor);
+            List<Street> streetsExpectedOfThisColor = board.getStreetsOfColor(thisColor);
+            if(streetsExpectedOfThisColor.size() == streetsOfThisColor.size()) {
+                streetsWithAllColors.addAll(streetsOfThisColor);
+            }
+        }
+        return streetsWithAllColors;
+    }
+
+    private List<Street> getStreetsWithHouses(Player player) {
+        List<Street> streetsWithHouses = new ArrayList<Street>();
+        List<Street> streetsOwned = getStreetProperties(player.getPropertiesOwned());
+        for (Street streetOwned : streetsOwned) {
+            if (streetOwned.getNumHouses() > 0) {
+                streetsWithHouses.add(streetOwned);
+            }
+        }
+        return streetsWithHouses;
+    }
+
+    private List<Street> getStreetProperties(List<Property> propertiesOwned) {
+        List<Street> streets = new ArrayList<Street>();
+        for (Property property : propertiesOwned) {
+            if (property instanceof Street) {
+                streets.add((Street) property);
+            }
+        }
+        return streets;
+    }
+
+
+    public String advanceTurn(){
+        if(currentPlayerHasMoved){
+            currentPlayer.resetConsecutiveTurns();
+            int nextIndex = players.indexOf(currentPlayer) + 1;
+            currentPlayer = players.get(nextIndex);
+            currentPlayerHasMoved = false;
+            return "It is now " + currentPlayer.getName() + "'s turn!";
+        }else{
+            return "You must move before you can end your turn!";
+        }
+    }
 }
