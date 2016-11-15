@@ -27,7 +27,7 @@ public class GameFacade {
     private GameFacade(){
     }
 
-    public GameFacade getInstance(){
+    public static GameFacade getInstance(){
         return instance;
     }
 

@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
+import venture.cs414.android.monopoly2.backend.GameFacade;
 
 public class SellHotel extends AppCompatActivity {
+
+    private GameFacade gameFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,7 @@ public class SellHotel extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        gameFacade = GameFacade.getInstance();
     }
 
     public void clickSellButtonSellHotel(View view){
