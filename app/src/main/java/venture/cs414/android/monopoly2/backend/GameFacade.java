@@ -111,6 +111,10 @@ public class GameFacade {
         return (String[])otherPlayers.toArray();
     }
 
+    public boolean currentPlayerInJail(){
+        return currentPlayer.isInJail();
+    }
+
     public String rollCurrentPlayer(){
         Property deed = null;
         Player player = currentPlayer;
@@ -209,6 +213,34 @@ public class GameFacade {
         }
 
         return returnString;
+    }
+
+    public void payJail() {
+        if (currentPlayer.getMoney() > 50) {
+            currentPlayer.removeMoney(50);
+            currentPlayer.takeOutOfJail();
+            currentMessage = "You paid your way out of Jail!";
+        }else{
+            currentMessage = "You could not afford to pay bail";
+        }
+        currentPlayerHasMoved = true;
+    }
+
+    public void rollForJail(){
+        if(currentPlayer.getTurnsInJail() < 3) {
+            int amountToMove = dice.rollDice();
+            if (dice.rolledDouble()) {
+                currentPlayer.setLocation(10 + amountToMove);
+                currentPlayer.takeOutOfJail();
+                currentMessage = "You rolled a " + amountToMove + " and got out of jail!";
+            } else {
+                currentPlayer.incrementTurnsInJail();
+                currentPlayerHasMoved = true;
+                currentMessage = "You rolled a " + amountToMove + " and did not get out of jail";
+            }
+        }else{
+            currentMessage = "You have been in jail for 3 turns!  You must pay or use a card to get out!";
+        }
     }
 
     public String[] getMortgagableProperties(){
