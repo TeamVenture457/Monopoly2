@@ -11,22 +11,21 @@ import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
 
-public class BuyHouse extends AppCompatActivity {
+public class UnmortgageProperty extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buy_house);
+        setContentView(R.layout.activity_unmortgage_property);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
     }
 
-    public void clickBuyButtonBuyHouse(View view){
+    public void clickUnmortgageButtonUnmortgageProperty(View view){
         notify("Testing if its working");
     }
 
-    public void clickCancelButtonBuyHouse(View view){
+    public void clickCancelButtonUnmortgageProperty(View view){
         //Todo implement code
         try {
             //implement call
@@ -43,5 +42,4 @@ public class BuyHouse extends AppCompatActivity {
     public void notify(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
-
 }

@@ -9,14 +9,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="venture.cs414.android.monopoly2.frontend.MortgageProperty"
-    tools:showIn="@layout/activity_mortgage_property">
+    tools:context="venture.cs414.android.monopoly2.frontend.UnmortgageProperty"
+    tools:showIn="@layout/activity_unmortgage_property">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please choose the property you want to mortgage."
-        android:id="@+id/PlayerInstructionsLabelMortgageProperty"
+        android:text="Please choose the property you want to unmortgage."
+        android:id="@+id/PlayerInstructionsLabelUnmortgageProperty"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -26,27 +26,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mortgage"
-        android:id="@+id/ButtonMortgageProperty"
+        android:text="Unmortgage"
+        android:id="@+id/ButtonUnmortgage"
         android:layout_marginTop="38dp"
-        android:onClick="clickMortgageButtonMortgageProperty"
-        android:layout_below="@+id/SelectPropertyDropdownMortgageProperty"
+        android:onClick="clickUnmortgageButtonUnmortgageProperty"
+        android:layout_below="@+id/SelectPropertyDropdownUnmortgageProperty"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:id="@+id/ButtonCancelMortgageProperty"
-        android:onClick="clickCancelButtonMortgageProperty"
+        android:id="@+id/ButtonCancelUnmortgageProperty"
+        android:onClick="clickCancelButtonUnmortgageProperty"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/SelectPropertyDropdownMortgageProperty"
-        android:layout_below="@+id/PlayerInstructionsLabelMortgageProperty"
+        android:id="@+id/SelectPropertyDropdownUnmortgageProperty"
+        android:layout_below="@+id/PlayerInstructionsLabelUnmortgageProperty"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp" />
 
