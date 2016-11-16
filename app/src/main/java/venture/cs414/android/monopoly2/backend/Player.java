@@ -1,5 +1,8 @@
 package venture.cs414.android.monopoly2.backend;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Ben on 11/11/2016.
  */
@@ -12,6 +15,9 @@ public class Player extends Owner{
     private int turnsInJail;
     private int consecutiveTurns;
 
+
+    List<Card> myCards;
+
     public Player(String name, String token){
         super();
         this.name = name;
@@ -21,6 +27,7 @@ public class Player extends Owner{
         inJail = false;
         turnsInJail = 0;
         consecutiveTurns = 0;
+        myCards = new ArrayList<>();
     }
 
 
