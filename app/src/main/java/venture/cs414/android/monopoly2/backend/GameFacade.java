@@ -364,6 +364,16 @@ public class GameFacade {
         return streets;
     }
 
+    private Player getPlayerByName(String name){
+        Player playerNamed = null;
+        for(Player player : players){
+            if(player.getName().equals(name)){
+                playerNamed = player;
+            }
+        }
+        return playerNamed;
+    }
+
     //The following methods assume that the player is able to do the requested action with the specified property
     public void mortgageProperty(String propName){
         Property property = board.getPropertyByName(propName);
@@ -440,18 +450,43 @@ public class GameFacade {
         for(int i=0; i<4; i++){
             bank.removeHouse();
         }
-        player.addMoney(street.getHotelCost()/2);
+        player.addMoney(street.getHotelCost() / 2);
 
         currentMessage = (player.getName() + " successfully sold a hotel from " + streetName + " for $" + (street.getHotelCost()/2));
     }
 
+    public void sellAProperty(String propertyName, String buyerName, int cost){
+        Player buyer = getPlayerByName(buyerName);
+        Property property = board.getPropertyByName(propertyName);
+        if(buyer.canAfford(cost)){
+            currentMessage = buyerName + " cannot afford that price!";
+        }else {
+            currentPlayer.removeFromPropertiesOwned(property);
+            currentPlayer.addMoney(cost);
+            buyer.addToPropertiesOwned(property);
+            buyer.removeMoney(cost);
+        }
+
+        currentMessage = "Transaction Successful! :D";
+    }
+
     public void advanceTurn(){
         if(currentPlayerHasMoved){
-            currentPlayer.resetConsecutiveTurns();
-            int nextIndex = players.indexOf(currentPlayer) + 1;
-            currentPlayer = players.get(nextIndex);
-            currentPlayerHasMoved = false;
-            currentMessage = "It is now " + currentPlayer.getName() + "'s turn!";
+            if(currentPlayer.getMoney() <= 0){
+                currentMessage = (currentPlayer.getName() + " went bankrupt and left the game");
+                removeCurrentPlayerFromGame();
+                int nextIndex = players.indexOf(currentPlayer) + 1;
+                currentPlayer = players.get(nextIndex);
+                currentPlayerHasMoved = false;
+                currentMessage += "\nIt is now " + currentPlayer.getName() + "'s turn!";
+            }else {
+                currentPlayer.resetConsecutiveTurns();
+                int nextIndex = players.indexOf(currentPlayer) + 1;
+                currentPlayer = players.get(nextIndex);
+                currentPlayerHasMoved = false;
+                currentMessage = "It is now " + currentPlayer.getName() + "'s turn!";
+            }
+
         }else{
             currentMessage = "You must move before you can end your turn!";
         }
@@ -472,8 +507,7 @@ public class GameFacade {
             currentPlayer.removeFromPropertiesOwned(deed);
             bank.addToPropertiesOwned(deed);
         }
-
-        advanceTurn();
+        //advanceTurn();
 
         return toRet;
     }
