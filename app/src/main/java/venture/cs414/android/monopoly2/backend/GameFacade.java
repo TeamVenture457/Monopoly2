@@ -623,4 +623,40 @@ public class GameFacade {
         sender.removeMoney(amount);
         reciever.addMoney(amount);
     }
+
+    public String getCurrentProperty(){
+        Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
+        if(deed != null){
+            if(!deed.getOwner().equals(bank)) {
+                return "Would you like to buy " + deed.getName() + " for $" + deed.getCost() + "?";
+            }
+        }
+        return null;
+    }
+
+    public boolean currentPlayerBuyCurrentProperty(){
+        Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
+        if(currentPlayer.canAfford(deed.getCost())){
+            currentPlayer.removeMoney(deed.getCost());
+            currentPlayer.addToPropertiesOwned(deed);
+            bank.removeFromPropertiesOwned(deed);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void playerBuyProperty(String playerName, String propertyName, int cost){
+        Player player = getPlayerByName(playerName);
+        Property property = board.getPropertyByName(propertyName);
+
+        player.removeMoney(cost);
+        player.addToPropertiesOwned(property);
+        bank.removeFromPropertiesOwned(property);
+    }
+
+    public boolean playerCanAfford(String playerName, int amount){
+        Player player = getPlayerByName(playerName);
+        return player.canAfford(amount);
+    }
 }
