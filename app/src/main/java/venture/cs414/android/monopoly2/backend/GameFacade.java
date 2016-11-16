@@ -447,4 +447,41 @@ public class GameFacade {
             return "You must move before you can end your turn!";
         }
     }
+
+    private void removeCurrentPlayerFromGame(){
+        players.remove(currentPlayer);
+        for(Property deed : currentPlayer.getPropertiesOwned()){
+            if(deed instanceof Street){
+                while(((Street) deed).getNumHouses() > 0){
+                    ((Street) deed).removeHouse();
+                }
+                while(((Street) deed).hasHotel()){
+                    ((Street) deed).removeHotel();
+                }
+            }
+            currentPlayer.removeFromPropertiesOwned(deed);
+            bank.addToPropertiesOwned(deed);
+        }
+    }
+
+    public String endGame(){
+        Player winner = players.get(0);
+        for(Player player : players){
+            if(player.getMoney() > winner.getMoney()){
+                winner = player;
+            }else if(player.getMoney() == winner.getMoney()){
+                int playerProps = player.getPropertiesOwned().size();
+                int winnerProps = winner.getPropertiesOwned().size();
+                if(playerProps > winnerProps){
+                    winner = player;
+                }
+            }
+        }
+
+        currentPlayer = winner;
+
+        String returnString = "Time is up!\n"
+                + "And the winner is:\n" + getCurrentPlayerInfo();
+        return returnString;
+    }
 }
