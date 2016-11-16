@@ -43,6 +43,33 @@ public class Board {
         fillCards(CardType.COMMUNITYCHEST);
     }
 
+    public Card drawChanceCard(){
+        Card chanceCard;
+        chanceCard = chanceCards.remove();
+        if(!chanceCard.getActionDetails().get(0).equals("getOutOfJail")){
+            chanceCards.add(chanceCard);
+        }
+        return chanceCard;
+    }
+
+    public Card drawCommunityChestCard(){
+        Card communityChestCard;
+        communityChestCard = communityChestCards.remove();
+        if(!communityChestCard.getActionDetails().get(0).equals("getOutOfJail")){
+            communityChestCards.add(communityChestCard);
+        }
+        return communityChestCard;
+    }
+
+    public void returnCardToDeck(Card card){
+        if(card.getCardType().equals(CardType.CHANCE)){
+            chanceCards.add(card);
+        }
+        else {
+            communityChestCards.add(card);
+        }
+    }
+
     public Space[] getBoardSpaces() {
         return boardSpaces;
     }
