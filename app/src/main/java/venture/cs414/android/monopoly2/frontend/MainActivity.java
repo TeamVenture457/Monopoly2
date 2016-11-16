@@ -187,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_end_turn:
                 try {
                     //implement call
-                    Toast.makeText(getApplicationContext(), "Testing to make sure call works", Toast.LENGTH_LONG).show();
+                    gameFacade.advanceTurn();
+                    updateAllInfo();
+                    //Toast.makeText(getApplicationContext(), "Testing to make sure call works", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
@@ -195,6 +197,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_quit:
                 try {
                     //implement call
+                    String message = gameFacade.removeCurrentPlayerFromGame();
+                    updateAllInfo();
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }

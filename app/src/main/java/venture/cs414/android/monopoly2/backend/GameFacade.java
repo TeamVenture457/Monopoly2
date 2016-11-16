@@ -559,8 +559,7 @@ public class GameFacade {
         }
     }
 
-    private String removeCurrentPlayerFromGame(){
-        players.remove(currentPlayer);
+    public String removeCurrentPlayerFromGame(){
         String toRet = currentPlayer.getName() + " has left the game";
         for(Property deed : currentPlayer.getPropertiesOwned()) {
             if (deed instanceof Street) {
@@ -574,7 +573,10 @@ public class GameFacade {
             currentPlayer.removeFromPropertiesOwned(deed);
             bank.addToPropertiesOwned(deed);
         }
-        //advanceTurn();
+        Player removed = currentPlayer;
+        currentPlayerHasMoved = true;
+        advanceTurn();
+        players.remove(removed);
 
         return toRet;
     }
