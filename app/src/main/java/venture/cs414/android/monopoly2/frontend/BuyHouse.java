@@ -39,6 +39,9 @@ public class BuyHouse extends AppCompatActivity {
             String propertyName = propertySpinner.getSelectedItem().toString();
             gameFacade.buyAHouse(propertyName);
             notify("You bought a house on " + propertyName);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
