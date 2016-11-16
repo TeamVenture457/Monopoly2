@@ -98,7 +98,7 @@ public class SellProperty extends AppCompatActivity {
             startActivity(intent);
             finish();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
         }
     }
 

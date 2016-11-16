@@ -157,6 +157,18 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 break;
+            case R.id.menu_unmortgage:
+                try {
+                    //implement call
+                    Intent intent = new Intent(this, UnmortgageProperty.class);
+                    //Todo need to pass the serializable object when it is created
+                    //intent.putExtra("difficulty", 1);
+                    startActivity(intent);
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+                break;
             case R.id.menu_end_turn:
                 try {
                     //implement call
