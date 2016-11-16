@@ -44,19 +44,19 @@ public class Board {
     }
 
     public Card drawChanceCard(){
-        Card chanceCard = chanceCards.remove();
-        if(!chanceCard.getActionDetails().get(0).equals("getOutOfJail")){
-            chanceCards.add(chanceCard);
+        Card card = chanceCards.remove();
+        if(!card.getActionDetails().get(0).equals("getOutOfJail")){
+            chanceCards.add(card);
         }
-        return chanceCard;
+        return card;
     }
 
     public Card drawCommunityChestCard(){
-        Card communityChestCard = communityChestCards.remove();
-        if(!communityChestCard.getActionDetails().get(0).equals("getOutOfJail")){
-            communityChestCards.add(communityChestCard);
+        Card card = communityChestCards.remove();
+        if(!card.getActionDetails().get(0).equals("getOutOfJail")){
+            communityChestCards.add(card);
         }
-        return communityChestCard;
+        return card;
     }
 
     public void returnCardToDeck(Card card){
