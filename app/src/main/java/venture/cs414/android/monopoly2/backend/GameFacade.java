@@ -122,8 +122,8 @@ public class GameFacade {
 			deed = null;
 		}
 
-        /*if(deed != null){
-            if(!deed.getOwner().equals(bank) && !deed.getOwner().equals(currentPlayer)){
+        if(deed != null){
+            /*if(!deed.getOwner().equals(bank) && !deed.getOwner().equals(currentPlayer)){
                 Owner owner = deed.getOwner();
                 int numOwned = 0;
                 if (deed instanceof Street) {
@@ -142,28 +142,20 @@ public class GameFacade {
             }else{
                 returnString += "\nYou landed on " + deed.getName();
                 returnString += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
-            }
+            }*/
         }else{
             String spaceName = board.getBoardSpaces()[currentPlayer.getLocation()].getName();
             int tax = 0;
             switch (spaceName) {
                 case "Income Tax":
                     tax = 200;
-                    if(payTax(player, tax)) {
-                        returnString += "\nYou paid a " + spaceName + " of $" + tax;
-                    }else{
-                        returnString += "\nYou could not afford the " + spaceName + " of $" + tax;
-                        returnString += "\nYou're a bad American.";
-                    }
+                    player.removeMoney(tax);
+                    returnString += "\nYou paid a " + spaceName + " of $" + tax;
                     break;
                 case "Luxury Tax":
                     tax = 100;
-                    if(payTax(player, tax)) {
-                        returnString += "\nYou paid a " + spaceName + " of $" + tax;
-                    }else{
-                        returnString += "\nYou could not afford the " + spaceName + " of $" + tax;
-                        returnString += "\nYou're a bad American.";
-                    }
+                    player.removeMoney(tax);
+                    returnString += "\nYou paid a " + spaceName + " of $" + tax;
                     break;
                 case "Go To Jail":
                     player.putInJail();
@@ -177,7 +169,7 @@ public class GameFacade {
                     // do nothing
                     break;
             }
-        }*/
+        }
 
         return returnString;
     }
