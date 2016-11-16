@@ -15,9 +15,12 @@ import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
 import venture.cs414.android.monopoly2.backend.Board;
+import venture.cs414.android.monopoly2.backend.GameFacade;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private GameFacade gameFacade;
 
     TextView timerText;
 
@@ -31,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
         int numPlayers = getIntent().getIntExtra("numPlayers", 2);
         int numMinutes = getIntent().getIntExtra("numMinutes", 5);
 
-        int numMiliSeconds = (numMinutes * 60 * 1000);
+        gameFacade = GameFacade.getInstance();
+
+        /*int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 setTitle("Game Time:\n" + "0:00");
                 //endGame();
             }
-        }.start();
+        }.start();*/
     }
 
     @Override

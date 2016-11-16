@@ -76,6 +76,14 @@ public abstract class Property {
         this.owner = owner;
     }
 
+    public void unmortgage(){
+        isMortgaged = false;
+    }
+
+    public int getUnmortgageValue(){
+        return (int)(mortgageValue * 1.10);
+    }
+
     public abstract int calculateRent();
     public abstract void generateDescription();
     public abstract boolean mortgage();

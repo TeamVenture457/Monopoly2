@@ -275,4 +275,14 @@ public class Board {
         System.out.println("Chance Cards:\n" + chanceCardsString);
         System.out.println("Community Chest Cards:\n" + communityChestCardsString);
     }
+
+    public Property getPropertyByName(String propertyName) {
+        Property property = null;
+        for(Space space : boardSpaces){
+            if(space.getName().equals(propertyName)){
+                property = space.getDeed();
+            }
+        }
+        return property;
+    }
 }

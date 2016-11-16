@@ -18,8 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
+import venture.cs414.android.monopoly2.backend.GameFacade;
 
 public class SellProperty extends AppCompatActivity {
+
+    private GameFacade gameFacade;
 
     private PopupWindow popup;
     private PopupWindow blocker;
@@ -35,6 +38,7 @@ public class SellProperty extends AppCompatActivity {
 
         layout = (RelativeLayout) findViewById(R.id.content);
 
+        gameFacade = GameFacade.getInstance();
     }
 
     public void notify(String message){
