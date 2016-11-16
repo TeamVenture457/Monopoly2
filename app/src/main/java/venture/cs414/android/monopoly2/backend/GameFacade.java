@@ -18,16 +18,21 @@ public class GameFacade {
     private Player currentPlayer;
     private boolean currentPlayerHasMoved;
 
+
+
+    private String currentMessage;
+
    private static GameFacade instance = new GameFacade();
 
     private GameFacade(){
+        currentMessage = "Welcome to Monopoly!";
     }
 
     public static GameFacade getInstance(){
         return instance;
     }
 
-    public void setUp(int numPlayers, Context context){
+    public void setUp(int numPlayers, int numMinutes, Context context){
         players = new ArrayList<Player>();
         for (int i = 1; i < numPlayers+1; i++) {
             String playerName = ("Player " + i);
@@ -41,6 +46,10 @@ public class GameFacade {
         bank = Bank.getInstance();
 
         dice = new Dice();
+    }
+
+    public String getCurrentMessage() {
+        return currentMessage;
     }
 
     public boolean currentPlayerHasMoved() {
@@ -356,54 +365,54 @@ public class GameFacade {
     }
 
     //The following methods assume that the player is able to do the requested action with the specified property
-    public String mortgageProperty(String propName){
+    public void mortgageProperty(String propName){
         Property property = board.getPropertyByName(propName);
         Player player = (Player)property.getOwner();
         property.mortgage();
         player.addMoney(property.getMortgageValue());
 
-        return (player.getName() + " successfully mortgaged " + propName + " for $" + property.getMortgageValue());
+        currentMessage = (player.getName() + " successfully mortgaged " + propName + " for $" + property.getMortgageValue());
     }
 
-    public String unmortgageProperty(String propName){
+    public void unmortgageProperty(String propName){
         Property property = board.getPropertyByName(propName);
         Player player = (Player)property.getOwner();
         if(player.canAfford(property.getUnmortgageValue())){
             property.unmortgage();
             player.removeMoney(property.getUnmortgageValue());
-            return (player.getName() + " successfully unmortgaged " + propName + " for $" + property.getUnmortgageValue());
+            currentMessage = (player.getName() + " successfully unmortgaged " + propName + " for $" + property.getUnmortgageValue());
         }else{
-            return "You could not afford to do that";
+            currentMessage = "You could not afford to do that";
         }
     }
 
-    public String buyAHouse(String streetName){
+    public void buyAHouse(String streetName){
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
         if(player.canAfford(street.getHouseCost()) && bank.hasHouses()) {
             street.placeHouse();
             player.removeMoney(street.getHouseCost());
             bank.removeHouse();
-            return (player.getName() + "successfully bought a house on " + streetName + " for $" + street.getHouseCost());
+            currentMessage = (player.getName() + "successfully bought a house on " + streetName + " for $" + street.getHouseCost());
         }else{
             if(!bank.hasHouses()){
-                return "The bank is out of houses!";
+                currentMessage = "The bank is out of houses!";
             }
-            return "You cannot afford to do that";
+            currentMessage = "You cannot afford to do that";
         }
     }
 
-    public String sellAHouse(String streetName){
+    public void sellAHouse(String streetName){
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
         street.removeHouse();
         bank.addHouse();
         player.addMoney(street.getHouseCost() / 2);
 
-        return (player.getName() + "successfully sold a house from " + streetName + " for $" + (street.getHouseCost()/2));
+        currentMessage = (player.getName() + "successfully sold a house from " + streetName + " for $" + (street.getHouseCost()/2));
     }
 
-    public String buyAHotel(String streetName){
+    public void buyAHotel(String streetName){
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
         if(player.canAfford(street.getHotelCost()) && bank.hasHotels()){
@@ -413,17 +422,17 @@ public class GameFacade {
                 bank.addHouse();
             }
             player.removeMoney(street.getHotelCost());
-            return (player.getName() + " successfully bought a hotel on " + streetName + " for $" + street.getHotelCost());
+            currentMessage = (player.getName() + " successfully bought a hotel on " + streetName + " for $" + street.getHotelCost());
         }else{
             if(!bank.hasHotels()){
-                return "The bank is out of hotels!";
+                currentMessage = "The bank is out of hotels!";
             }
-            return "You cannot afford to do that";
+            currentMessage = "You cannot afford to do that";
         }
 
     }
 
-    public String sellAHotel(String streetName){
+    public void sellAHotel(String streetName){
         Street street = (Street) board.getPropertyByName(streetName);
         Player player = (Player)street.getOwner();
         street.removeHotel();
@@ -433,35 +442,40 @@ public class GameFacade {
         }
         player.addMoney(street.getHotelCost()/2);
 
-        return (player.getName() + " successfully sold a hotel from " + streetName + " for $" + (street.getHotelCost()/2));
+        currentMessage = (player.getName() + " successfully sold a hotel from " + streetName + " for $" + (street.getHotelCost()/2));
     }
 
-    public String advanceTurn(){
+    public void advanceTurn(){
         if(currentPlayerHasMoved){
             currentPlayer.resetConsecutiveTurns();
             int nextIndex = players.indexOf(currentPlayer) + 1;
             currentPlayer = players.get(nextIndex);
             currentPlayerHasMoved = false;
-            return "It is now " + currentPlayer.getName() + "'s turn!";
+            currentMessage = "It is now " + currentPlayer.getName() + "'s turn!";
         }else{
-            return "You must move before you can end your turn!";
+            currentMessage = "You must move before you can end your turn!";
         }
     }
 
-    private void removeCurrentPlayerFromGame(){
+    private String removeCurrentPlayerFromGame(){
         players.remove(currentPlayer);
-        for(Property deed : currentPlayer.getPropertiesOwned()){
-            if(deed instanceof Street){
-                while(((Street) deed).getNumHouses() > 0){
+        String toRet = currentPlayer.getName() + " has left the game";
+        for(Property deed : currentPlayer.getPropertiesOwned()) {
+            if (deed instanceof Street) {
+                while (((Street) deed).getNumHouses() > 0) {
                     ((Street) deed).removeHouse();
                 }
-                while(((Street) deed).hasHotel()){
+                while (((Street) deed).hasHotel()) {
                     ((Street) deed).removeHotel();
                 }
             }
             currentPlayer.removeFromPropertiesOwned(deed);
             bank.addToPropertiesOwned(deed);
         }
+
+        advanceTurn();
+
+        return toRet;
     }
 
     public String endGame(){
