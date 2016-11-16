@@ -148,7 +148,7 @@ public class GameFacade {
 		}
 
         if(deed != null){
-            /*if(!deed.getOwner().equals(bank) && !deed.getOwner().equals(currentPlayer)){
+            if(!deed.getOwner().equals(bank) && !deed.getOwner().equals(currentPlayer)){
                 Owner owner = deed.getOwner();
                 int numOwned = 0;
                 if (deed instanceof Street) {
@@ -158,16 +158,16 @@ public class GameFacade {
                         numOwned = ((Street) deed).getNumHouses();
                     }
                 } else {
-                    numOwned = board.propertiesOwnedOfType(deed);
+                    numOwned = propertiesOwnedOfType(deed);
                 }
                 int rent = deed.calculateRent();
-                currentPlayer.payRent((Player)deed.getOwner(), rent);
+                payPlayer(currentPlayer, (Player)deed.getOwner(), rent);
                 returnString += "\n\nYou landed on " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
                 returnString += "\nYou paid $" + rent + " in rent.";
-            }else{
+            }else if(deed.getOwner().equals(bank)){
                 returnString += "\nYou landed on " + deed.getName();
                 returnString += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
-            }*/
+            }
         }else{
             String spaceName = board.getBoardSpaces()[currentPlayer.getLocation()].getName();
             int tax = 0;
@@ -479,9 +479,8 @@ public class GameFacade {
             currentMessage = buyerName + " cannot afford that price!";
         }else {
             currentPlayer.removeFromPropertiesOwned(property);
-            currentPlayer.addMoney(cost);
             buyer.addToPropertiesOwned(property);
-            buyer.removeMoney(cost);
+            payPlayer(buyer, currentPlayer, cost);
         }
 
         currentMessage = "Transaction Successful! :D";
@@ -548,5 +547,36 @@ public class GameFacade {
         String returnString = "Time is up!\n"
                 + "And the winner is:\n" + getCurrentPlayerInfo();
         return returnString;
+    }
+
+    public int propertiesOwnedOfType(Property property){
+        Owner owner = property.getOwner();
+        List<Object> propertiesOwned = new ArrayList<Object>();
+        for(Property deed : owner.getPropertiesOwned()){
+            if(property instanceof Street){
+                if(deed instanceof Street){
+                    if(((Street) property).getColor().equals(((Street) deed).getColor())){
+                        propertiesOwned.add(deed);
+                    }
+                }
+            }
+            else if(property instanceof Railroad){
+                if(deed instanceof Railroad){
+                    propertiesOwned.add(deed);
+                }
+            }
+
+            else{
+                if(deed instanceof Utility){
+                    propertiesOwned.add(deed);
+                }
+            }
+        }
+        return propertiesOwned.size();
+    }
+
+    private void payPlayer(Player sender, Player reciever, int amount){
+        sender.removeMoney(amount);
+        reciever.addMoney(amount);
     }
 }
