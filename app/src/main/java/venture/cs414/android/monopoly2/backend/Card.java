@@ -16,6 +16,14 @@ public class Card {
         this.cardType = cardType;
     }
 
+    public List<String> getActionDetails() {
+        return actionDetails;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
     public String getCardDescription(){
         String cardDescription = "Type: " + cardType.toString()
                 + "\n\tDescription: " + description
