@@ -100,7 +100,7 @@ public class GameFacade {
         return description;
     }
 
-    public String[] getOtherPlayerNames(){
+    public List<String> getOtherPlayerNames(){
         List<String> otherPlayers = new ArrayList<>();
 
         for(Player player : players){
@@ -109,7 +109,7 @@ public class GameFacade {
             }
         }
 
-        return (String[])otherPlayers.toArray();
+        return otherPlayers;
     }
 
     public boolean currentPlayerInJail(){
@@ -250,7 +250,7 @@ public class GameFacade {
         }
     }
 
-    public String[] getMortgagableProperties(){
+    public List<String> getMortgagableProperties(){
         List<String> propertiesCanMortgage = new ArrayList<String>();
         for (Property property : currentPlayer.getPropertiesOwned()) {
             if (!property.isMortgaged()) {
@@ -263,20 +263,20 @@ public class GameFacade {
                 }
             }
         }
-        return (String[])propertiesCanMortgage.toArray();
+        return propertiesCanMortgage;
     }
 
-    public String[] getMortgagedProperties(){
+    public List<String> getMortgagedProperties(){
         List<String> mortgagedProperties = new ArrayList<String>();
         for(Property property : currentPlayer.getPropertiesOwned()){
             if(property.isMortgaged()){
                 mortgagedProperties.add(property.getName());
             }
         }
-        return (String[])mortgagedProperties.toArray();
+        return mortgagedProperties;
     }
 
-    public String[] getStreetsCanBuyHouses(){
+    public List<String> getStreetsCanBuyHouses(){
         List<Street> streetsWithAllColors = getStreetsWithAllColors(currentPlayer);
         List<String> streetsThatCanBuyAHouse = new ArrayList<String>();
         while(!streetsWithAllColors.isEmpty()){
@@ -305,10 +305,10 @@ public class GameFacade {
                 }
             }
         }
-        return (String[])streetsThatCanBuyAHouse.toArray();
+        return streetsThatCanBuyAHouse;
     }
 
-    public String[] getStreetsCanBuyHotel(){
+    public List<String> getStreetsCanBuyHotel(){
         List<Street> streetsWithAllColors = getStreetsWithAllColors(currentPlayer);
         List<String> streetsThatCanBuyAHotel = new ArrayList<String>();
         while(!streetsWithAllColors.isEmpty()){
@@ -337,10 +337,10 @@ public class GameFacade {
                 }
             }
         }
-        return (String[])streetsThatCanBuyAHotel.toArray();
+        return streetsThatCanBuyAHotel;
     }
 
-    public String[] getStreetsCanSellHouse(){
+    public List<String> getStreetsCanSellHouse(){
         List<Street> streetsWithHouses = getStreetsWithHouses(currentPlayer);
         List<String> streetsThatCanSellAHouse = new ArrayList<String>();
 
@@ -368,10 +368,10 @@ public class GameFacade {
                 }
             }
         }
-        return (String[])streetsThatCanSellAHouse.toArray();
+        return streetsThatCanSellAHouse;
     }
 
-    public String[] getStreetsCanSellHotel(){
+    public List<String> getStreetsCanSellHotel(){
         List<String> retList = new ArrayList<String>();
         for(Property prop: currentPlayer.getPropertiesOwned()){
             if(prop instanceof Street){
@@ -380,7 +380,7 @@ public class GameFacade {
                 }
             }
         }
-        return (String[])retList.toArray();
+        return retList;
     }
 
     private List<Street> getStreetsWithAllColors(Player player) {

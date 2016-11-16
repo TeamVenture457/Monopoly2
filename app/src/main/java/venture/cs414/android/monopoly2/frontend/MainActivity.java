@@ -92,13 +92,9 @@ public class MainActivity extends AppCompatActivity {
         switch(id) {
             case R.id.menu_roll:
                 try {
-                    //implement call
-                    //Todo where total is get the total of the roll, whatever that call is.
-                    //Todo also we need to check doubles and how many doubles have been rolled.
-
                     gameFacade.moveCurrentPlayer();
                     updateAllInfo();
-                    //Ben i think this will all be handled for each call in facade.
+                    //Todo Implement property buying popup
 
                     Toast.makeText(getApplicationContext(), "Testing toast works", Toast.LENGTH_LONG).show();
 
@@ -110,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //implement call
                     Intent intent = new Intent(this, SellProperty.class);
-                    //Todo need to pass the serializable object when it is created
-                    //intent.putExtra("difficulty", 1);
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {

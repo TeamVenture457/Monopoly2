@@ -8,12 +8,16 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +32,10 @@ public class SellProperty extends AppCompatActivity {
     private PopupWindow blocker;
     private RelativeLayout layout;
 
+    private Spinner propertySpinner;
+    private Spinner playerSpinner;
+    private EditText textAmount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +47,27 @@ public class SellProperty extends AppCompatActivity {
         layout = (RelativeLayout) findViewById(R.id.content);
 
         gameFacade = GameFacade.getInstance();
+
+        propertySpinner = (Spinner)findViewById(R.id.SelectPropertyDropDownSellProperty);
+        ArrayAdapter<String> propertyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gameFacade.getMortgagableProperties());
+        propertySpinner.setAdapter(propertyAdapter);
+
+        playerSpinner = (Spinner)findViewById(R.id.SelectPlayerDropDownSellProperty);
+        ArrayAdapter<String> playerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gameFacade.getOtherPlayerNames());
+        playerSpinner.setAdapter(playerAdapter);
+
+        textAmount = (EditText)findViewById(R.id.amountText);
+        textAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
+        textAmount.setText("0");
     }
 
-    public void notify(String message){
+    public void notify(final String propertyName, final String playerName, final int cost){
         LinearLayout popLayout = new LinearLayout(this);
         TextView notificationText =new TextView(this);
 
         popup = new PopupWindow(this);
         popLayout.setOrientation(LinearLayout.VERTICAL);
-        notificationText.setText(message);
+        notificationText.setText(playerName + ", would you like to buy " + propertyName + " for $" + cost + "?");
         Button yesButton = new Button(this);
         yesButton.setText("YES");
         yesButton.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +76,11 @@ public class SellProperty extends AppCompatActivity {
                 //Todo this is where the game facade will take care of the sale, and then pass back to main screen.
                 blocker.dismiss();
                 popup.dismiss();
+
+                gameFacade.sellAProperty(propertyName, playerName, cost);
+                Intent intent = new Intent(SellProperty.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         Button noButton = new Button(this);
@@ -63,9 +88,11 @@ public class SellProperty extends AppCompatActivity {
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo this is where the game facade will take care of the sale, and then pass back to main screen.
                 blocker.dismiss();
                 popup.dismiss();
+                Intent intent = new Intent(SellProperty.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -89,7 +116,14 @@ public class SellProperty extends AppCompatActivity {
 
     public void clickSellButtonSellProperty(View view){
         //Todo you must get the 3 fields that the user chose. These 3 fields need to be flushed out. They are not hooked up right now.
-        notify("Testing if its working");
+        //notify("Testing if its working");
+
+        if(propertySpinner.getSelectedItem() != null && playerSpinner.getSelectedItem() != null) {
+            String propName = propertySpinner.getSelectedItem().toString();
+            String playerName = playerSpinner.getSelectedItem().toString();
+            int cost = Integer.parseInt(textAmount.getText().toString());
+            notify(propName, playerName, cost);
+        }
     }
 
     public void clickCancelButtonSellProperty(View view){
@@ -97,8 +131,6 @@ public class SellProperty extends AppCompatActivity {
         try {
             //implement call
             Intent intent = new Intent(this, MainActivity.class);
-            //Todo need to pass the serializable object when it is created
-            //intent.putExtra("difficulty", 1);
             startActivity(intent);
             finish();
         } catch (Exception e) {
