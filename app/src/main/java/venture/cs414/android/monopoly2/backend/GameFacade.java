@@ -27,7 +27,6 @@ public class GameFacade {
    private static GameFacade instance = new GameFacade();
 
     private GameFacade(){
-        currentMessage = "Welcome to Monopoly!";
     }
 
     public static GameFacade getInstance(){
@@ -48,6 +47,7 @@ public class GameFacade {
         bank = Bank.getInstance();
 
         dice = new Dice();
+        currentMessage = "Welcome to Monopoly!";
 
         int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
@@ -84,7 +84,8 @@ public class GameFacade {
     public String getCurrentPlayerInfo(){
         String description = currentPlayer.getName() + "\n"
                 + "Token: " + currentPlayer.getToken() + "\n"
-                + "$" + currentPlayer.getMoney();
+                + "$" + currentPlayer.getMoney() + "\n"
+                + "Position: " + currentPlayer.getLocation();
 
         return description;
     }
@@ -115,16 +116,18 @@ public class GameFacade {
         return currentPlayer.isInJail();
     }
 
-    public String rollCurrentPlayer(){
+    public String moveCurrentPlayer(){
         Property deed = null;
         Player player = currentPlayer;
 
         if(currentPlayerHasMoved){
-            return "You have already moved!";
+            currentMessage = "You have already moved!";
+            return currentMessage;
         }
 
         if(currentPlayer.isInJail()){
-            return "You are in  jail and can't move until you get free!";
+            currentMessage = "You are in  jail and can't move until you get free!";
+            return currentMessage;
         }
 
         int diceRoll = dice.rollDice();
@@ -154,33 +157,35 @@ public class GameFacade {
             currentPlayerHasMoved = true;
         }
 
-		if(player.getLocation() == 30){
+		/*if(player.getLocation() == 30){
 			player.putInJail();
 			returnString = "You rolled a " + diceRoll;
 			returnString += "\nand moved that many spaces!";
 			returnString += "\nYou landed in 'Go to Jail' and went straight to jail";
 			currentPlayerHasMoved = true;
 			deed = null;
-		}
+		}*/
 
         if(deed != null){
-            if(!deed.getOwner().equals(bank) && !deed.getOwner().equals(currentPlayer)){
-                Owner owner = deed.getOwner();
-                int numOwned = 0;
-                if (deed instanceof Street) {
-                    if (((Street) deed).hasHotel()) {
-                        numOwned = 5;
+            if(!(deed.getOwner() instanceof Bank)){
+                if(!((Player)deed.getOwner()).equals(currentPlayer)) {
+                    Owner owner = deed.getOwner();
+                    int numOwned = 0;
+                    if (deed instanceof Street) {
+                        if (((Street) deed).hasHotel()) {
+                            numOwned = 5;
+                        } else {
+                            numOwned = ((Street) deed).getNumHouses();
+                        }
                     } else {
-                        numOwned = ((Street) deed).getNumHouses();
+                        numOwned = propertiesOwnedOfType(deed);
                     }
-                } else {
-                    numOwned = propertiesOwnedOfType(deed);
+                    int rent = deed.calculateRent();
+                    payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
+                    returnString += "\n\nYou landed on " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
+                    returnString += "\nYou paid $" + rent + " in rent.";
                 }
-                int rent = deed.calculateRent();
-                payPlayer(currentPlayer, (Player)deed.getOwner(), rent);
-                returnString += "\n\nYou landed on " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
-                returnString += "\nYou paid $" + rent + " in rent.";
-            }else if(deed.getOwner().equals(bank)){
+            }else{
                 returnString += "\nYou landed on " + deed.getName();
                 returnString += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
             }
@@ -211,6 +216,8 @@ public class GameFacade {
                     break;
             }
         }
+
+        currentMessage = returnString;
 
         return returnString;
     }
