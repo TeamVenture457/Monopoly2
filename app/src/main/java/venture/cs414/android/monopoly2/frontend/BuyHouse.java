@@ -10,8 +10,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
+import venture.cs414.android.monopoly2.backend.GameFacade;
 
 public class BuyHouse extends AppCompatActivity {
+
+    private GameFacade gameFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +22,8 @@ public class BuyHouse extends AppCompatActivity {
         setContentView(R.layout.activity_buy_house);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        
+
+        gameFacade = GameFacade.getInstance();
     }
 
     public void clickBuyButtonBuyHouse(View view){
@@ -36,12 +40,12 @@ public class BuyHouse extends AppCompatActivity {
             startActivity(intent);
             finish();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
         }
     }
 
     public void notify(String message){
-
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
 }
