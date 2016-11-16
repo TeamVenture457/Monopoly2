@@ -24,6 +24,9 @@
         android:id="@+id/menu_mortgage"
         android:title="Mortgage Property"/>
     <item
+        android:id="@+id/menu_unmortgage"
+        android:title="Unmortgage Property"/>
+    <item
         android:id="@+id/menu_end_turn"
         android:title="End Turn"/>
     <item

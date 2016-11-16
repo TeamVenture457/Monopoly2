@@ -10,27 +10,22 @@ import android.view.View;
 import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
-import venture.cs414.android.monopoly2.backend.GameFacade;
 
-public class SellHotel extends AppCompatActivity {
-
-    private GameFacade gameFacade;
+public class UnmortgageProperty extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sell_hotel);
+        setContentView(R.layout.activity_unmortgage_property);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        gameFacade = GameFacade.getInstance();
     }
 
-    public void clickSellButtonSellHotel(View view){
+    public void clickUnmortgageButtonUnmortgageProperty(View view){
         notify("Testing if its working");
     }
 
-    public void clickCancelButtonSellHotel(View view){
+    public void clickCancelButtonUnmortgageProperty(View view){
         //Todo implement code
         try {
             //implement call
@@ -47,5 +42,4 @@ public class SellHotel extends AppCompatActivity {
     public void notify(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
-
 }
