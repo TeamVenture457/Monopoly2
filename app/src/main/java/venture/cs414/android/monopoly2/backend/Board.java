@@ -44,8 +44,7 @@ public class Board {
     }
 
     public Card drawChanceCard(){
-        Card chanceCard;
-        chanceCard = chanceCards.remove();
+        Card chanceCard = chanceCards.remove();
         if(!chanceCard.getActionDetails().get(0).equals("getOutOfJail")){
             chanceCards.add(chanceCard);
         }
@@ -53,8 +52,7 @@ public class Board {
     }
 
     public Card drawCommunityChestCard(){
-        Card communityChestCard;
-        communityChestCard = communityChestCards.remove();
+        Card communityChestCard = communityChestCards.remove();
         if(!communityChestCard.getActionDetails().get(0).equals("getOutOfJail")){
             communityChestCards.add(communityChestCard);
         }
