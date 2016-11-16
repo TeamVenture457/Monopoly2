@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         gameFacade = GameFacade.getInstance();
 
-        int numMiliSeconds = (numMinutes * 60 * 1000);
+        /*int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 setTitle("Game Time:\n" + "0:00");
                 //endGame();
             }
-        }.start();
+        }.start();*/
     }
 
     @Override

@@ -1,6 +1,7 @@
 package venture.cs414.android.monopoly2.backend;
 
 import android.content.Context;
+import android.os.CountDownTimer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,8 @@ public class GameFacade {
     private Player currentPlayer;
     private boolean currentPlayerHasMoved;
 
-
+    CountDownTimer timer;
+    String timerString;
 
     private String currentMessage;
 
@@ -46,6 +48,29 @@ public class GameFacade {
         bank = Bank.getInstance();
 
         dice = new Dice();
+
+        int numMiliSeconds = (numMinutes * 60 * 1000);
+        new CountDownTimer(numMiliSeconds, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                int minutes = (((int)millisUntilFinished / 1000) / 60);
+                int seconds = (((int)millisUntilFinished / 1000) % 60);
+                timerString = "Game Time:\n" + minutes + ":";
+                if(seconds < 10){
+                    timerString += "0";
+                }
+                timerString += seconds;
+            }
+
+            public void onFinish() {
+                //timerText.setText("done!");
+                //endGame();
+            }
+        }.start();
+    }
+
+    public String getTimerString(){
+        return timerString;
     }
 
     public String getCurrentMessage() {
