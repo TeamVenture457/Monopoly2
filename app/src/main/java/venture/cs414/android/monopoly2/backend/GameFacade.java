@@ -99,6 +99,18 @@ public class GameFacade {
         return description;
     }
 
+    public String[] getOtherPlayerNames(){
+        List<String> otherPlayers = new ArrayList<>();
+
+        for(Player player : players){
+            if(!player.equals(currentPlayer)){
+                otherPlayers.add(player.getName());
+            }
+        }
+
+        return (String[])otherPlayers.toArray();
+    }
+
     public String rollCurrentPlayer(){
         Property deed = null;
         Player player = currentPlayer;
