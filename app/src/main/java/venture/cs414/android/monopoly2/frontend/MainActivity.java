@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     TextView timerText;
 
+    TextView turnInfo;
+    TextView currentPlayerInfo;
+    TextView otherPlayerInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +35,15 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int numPlayers = getIntent().getIntExtra("numPlayers", 2);
-        int numMinutes = getIntent().getIntExtra("numMinutes", 5);
+        /*int numPlayers = getIntent().getIntExtra("numPlayers", 2);
+        int numMinutes = getIntent().getIntExtra("numMinutes", 5);*/
 
         gameFacade = GameFacade.getInstance();
+
+        turnInfo = (TextView)findViewById(R.id.CurrentTurnInfoField);
+        currentPlayerInfo = (TextView)findViewById(R.id.CurrentPlayerInfoField);
+        otherPlayerInfo = (TextView)findViewById(R.id.AllPlayerInfoField);
+        updateAllInfo();
 
         /*int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
@@ -58,12 +67,16 @@ public class MainActivity extends AppCompatActivity {
         }.start();*/
     }
 
+    public void updateAllInfo(){
+        turnInfo.setText(gameFacade.getCurrentMessage());
+        currentPlayerInfo.setText(gameFacade.getCurrentPlayerInfo());
+        otherPlayerInfo.setText(gameFacade.getOtherPlayerInfo());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
-
 
         return true;
     }
@@ -79,10 +92,9 @@ public class MainActivity extends AppCompatActivity {
         switch(id) {
             case R.id.menu_roll:
                 try {
-                    //implement call
-                    //Todo where total is get the total of the roll, whatever that call is.
-                    //Todo also we need to check doubles and how many doubles have been rolled.
-                    //Ben i think this will all be handled for each call in facade.
+                    gameFacade.moveCurrentPlayer();
+                    updateAllInfo();
+                    //Todo Implement property buying popup
 
                     Toast.makeText(getApplicationContext(), "Testing toast works", Toast.LENGTH_LONG).show();
 
@@ -94,8 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //implement call
                     Intent intent = new Intent(this, SellProperty.class);
-                    //Todo need to pass the serializable object when it is created
-                    //intent.putExtra("difficulty", 1);
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
@@ -177,7 +187,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_end_turn:
                 try {
                     //implement call
-                    Toast.makeText(getApplicationContext(), "Testing to make sure call works", Toast.LENGTH_LONG).show();
+                    gameFacade.advanceTurn();
+                    updateAllInfo();
+                    //Toast.makeText(getApplicationContext(), "Testing to make sure call works", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
@@ -185,6 +197,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_quit:
                 try {
                     //implement call
+                    String message = gameFacade.removeCurrentPlayerFromGame();
+                    updateAllInfo();
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }

@@ -11,11 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import venture.cs414.android.monopoly2.R;
+import venture.cs414.android.monopoly2.backend.GameFacade;
 
 public class PlayerSelect extends AppCompatActivity {
 
     private Spinner numPlayersDrop;
     private Spinner numMinutesDrop;
+    private GameFacade gameFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +35,17 @@ public class PlayerSelect extends AppCompatActivity {
         Integer dropDownOptionsTime[] = new Integer[]{1, 5, 10, 20};
         ArrayAdapter<Integer> numMinutesAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_dropdown_item, dropDownOptionsTime);
         numMinutesDrop.setAdapter(numMinutesAdapter);
+
+        gameFacade = GameFacade.getInstance();
     }
 
     public void clickStartGame(View view){
         int numPlayers = (int)numPlayersDrop.getSelectedItem();
         int numMinutes = (int)numMinutesDrop.getSelectedItem();
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("numPlayers", numPlayers);
-        intent.putExtra("numMinutes", numMinutes);
+        /*intent.putExtra("numPlayers", numPlayers);
+        intent.putExtra("numMinutes", numMinutes);*/
+        gameFacade.setUp(numPlayers, numMinutes, PlayerSelect.this);
         startActivity(intent);
         finish();
     }

@@ -49,4 +49,10 @@ public class Bank extends Owner{
     public void removeHotel(){
         hotelInventory--;
     }
+
+    @Override
+    public boolean equals(Object other){
+        return (other instanceof Bank);
+    }
+
 }
