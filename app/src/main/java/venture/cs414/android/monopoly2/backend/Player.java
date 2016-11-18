@@ -48,7 +48,7 @@ public class Player extends Owner{
     }
 
     public void removeMoney(int amount){
-        money += amount;
+        money -= amount;
     }
 
     public boolean canAfford(int amount){

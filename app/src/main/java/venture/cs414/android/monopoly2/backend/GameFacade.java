@@ -137,7 +137,7 @@ public class GameFacade {
         // player isn't in jail
         if (rolledDouble) {
             player.incrementConsecutiveTurns();
-            if (player.getConsecutiveTurns() == 3) {
+            if (player.getConsecutiveTurns() >= 3) {
                 player.putInJail();
                 player.resetConsecutiveTurns();
                 returnString = "\nYou got caught speeding and went to jail!";
@@ -157,29 +157,18 @@ public class GameFacade {
             currentPlayerHasMoved = true;
         }
 
-		/*if(player.getLocation() == 30){
+		if(player.getLocation() == 30){
 			player.putInJail();
 			returnString = "You rolled a " + diceRoll;
 			returnString += "\nand moved that many spaces!";
 			returnString += "\nYou landed in 'Go to Jail' and went straight to jail";
 			currentPlayerHasMoved = true;
 			deed = null;
-		}*/
+		}
 
         if(deed != null){
             if(!(deed.getOwner() instanceof Bank)){
                 if(!((Player)deed.getOwner()).equals(currentPlayer)) {
-                    Owner owner = deed.getOwner();
-                    int numOwned = 0;
-                    if (deed instanceof Street) {
-                        if (((Street) deed).hasHotel()) {
-                            numOwned = 5;
-                        } else {
-                            numOwned = ((Street) deed).getNumHouses();
-                        }
-                    } else {
-                        numOwned = propertiesOwnedOfType(deed);
-                    }
                     int rent = deed.calculateRent();
                     payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
                     returnString += "\n\nYou landed on " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
@@ -187,7 +176,7 @@ public class GameFacade {
                 }
             }else{
                 returnString += "\nYou landed on " + deed.getName();
-                returnString += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                //returnString += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
             }
         }else{
             String spaceName = board.getBoardSpaces()[currentPlayer.getLocation()].getName();
@@ -636,7 +625,7 @@ public class GameFacade {
     public String getCurrentProperty(){
         Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
         if(deed != null){
-            if(!deed.getOwner().equals(bank)) {
+            if(deed.getOwner() instanceof Bank){
                 return "Would you like to buy " + deed.getName() + " for $" + deed.getCost() + "?";
             }
         }

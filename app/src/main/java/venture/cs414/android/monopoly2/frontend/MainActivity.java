@@ -1,15 +1,22 @@
 package venture.cs414.android.monopoly2.frontend;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
     TextView currentPlayerInfo;
     TextView otherPlayerInfo;
 
+    PopupWindow notificationPopup;
+    PopupWindow blockerWindow;
+
+    RelativeLayout layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         int numMinutes = getIntent().getIntExtra("numMinutes", 5);*/
 
         gameFacade = GameFacade.getInstance();
+
+        layout = (RelativeLayout)findViewById(R.id.contentMain);
 
         turnInfo = (TextView)findViewById(R.id.CurrentTurnInfoField);
         currentPlayerInfo = (TextView)findViewById(R.id.CurrentPlayerInfoField);
@@ -96,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
                     updateAllInfo();
                     //Todo Implement property buying popup
 
-                    Toast.makeText(getApplicationContext(), "Testing toast works", Toast.LENGTH_LONG).show();
+                    checkBuyProperty();
+
+                    //Toast.makeText(getApplicationContext(), "Testing toast works", Toast.LENGTH_LONG).show();
 
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error rolling", Toast.LENGTH_LONG).show();
@@ -217,5 +233,62 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }*/
 
+    public void checkBuyProperty(){
+        String propBuy = gameFacade.getCurrentProperty();
+        //turnInfo.setText(propBuy);
+        if(propBuy != null){
+            //Create layouts and views for popup window
+            LinearLayout popLayout = new LinearLayout(this);
+            TextView salesText = new TextView(this);
+            notificationPopup = new PopupWindow(this);
 
+            //Set layout orientation
+            popLayout.setOrientation(LinearLayout.VERTICAL);
+
+            //Set the text for the popup
+            salesText.setText(propBuy);
+
+            //Create Button to dismiss
+            Button but = new Button(this);
+            but.setText("Yes");
+            but.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    blockerWindow.dismiss();
+                    notificationPopup.dismiss();
+                    gameFacade.currentPlayerBuyCurrentProperty();
+                    updateAllInfo();
+                }
+            });
+
+            Button but2 = new Button(this);
+            but2.setText("No");
+            but2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    blockerWindow.dismiss();
+                    notificationPopup.dismiss();
+                    //This is where we will start the auction
+                    updateAllInfo();
+                }
+            });
+
+            //Place layout in the popup
+            popLayout.addView(salesText);
+            popLayout.setBackgroundColor(Color.WHITE);
+            popLayout.addView(but);
+            popLayout.addView(but2);
+            notificationPopup.setContentView(popLayout);
+
+            placeBlocker();
+            notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
+        }
+    }
+
+    public void placeBlocker(){
+        RelativeLayout blocker = new RelativeLayout(this);
+        blocker.setVisibility(View.INVISIBLE);
+        blockerWindow = new PopupWindow(blocker, ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.FILL_PARENT);
+        blockerWindow.showAtLocation(layout, Gravity.CENTER, 10, 10);
+    }
 }
