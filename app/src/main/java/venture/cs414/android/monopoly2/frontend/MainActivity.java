@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
         currentPlayerInfo = (TextView)findViewById(R.id.CurrentPlayerInfoField);
         otherPlayerInfo = (TextView)findViewById(R.id.AllPlayerInfoField);
         updateAllInfo();
+        turnInfo.setMovementMethod(new ScrollingMovementMethod());
+        currentPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
+        otherPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
 
         /*int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
