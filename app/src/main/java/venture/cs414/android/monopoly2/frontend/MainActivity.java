@@ -9,16 +9,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import venture.cs414.android.monopoly2.R;
 import venture.cs414.android.monopoly2.backend.Board;
@@ -284,6 +289,69 @@ public class MainActivity extends AppCompatActivity {
             notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
         }
     }
+
+    /*public void startAuction(){
+        String salesText = "Who would you like to sell " + propertyName + " to?";
+        salesText += "\nHow much would you like to sell it for?";
+        //game controller return winner
+        //Create layouts and views for popup window
+        LinearLayout popLayout = new LinearLayout(this);
+        TextView notificationText = new TextView(this);
+        ImageView lossImage = new ImageView(this);
+        notificationPopup = new PopupWindow(this);
+        costText = new EditText(this);
+        costText.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        //Set layout orientation
+        popLayout.setOrientation(LinearLayout.VERTICAL);
+
+        //Set the text for the popup
+        notificationText.setText(salesText);
+
+        //Create Button to dismiss
+        Button cancelButton = new Button(this);
+        cancelButton.setText("Cancel");
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blockerWindow.dismiss();
+                notificationPopup.dismiss();
+            }
+        });
+
+        //Place layout in the popup
+        popLayout.addView(notificationText);
+        costText.setText("0");
+        popLayout.addView(costText);
+        popLayout.setBackgroundColor(Color.WHITE);
+
+        List<String> playerNames = gameController.getPlayerNames();
+        playerNames.remove(gameController.getCurrentPlayerName());
+        //String selection = "";
+
+        for(String name : playerNames){
+            final String finalName = name;
+            Button currentButton = new Button(this);
+            currentButton.setText("Sell to " + name);
+            currentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    blockerWindow.dismiss();
+                    notificationPopup.dismiss();
+                    int cost = Integer.parseInt(costText.getText().toString());
+                    salesConfirmation(finalName, propertyName, cost);
+                }
+            });
+            popLayout.addView(currentButton);
+        }
+
+        popLayout.addView(cancelButton);
+        notificationPopup.setContentView(popLayout);
+        notificationPopup.setFocusable(true);
+
+        placeBlocker();
+        notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
+    }*/
 
     public void placeBlocker(){
         RelativeLayout blocker = new RelativeLayout(this);

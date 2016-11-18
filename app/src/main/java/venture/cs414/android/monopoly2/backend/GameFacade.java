@@ -645,6 +645,7 @@ public class GameFacade {
             currentPlayer.removeMoney(deed.getCost());
             currentPlayer.addToPropertiesOwned(deed);
             bank.removeFromPropertiesOwned(deed);
+            deed.setOwner(currentPlayer);
             return true;
         }else{
             return false;
