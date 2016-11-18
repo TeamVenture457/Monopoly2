@@ -48,7 +48,8 @@
         android:id="@+id/SelectPropertyDropdownBuyHouse"
         android:layout_below="@+id/PlayerInstructionsLabelBuyHouse"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp" />
+        android:layout_marginTop="43dp"
+        android:spinnerMode="dropdown" />
 
 
 </RelativeLayout>

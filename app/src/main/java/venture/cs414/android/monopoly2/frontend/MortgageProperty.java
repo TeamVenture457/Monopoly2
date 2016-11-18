@@ -7,6 +7,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import venture.cs414.android.monopoly2.R;
@@ -16,6 +18,8 @@ public class MortgageProperty extends AppCompatActivity {
 
     private GameFacade gameFacade;
 
+    private Spinner propertySpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +28,21 @@ public class MortgageProperty extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         gameFacade = GameFacade.getInstance();
+
+        propertySpinner = (Spinner)findViewById(R.id.SelectPropertyDropdownMortgageProperty);
+        ArrayAdapter<String> propertyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gameFacade.getMortgagableProperties());
+        propertySpinner.setAdapter(propertyAdapter);
     }
 
     public void clickMortgageButtonMortgageProperty(View view){
-        notify("Testing if its working");
+        if(propertySpinner.getSelectedItem() != null){
+            String propertyName = propertySpinner.getSelectedItem().toString();
+            gameFacade.mortgageProperty(propertyName);
+            notify("You mortgaged " + propertyName);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void clickCancelButtonMortgageProperty(View view){
