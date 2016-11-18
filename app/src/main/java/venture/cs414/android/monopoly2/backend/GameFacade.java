@@ -531,13 +531,20 @@ public class GameFacade {
             if(currentPlayer.getMoney() <= 0){
                 currentMessage = (currentPlayer.getName() + " went bankrupt and left the game");
                 removeCurrentPlayerFromGame();
-                int nextIndex = players.indexOf(currentPlayer) + 1;
+                //int nextIndex = players.indexOf(currentPlayer) + 1;
+                int nextIndex = players.indexOf(currentPlayer);
+                if(nextIndex >= players.size()){
+                    nextIndex = 0;
+                }
                 currentPlayer = players.get(nextIndex);
                 currentPlayerHasMoved = false;
                 currentMessage += "\nIt is now " + currentPlayer.getName() + "'s turn!";
             }else {
                 currentPlayer.resetConsecutiveTurns();
                 int nextIndex = players.indexOf(currentPlayer) + 1;
+                if(nextIndex >= players.size()){
+                    nextIndex = 0;
+                }
                 currentPlayer = players.get(nextIndex);
                 currentPlayerHasMoved = false;
                 currentMessage = "It is now " + currentPlayer.getName() + "'s turn!";
