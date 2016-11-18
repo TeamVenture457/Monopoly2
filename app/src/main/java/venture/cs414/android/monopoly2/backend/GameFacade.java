@@ -112,6 +112,24 @@ public class GameFacade {
         return otherPlayers;
     }
 
+    public List<String> getPlayerNames(){
+        List<String> allPlayers = new ArrayList<>();
+
+        for(Player player : players){
+            allPlayers.add(player.getName());
+        }
+
+        return allPlayers;
+    }
+
+    public String getCurrentPropertyName(){
+        Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
+        if(deed != null){
+            return deed.getName();
+        }
+        return null;
+    }
+
     public boolean currentPlayerInJail(){
         return currentPlayer.isInJail();
     }
@@ -520,6 +538,7 @@ public class GameFacade {
         }else {
             currentPlayer.removeFromPropertiesOwned(property);
             buyer.addToPropertiesOwned(property);
+            property.setOwner(currentPlayer);
             payPlayer(buyer, currentPlayer, cost);
         }
 
@@ -568,6 +587,7 @@ public class GameFacade {
             }
             currentPlayer.removeFromPropertiesOwned(deed);
             bank.addToPropertiesOwned(deed);
+            deed.setOwner(bank);
         }
         Player removed = currentPlayer;
         currentPlayerHasMoved = true;

@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     PopupWindow blockerWindow;
 
     RelativeLayout layout;
+    EditText costText;
+
+    int highestBid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,9 +114,12 @@ public class MainActivity extends AppCompatActivity {
         switch(id) {
             case R.id.menu_roll:
                 try {
-                    gameFacade.moveCurrentPlayer();
+                    if(gameFacade.currentPlayerInJail()){
+                        displayJailWindow();
+                    }else {
+                        gameFacade.moveCurrentPlayer();
+                    }
                     updateAllInfo();
-                    //Todo Implement property buying popup
 
                     checkBuyProperty();
 
@@ -273,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     blockerWindow.dismiss();
                     notificationPopup.dismiss();
-                    //This is where we will start the auction
+                    startAuction();
                     updateAllInfo();
                 }
             });
@@ -290,14 +296,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*public void startAuction(){
-        String salesText = "Who would you like to sell " + propertyName + " to?";
-        salesText += "\nHow much would you like to sell it for?";
-        //game controller return winner
+    public void startAuction(){
         //Create layouts and views for popup window
         LinearLayout popLayout = new LinearLayout(this);
-        TextView notificationText = new TextView(this);
-        ImageView lossImage = new ImageView(this);
+        final TextView notificationText = new TextView(this);
         notificationPopup = new PopupWindow(this);
         costText = new EditText(this);
         costText.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -306,18 +308,10 @@ public class MainActivity extends AppCompatActivity {
         popLayout.setOrientation(LinearLayout.VERTICAL);
 
         //Set the text for the popup
-        notificationText.setText(salesText);
-
-        //Create Button to dismiss
-        Button cancelButton = new Button(this);
-        cancelButton.setText("Cancel");
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                blockerWindow.dismiss();
-                notificationPopup.dismiss();
-            }
-        });
+        List<String> names = gameFacade.getPlayerNames();
+        highestBid = 0;
+        notificationText.setText(names.get(0) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+        + "Current Highest Bid: $" + highestBid);
 
         //Place layout in the popup
         popLayout.addView(notificationText);
@@ -325,33 +319,103 @@ public class MainActivity extends AppCompatActivity {
         popLayout.addView(costText);
         popLayout.setBackgroundColor(Color.WHITE);
 
-        List<String> playerNames = gameController.getPlayerNames();
-        playerNames.remove(gameController.getCurrentPlayerName());
+        List<String> playerNames = gameFacade.getPlayerNames();
         //String selection = "";
+        Button bidButton = new Button(this);
+        bidButton.setText("Bid");
+        bidButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*blockerWindow.dismiss();
+                notificationPopup.dismiss();
+                highestBid = Integer.parseInt(costText.getText().toString());*/
+                int bid = Integer.parseInt(costText.getText().toString());
+                if(bid > highestBid){
 
-        for(String name : playerNames){
-            final String finalName = name;
-            Button currentButton = new Button(this);
-            currentButton.setText("Sell to " + name);
-            currentButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    blockerWindow.dismiss();
-                    notificationPopup.dismiss();
-                    int cost = Integer.parseInt(costText.getText().toString());
-                    salesConfirmation(finalName, propertyName, cost);
                 }
-            });
-            popLayout.addView(currentButton);
-        }
+            }
+        });
+        popLayout.addView(bidButton);
 
-        popLayout.addView(cancelButton);
+        Button dontBidButton = new Button(this);
+        dontBidButton.setText("Don't Bid");
+        dontBidButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*blockerWindow.dismiss();
+                notificationPopup.dismiss();
+                highestBid = Integer.parseInt(costText.getText().toString());*/
+            }
+        });
+        popLayout.addView(dontBidButton);
+
         notificationPopup.setContentView(popLayout);
         notificationPopup.setFocusable(true);
 
         placeBlocker();
         notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
-    }*/
+    }
+
+    public void displayJailWindow(){
+        //Create layouts and views for popup window
+        LinearLayout popLayout = new LinearLayout(this);
+        TextView text = new TextView(this);
+        notificationPopup = new PopupWindow(this);
+
+        //Set layout orientation
+        popLayout.setOrientation(LinearLayout.VERTICAL);
+
+        //Set the text for the popup
+        text.setText("You are in jail!  How would you like to get out?");
+
+        //Create Button to dismiss
+        Button but = new Button(this);
+        but.setText("Roll");
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameFacade.rollForJail();
+                blockerWindow.dismiss();
+                notificationPopup.dismiss();
+                updateAllInfo();
+            }
+        });
+
+        Button but2 = new Button(this);
+        but2.setText("Pay $50");
+        but2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gameFacade.payJail();
+                blockerWindow.dismiss();
+                notificationPopup.dismiss();
+                updateAllInfo();
+            }
+        });
+
+        Button but3 = new Button(this);
+        but3.setText("Use 'Get out of jail free' card");
+        but3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo
+                blockerWindow.dismiss();
+                notificationPopup.dismiss();
+                updateAllInfo();
+            }
+        });
+
+        //Place layout in the popup
+        popLayout.addView(text);
+        popLayout.setBackgroundColor(Color.WHITE);
+        popLayout.addView(but);
+        popLayout.addView(but2);
+        popLayout.addView(but3);
+        notificationPopup.setContentView(popLayout);
+
+        placeBlocker();
+        notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
+    }
 
     public void placeBlocker(){
         RelativeLayout blocker = new RelativeLayout(this);
