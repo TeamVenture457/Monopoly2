@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         gameFacade = GameFacade.getInstance();
 
-        layout = (RelativeLayout)findViewById(R.id.contentMain);
+        layout = (RelativeLayout)findViewById(R.id.ContentMain);
 
         turnInfo = (TextView)findViewById(R.id.CurrentTurnInfoField);
         currentPlayerInfo = (TextView)findViewById(R.id.CurrentPlayerInfoField);
