@@ -47,7 +47,7 @@ public class GameFacade {
         bank = Bank.getInstance();
 
         dice = new Dice();
-        currentMessage = "Welcome to Monopoly!";
+        currentMessage = "Welcome to Zelda Monopoly!";
 
         int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
@@ -876,6 +876,48 @@ public class GameFacade {
     }
 
     public String getSpaceInfo(int spaceNumber){
+        String tempString = "";
+        String buildings = "";
+        Space tempSpace = board.getBoardSpace(spaceNumber);
+        Property tempDeed = tempSpace.getDeed();
+        if(tempDeed != null){
+            if(tempDeed instanceof Street){
+                Street street = (Street) tempDeed;
+                int numBuildings = street.getNumberOfBuildings();
+                if(numBuildings > 0){
+                    if(numBuildings == 5){
+                        buildings = "1 Hotel";
+                    }
+                    else{
+                        buildings = numBuildings + " House(s)";
+                    }
+                }
+            }
+
+        }
+        else{
+
+        }
+        String tempPlayersOnSpace = "";
+        List<String> playerTokens = new ArrayList<>();
+        for (Player player: players){
+            if(player.getLocation() == spaceNumber){
+                playerTokens.add(player.getToken());
+            }
+        }
+        if(playerTokens.isEmpty()){
+
+        }
+        else{
+            for(String token: playerTokens){
+                tempPlayersOnSpace += token;
+            }
+        }
+        tempString += tempPlayersOnSpace + " " + buildings;
+        return tempString;
+    }
+
+    public String getClickedSpaceInfo(int spaceNumber){
         String ownerString = "";
         String buildings = "Buildings: None\n";
         Space s1 = board.getBoardSpace(spaceNumber);
@@ -928,7 +970,7 @@ public class GameFacade {
             spaceInfo += "Players in Jail:\n";
             List<String> playerNames2 = new ArrayList<>();
             for (Player player: players){
-                if(player.getLocation() == 40){
+                if(player.isInJail()){
                     playerNames2.add(player.getName());
                 }
             }
