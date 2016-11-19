@@ -37,7 +37,7 @@ public class GameFacade {
         players = new ArrayList<Player>();
         for (int i = 1; i < numPlayers+1; i++) {
             String playerName = ("Player " + i);
-            players.add(new Player(playerName, "Token " + i));
+            players.add(new Player(playerName, "P " + i));
         }
         currentPlayer = players.get(0);
         currentPlayerHasMoved = false;
@@ -85,7 +85,7 @@ public class GameFacade {
         String description = currentPlayer.getName() + "\n"
                 + "Token: " + currentPlayer.getToken() + "\n"
                 + "$" + currentPlayer.getMoney() + "\n"
-                + "Position: " + currentPlayer.getLocation();
+                + "Position: " + board.getBoardSpace(currentPlayer.getLocation()).getName();
 
         return description;
     }
