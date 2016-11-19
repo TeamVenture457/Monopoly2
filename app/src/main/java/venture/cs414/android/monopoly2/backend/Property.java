@@ -18,6 +18,7 @@ public abstract class Property {
         this.rent = rent;
         this.mortgageValue = mortgageValue;
         isMortgaged = false;
+        owner = Bank.getInstance();
     }
 
     public String getName() {
