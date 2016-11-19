@@ -64,8 +64,11 @@ public class MainActivity extends AppCompatActivity {
         layout = (RelativeLayout)findViewById(R.id.ContentMain);
 
         turnInfo = (TextView)findViewById(R.id.CurrentTurnInfoField);
+        turnInfo.setMovementMethod(new ScrollingMovementMethod());
         currentPlayerInfo = (TextView)findViewById(R.id.CurrentPlayerInfoField);
+        currentPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
         otherPlayerInfo = (TextView)findViewById(R.id.AllPlayerInfoField);
+        otherPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
         updateAllInfo();
 
         /*int numMiliSeconds = (numMinutes * 60 * 1000);
