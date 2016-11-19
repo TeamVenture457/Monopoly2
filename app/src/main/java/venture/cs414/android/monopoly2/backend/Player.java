@@ -30,7 +30,14 @@ public class Player extends Owner{
         myCards = new ArrayList<>();
     }
 
+    public void storeGetOutOfJailCard(Card card){
+        myCards.add(card);
+    }
 
+    public Card useGetOutOfJailCard(){
+        if(myCards.isEmpty()) return null;
+        return myCards.remove(0);
+    }
     public String getName() {
         return name;
     }
@@ -48,7 +55,7 @@ public class Player extends Owner{
     }
 
     public void removeMoney(int amount){
-        money += amount;
+        money -= amount;
     }
 
     public boolean canAfford(int amount){
