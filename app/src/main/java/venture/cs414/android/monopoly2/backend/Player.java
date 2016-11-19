@@ -107,6 +107,12 @@ public class Player extends Owner{
         location = nextLocation;
     }
 
+    public void movePlayerBack(int distance){
+        int currentLocation = location;
+        distance = 40 - distance;
+        location = (currentLocation + distance) % 40;
+    }
+
     public void putInJail(){
         location = 40;
         inJail = true;
