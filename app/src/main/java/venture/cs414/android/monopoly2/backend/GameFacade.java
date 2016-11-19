@@ -175,14 +175,14 @@ public class GameFacade {
             currentPlayerHasMoved = true;
         }
 
-		if(player.getLocation() == 30){
+		/*if(player.getLocation() == 30){
 			player.putInJail();
 			returnString = "You rolled a " + diceRoll;
 			returnString += "\nand moved that many spaces!";
 			returnString += "\nYou landed in 'Go to Jail' and went straight to jail";
 			currentPlayerHasMoved = true;
 			deed = null;
-		}
+		}*/
 
         if(deed != null){
             if(!(deed.getOwner() instanceof Bank)){
@@ -255,6 +255,10 @@ public class GameFacade {
         }else{
             currentMessage = "You have been in jail for 3 turns!  You must pay or use a card to get out!";
         }
+    }
+
+    public void useJailCard(){
+
     }
 
     public List<String> getMortgagableProperties(){

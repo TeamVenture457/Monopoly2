@@ -398,9 +398,9 @@ public class MainActivity extends AppCompatActivity {
         but3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo
                 blockerWindow.dismiss();
                 notificationPopup.dismiss();
+                gameFacade.useJailCard();
                 updateAllInfo();
             }
         });
