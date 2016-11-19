@@ -221,14 +221,14 @@ public class GameFacade {
                 case "Chance":
                     returnString += "\nYou landed on Chance, draw a Chance card.";
                     Card chanceCard = board.drawChanceCard();
-                    returnString += "\nChance card:\n" + chanceCard.getCardDescription();
+                    returnString += "\nChance: " + chanceCard.getDescription();
                     returnString += performCardAction(chanceCard);
 
                     break;
                 case "Community Chest":
                     returnString += "\nYou landed on Community Chest, draw a Community Chest card.";
                     Card communityChestCard = board.drawCommunityChestCard();
-                    returnString += "\nCommunity Chest card:\n" + communityChestCard.getCardDescription();
+                    returnString += "\nCommunity Chest: " + communityChestCard.getDescription();
                     returnString += performCardAction(communityChestCard);
 
                     break;
@@ -386,7 +386,7 @@ public class GameFacade {
             case "payBank":
                 int payAmount = Integer.parseInt(actions.get(1));
                 currentPlayer.removeMoney(payAmount);
-                actionResult += "\nYou collected " + payAmount + " from the bank.";
+                actionResult += "\nYou paid $" + payAmount + " to the bank.";
                 break;
 
             case "payEachPlayer":
