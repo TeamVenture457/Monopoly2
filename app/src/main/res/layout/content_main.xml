@@ -52,7 +52,7 @@
     <TextView
         android:layout_width="180dp"
         android:layout_height="75dp"
-        android:text="Current Player Information will display here. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        android:text="Current Player Information will display here."
         android:id="@+id/CurrentPlayerInfoField"
         android:layout_below="@+id/CurrentPlayerInfoLabel"
         android:layout_alignRight="@+id/CurrentPlayerInfoLabel"
