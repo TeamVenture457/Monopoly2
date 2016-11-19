@@ -24,6 +24,10 @@ public class Card {
         return cardType;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public String getCardDescription(){
         String cardDescription = "Type: " + cardType.toString()
                 + "\n\tDescription: " + description

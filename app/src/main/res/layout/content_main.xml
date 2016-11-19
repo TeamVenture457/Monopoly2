@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:id="@+id/contentMain"
+    android:id="@+id/ContentMain"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".frontend.MainActivity"
     tools:showIn="@layout/activity_main">
@@ -24,6 +24,7 @@
         android:layout_alignParentStart="true"
         android:id="@+id/CurrentTurnLabel"
         android:editable="false"/>
+
 
 
 
