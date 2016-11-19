@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
         otherPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
         updateAllInfo();
 
-        /*int numMiliSeconds = (numMinutes * 60 * 1000);
-        new CountDownTimer(numMiliSeconds, 1000) {
+        /*new CountDownTimer(numMiliSeconds, 1000){
 
             public void onTick(long millisUntilFinished) {
                 int minutes = (((int)millisUntilFinished / 1000) / 60);

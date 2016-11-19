@@ -24,6 +24,8 @@ public class GameFacade {
 
     private String currentMessage;
 
+    private boolean gameOver;
+
    private static GameFacade instance = new GameFacade();
 
     private GameFacade(){
@@ -49,6 +51,8 @@ public class GameFacade {
         dice = new Dice();
         currentMessage = "Welcome to Monopoly!";
 
+        gameOver = false;
+
         int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
 
@@ -65,6 +69,7 @@ public class GameFacade {
             public void onFinish() {
                 //timerText.setText("done!");
                 //endGame();
+                gameOver = true;
             }
         }.start();
     }
@@ -748,10 +753,10 @@ public class GameFacade {
                 currentPlayer = players.get(nextIndex);
                 currentPlayerHasMoved = false;
                 currentMessage += "\nIt is now " + currentPlayer.getName() + "'s turn!";
-            }else {
+            }else{
                 currentPlayer.resetConsecutiveTurns();
                 int nextIndex = players.indexOf(currentPlayer) + 1;
-                if(nextIndex >= players.size()){
+                if (nextIndex >= players.size()) {
                     nextIndex = 0;
                 }
                 currentPlayer = players.get(nextIndex);
@@ -784,6 +789,10 @@ public class GameFacade {
         advanceTurn();
         players.remove(removed);
 
+        if(players.size() == 1){
+            gameOver = true;
+        }
+
         return toRet;
     }
 
@@ -806,6 +815,10 @@ public class GameFacade {
         String returnString = "Time is up!\n"
                 + "And the winner is:\n" + getCurrentPlayerInfo();
         return returnString;
+    }
+
+    public boolean gameIsOver(){
+        return gameOver;
     }
 
     public int propertiesOwnedOfType(Property property){
