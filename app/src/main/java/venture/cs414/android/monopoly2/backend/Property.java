@@ -10,7 +10,7 @@ public abstract class Property {
     private int mortgageValue;
     private boolean isMortgaged;
     private String description;
-    Owner owner;
+    private Owner owner;
 
     public Property(String name, int cost, int rent, int mortgageValue) {
         this.name = name;
@@ -18,6 +18,7 @@ public abstract class Property {
         this.rent = rent;
         this.mortgageValue = mortgageValue;
         isMortgaged = false;
+        owner = Bank.getInstance();
     }
 
     public String getName() {

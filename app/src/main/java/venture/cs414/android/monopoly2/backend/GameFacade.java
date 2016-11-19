@@ -668,4 +668,75 @@ public class GameFacade {
         Player player = getPlayerByName(playerName);
         return player.canAfford(amount);
     }
+
+    public String getSpaceInfo(int spaceNumber){
+        String ownerString = "";
+        String buildings = "Buildings: None\n";
+        Space s1 = board.getBoardSpace(spaceNumber);
+        String spaceInfo = "Space: " + s1.getName() + "\n";
+        Property deed = s1.getDeed();
+        if (deed != null){
+            Owner owner = deed.getOwner();
+            if(owner instanceof Bank){
+                ownerString = "Owner: Bank\n";
+            }
+            else{
+                ownerString = "Owner: " + ((Player) deed.getOwner()).getName() + "\n";
+                if(deed instanceof Street){
+                    Street street = (Street) deed;
+                    int numBuildings = street.getNumberOfBuildings();
+                    if(numBuildings > 0){
+                        if(numBuildings == 5){
+                            buildings = "Buildings: 1 Hotel\n";
+                        }
+                        else{
+                            buildings = "Buildings: " + numBuildings + " House(s)\n";
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            ownerString = "Owner: Not able to be owned.\n";
+        }
+        spaceInfo += ownerString;
+        spaceInfo += buildings;
+        String playersAtLoc = "";
+        playersAtLoc = "Players on Space:\n";
+        List<String> playerNames = new ArrayList<>();
+        for (Player player: players){
+            if(player.getLocation() == spaceNumber){
+                playerNames.add(player.getName());
+            }
+        }
+        if(playerNames.isEmpty()){
+            playersAtLoc += "NONE\n";
+        }
+        else{
+            for(String name: playerNames){
+                playersAtLoc += name + "\n";
+            }
+        }
+        spaceInfo += playersAtLoc;
+        if(spaceNumber == 10){
+            spaceInfo += "Players in Jail:\n";
+            List<String> playerNames2 = new ArrayList<>();
+            for (Player player: players){
+                if(player.getLocation() == spaceNumber){
+                    playerNames2.add(player.getName());
+                }
+            }
+            if(playerNames2.isEmpty()){
+                spaceInfo += "NONE\n";
+            }
+            else{
+                for(String name: playerNames2){
+                    spaceInfo += name + "\n";
+                }
+            }
+
+        }
+
+        return spaceInfo;
+    }
 }
