@@ -37,7 +37,7 @@ public class GameFacade {
         players = new ArrayList<Player>();
         for (int i = 1; i < numPlayers+1; i++) {
             String playerName = ("Player " + i);
-            players.add(new Player(playerName, "P " + i));
+            players.add(new Player(playerName, "P" + i));
         }
         currentPlayer = players.get(0);
         currentPlayerHasMoved = false;
@@ -654,7 +654,7 @@ public class GameFacade {
         reciever.addMoney(amount);
     }
 
-    public String getCurrentProperty(){
+    public String getCurrentPropertySale(){
         Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
         if(deed != null){
             if(deed.getOwner() instanceof Bank){
@@ -684,6 +684,7 @@ public class GameFacade {
         player.removeMoney(cost);
         player.addToPropertiesOwned(property);
         bank.removeFromPropertiesOwned(property);
+        property.setOwner(player);
     }
 
     public boolean playerCanAfford(String playerName, int amount){
