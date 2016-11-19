@@ -112,6 +112,24 @@ public class GameFacade {
         return otherPlayers;
     }
 
+    public List<String> getPlayerNames(){
+        List<String> allPlayers = new ArrayList<>();
+
+        for(Player player : players){
+            allPlayers.add(player.getName());
+        }
+
+        return allPlayers;
+    }
+
+    public String getCurrentPropertyName(){
+        Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
+        if(deed != null){
+            return deed.getName();
+        }
+        return null;
+    }
+
     public boolean currentPlayerInJail(){
         return currentPlayer.isInJail();
     }
@@ -137,7 +155,7 @@ public class GameFacade {
         // player isn't in jail
         if (rolledDouble) {
             player.incrementConsecutiveTurns();
-            if (player.getConsecutiveTurns() == 3) {
+            if (player.getConsecutiveTurns() >= 3) {
                 player.putInJail();
                 player.resetConsecutiveTurns();
                 returnString = "\nYou got caught speeding and went to jail!";
@@ -294,12 +312,20 @@ public class GameFacade {
                 break;
 
             case "collectBank":
-
+                int amount = Integer.parseInt(actions.get(1));
+                currentPlayer.addMoney(amount);
+                actionResult += "\n\nYou collected " + amount + " from the bank.";
                 break;
+
             case "getOutOfJail":
-
+                currentPlayer.storeGetOutOfJailCard(card);
+                actionResult += "\n\nYou added the 'Get Out Of Jail' card to your collection for a later use!";
                 break;
+
             case "moveBack":
+                int distance = 40 - Integer.parseInt(actions.get(1));
+                currentPlayer.movePlayer(distance);
+                space = board.getBoardSpace(currentPlayer.getLocation());
 
                 break;
             case "goToJail":
@@ -350,6 +376,10 @@ public class GameFacade {
         }else{
             currentMessage = "You have been in jail for 3 turns!  You must pay or use a card to get out!";
         }
+    }
+
+    public void useJailCard(){
+
     }
 
     public List<String> getMortgagableProperties(){
@@ -633,6 +663,7 @@ public class GameFacade {
         }else {
             currentPlayer.removeFromPropertiesOwned(property);
             buyer.addToPropertiesOwned(property);
+            property.setOwner(currentPlayer);
             payPlayer(buyer, currentPlayer, cost);
         }
 
@@ -644,13 +675,20 @@ public class GameFacade {
             if(currentPlayer.getMoney() <= 0){
                 currentMessage = (currentPlayer.getName() + " went bankrupt and left the game");
                 removeCurrentPlayerFromGame();
-                int nextIndex = players.indexOf(currentPlayer) + 1;
+                //int nextIndex = players.indexOf(currentPlayer) + 1;
+                int nextIndex = players.indexOf(currentPlayer);
+                if(nextIndex >= players.size()){
+                    nextIndex = 0;
+                }
                 currentPlayer = players.get(nextIndex);
                 currentPlayerHasMoved = false;
                 currentMessage += "\nIt is now " + currentPlayer.getName() + "'s turn!";
             }else {
                 currentPlayer.resetConsecutiveTurns();
                 int nextIndex = players.indexOf(currentPlayer) + 1;
+                if(nextIndex >= players.size()){
+                    nextIndex = 0;
+                }
                 currentPlayer = players.get(nextIndex);
                 currentPlayerHasMoved = false;
                 currentMessage = "It is now " + currentPlayer.getName() + "'s turn!";
@@ -674,6 +712,7 @@ public class GameFacade {
             }
             currentPlayer.removeFromPropertiesOwned(deed);
             bank.addToPropertiesOwned(deed);
+            deed.setOwner(bank);
         }
         Player removed = currentPlayer;
         currentPlayerHasMoved = true;
@@ -738,7 +777,7 @@ public class GameFacade {
     public String getCurrentProperty(){
         Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
         if(deed != null){
-            if(!deed.getOwner().equals(bank)) {
+            if(deed.getOwner() instanceof Bank){
                 return "Would you like to buy " + deed.getName() + " for $" + deed.getCost() + "?";
             }
         }
@@ -751,6 +790,7 @@ public class GameFacade {
             currentPlayer.removeMoney(deed.getCost());
             currentPlayer.addToPropertiesOwned(deed);
             bank.removeFromPropertiesOwned(deed);
+            deed.setOwner(currentPlayer);
             return true;
         }else{
             return false;
