@@ -356,7 +356,7 @@ public class GameFacade {
                 else {
                     actionResult += "\nYou landed on Community Chest, draw a Community Chest card.";
                     Card communityChestCard = board.drawCommunityChestCard();
-                    actionResult += "\nCommunity Chest card:\n" + communityChestCard.getCardDescription();
+                    actionResult += "\nCommunity Chest:\n" + communityChestCard.getDescription();
                     actionResult += performCardAction(communityChestCard);
                 }
                 break;
