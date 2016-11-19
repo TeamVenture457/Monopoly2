@@ -251,16 +251,16 @@ public class Board {
                     case "Go":
                         thisSpaceType = SpaceType.GO;
                         break;
-                    case "Community Chest":
+                    case "Treasure Chest":
                         thisSpaceType = SpaceType.COMMUNITYCHEST;
                         break;
-                    case "Income Tax":
+                    case "Door Fee":
                         thisSpaceType = SpaceType.INCOMETAX;
                         break;
-                    case "Luxury Tax":
+                    case "Mask Merchant":
                         thisSpaceType = SpaceType.LUXURYTAX;
                         break;
-                    case "Chance":
+                    case "Empty Bottle":
                         thisSpaceType = SpaceType.CHANCE;
                         break;
                     case "In Jail":
@@ -302,8 +302,8 @@ public class Board {
         for (Card currentCard : communityChestCards){
             communityChestCardsString += currentCard.getCardDescription();
         }
-        System.out.println("Chance Cards:\n" + chanceCardsString);
-        System.out.println("Community Chest Cards:\n" + communityChestCardsString);
+        System.out.println("Empty Bottle Cards:\n" + chanceCardsString);
+        System.out.println("Treasure Chest Cards:\n" + communityChestCardsString);
     }
 
     public Property getPropertyByName(String propertyName) {

@@ -6,7 +6,7 @@
       <type>other</type>
    </space>
 
-   <space name="Mediterranean Avenue">
+   <space name="Elemental Sanctuary">
       <position>1</position>
       <type>street</type>
       <color>brown</color>
@@ -22,12 +22,12 @@
       <hotelcost>50</hotelcost>
    </space>
 
-   <space name="Community Chest">
+   <space name="Treasure Chest">
       <position>2</position>
       <type>other</type>
    </space>
 
-   <space name="Baltic Avenue">
+   <space name="Minish Village">
       <position>3</position>
       <type>street</type>
       <color>brown</color>
@@ -43,13 +43,13 @@
       <hotelcost>50</hotelcost>
    </space>
 
-   <space name="Income Tax">
+   <space name="Door Fee">
       <position>4</position>
       <type>other</type>
       <tax>200</tax>
    </space>
 
-   <space name="Reading Railroad">
+   <space name="Spirit Train">
       <position>5</position>
       <type>railroad</type>
       <price>200</price>
@@ -60,7 +60,7 @@
       <mortgagevalue>100</mortgagevalue>
    </space>
 
-   <space name="Oriental Avenue">
+   <space name="House of Gales">
       <position>6</position>
       <type>street</type>
       <color>sky</color>
@@ -76,12 +76,12 @@
       <hotelcost>50</hotelcost>
    </space>
 
-   <space name="Chance">
+   <space name="Empty Bottle">
       <position>7</position>
       <type>other</type>
    </space>
 
-   <space name="Vermont Avenue">
+   <space name="Sacred Realm">
       <position>8</position>
       <type>street</type>
       <color>sky</color>
@@ -97,7 +97,7 @@
       <hotelcost>50</hotelcost>
    </space>
 
-   <space name="Connecticut Avenue">
+   <space name="Lorule Castle">
       <position>9</position>
       <type>street</type>
       <color>sky</color>
@@ -123,7 +123,7 @@
       <type>other</type>
    </space>
 
-   <space name="St. Charles Place">
+   <space name="Forsaken Fortress">
       <position>11</position>
       <type>street</type>
       <color>purple</color>
@@ -139,7 +139,7 @@
       <hotelcost>100</hotelcost>
    </space>
 
-   <space name="Electric Company">
+   <space name="Bomb Shop">
       <position>12</position>
       <type>utility</type>
       <price>150</price>
@@ -149,7 +149,7 @@
       <mortgagevalue>75</mortgagevalue>
    </space>
 
-   <space name="States Avenue">
+   <space name="Tower of the Gods">
       <position>13</position>
       <type>street</type>
       <color>purple</color>
@@ -165,7 +165,7 @@
       <hotelcost>100</hotelcost>
    </space>
 
-   <space name="Virginia Avenue">
+   <space name="Dragon Roost Island">
       <position>14</position>
       <type>street</type>
       <color>purple</color>
@@ -181,7 +181,7 @@
       <hotelcost>100</hotelcost>
    </space>
 
-   <space name="Pennsylvania Railroad">
+   <space name="Loftwing">
       <position>15</position>
       <type>railroad</type>
       <price>200</price>
@@ -192,7 +192,7 @@
       <mortgagevalue>100</mortgagevalue>
    </space>
 
-   <space name="St. James Place">
+   <space name="Four Swords Sanctuary">
       <position>16</position>
       <type>street</type>
       <color>orange</color>
@@ -208,12 +208,12 @@
       <hotelcost>100</hotelcost>
    </space>
 
-   <space name="Community Chest">
+   <space name="Treasure Chest">
       <position>17</position>
       <type>other</type>
    </space>
 
-   <space name="Tennessee Avenue">
+   <space name="Death Mountain">
       <position>18</position>
       <type>street</type>
       <color>orange</color>
@@ -229,7 +229,7 @@
       <hotelcost>100</hotelcost>
    </space>
 
-   <space name="New York Avenue">
+   <space name="Vaati's Palace">
       <position>19</position>
       <type>street</type>
       <color>orange</color>
@@ -250,7 +250,7 @@
       <type>other</type>
    </space>
 
-   <space name="Kentucky Avenue">
+   <space name="Gerudo Desert">
       <position>21</position>
       <type>street</type>
       <color>red</color>
@@ -266,12 +266,12 @@
       <hotelcost>150</hotelcost>
    </space>
 
-   <space name="Chance">
+   <space name="Empty Bottle">
       <position>22</position>
       <type>other</type>
    </space>
 
-   <space name="Indiana Avenue">
+   <space name="Zora's Domain">
       <position>23</position>
       <type>street</type>
       <color>red</color>
@@ -287,7 +287,7 @@
       <hotelcost>150</hotelcost>
    </space>
 
-   <space name="Illinois Avenue">
+   <space name="Twilight Realm">
       <position>24</position>
       <type>street</type>
       <color>red</color>
@@ -303,7 +303,7 @@
       <hotelcost>150</hotelcost>
    </space>
 
-   <space name="B&amp;O Railroad">
+   <space name="King of Red Lions">
       <position>25</position>
       <type>railroad</type>
       <price>200</price>
@@ -314,7 +314,7 @@
       <mortgagevalue>100</mortgagevalue>
    </space>
 
-   <space name="Atlantic Avenue">
+   <space name="Snowhead">
       <position>26</position>
       <type>street</type>
       <color>yellow</color>
@@ -330,7 +330,7 @@
       <hotelcost>150</hotelcost>
    </space>
 
-   <space name="Ventnor Avenue">
+   <space name="Great Bay">
       <position>27</position>
       <type>street</type>
       <color>yellow</color>
@@ -346,7 +346,7 @@
       <hotelcost>150</hotelcost>
    </space>
 
-   <space name="Water Company">
+   <space name="Potion Shop">
       <position>28</position>
       <type>utility</type>
       <price>150</price>
@@ -356,7 +356,7 @@
       <mortgagevalue>75</mortgagevalue>
    </space>
 
-   <space name="Marvin Gardens">
+   <space name="Clock Town">
       <position>29</position>
       <type>street</type>
       <color>yellow</color>
@@ -377,7 +377,7 @@
       <type>other</type>
    </space>
 
-   <space name="Pacific Avenue">
+   <space name="Eldin Volcano">
       <position>31</position>
       <type>street</type>
       <color>green</color>
@@ -393,7 +393,7 @@
       <hotelcost>200</hotelcost>
    </space>
 
-   <space name="North Carolina Avenue">
+   <space name="Faron Woods">
       <position>32</position>
       <type>street</type>
       <color>green</color>
@@ -409,12 +409,12 @@
       <hotelcost>200</hotelcost>
    </space>
 
-   <space name="Community Chest">
+   <space name="Treasure Chest">
       <position>33</position>
       <type>other</type>
    </space>
 
-   <space name="Pennsylvania Avenue">
+   <space name="Skyloft">
       <position>34</position>
       <type>street</type>
       <color>green</color>
@@ -430,7 +430,7 @@
       <hotelcost>200</hotelcost>
    </space>
 
-   <space name="Short Line">
+   <space name="Epona">
       <position>35</position>
       <type>railroad</type>
       <price>200</price>
@@ -441,12 +441,12 @@
       <mortgagevalue>100</mortgagevalue>
    </space>
 
-   <space name="Chance">
+   <space name="Empty Bottle">
       <position>36</position>
       <type>other</type>
    </space>
 
-   <space name="Park Place">
+   <space name="Hyrule Castle">
       <position>37</position>
       <type>street</type>
       <color>blue</color>
@@ -462,13 +462,13 @@
       <hotelcost>200</hotelcost>
    </space>
 
-   <space name="Luxury Tax">
+   <space name="Mask Merchant">
       <position>38</position>
       <type>other</type>
       <tax>100</tax>
    </space>
 
-   <space name="Boardwalk">
+   <space name="Temple of Time">
       <position>39</position>
       <type>street</type>
       <color>blue</color>

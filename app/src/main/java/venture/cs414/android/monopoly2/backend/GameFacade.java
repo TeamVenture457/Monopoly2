@@ -201,12 +201,12 @@ public class GameFacade {
             String spaceName = board.getBoardSpaces()[currentPlayer.getLocation()].getName();
             int tax = 0;
             switch (spaceName) {
-                case "Income Tax":
+                case "Door Fee":
                     tax = 200;
                     player.removeMoney(tax);
                     returnString += "\nYou paid a " + spaceName + " of $" + tax;
                     break;
-                case "Luxury Tax":
+                case "Mask Merchant":
                     tax = 100;
                     player.removeMoney(tax);
                     returnString += "\nYou paid a " + spaceName + " of $" + tax;
@@ -218,19 +218,17 @@ public class GameFacade {
                     returnString += "\nYou landed on 'Go to Jail' and went straight to jail";
                     currentPlayerHasMoved = true;
                     break;
-                case "Chance":
-                    returnString += "\nYou landed on Chance, draw a Chance card.";
+                case "Empty Bottle":
+                    returnString += "\nYou landed on Empty Bottle, draw a Empty Bottle card.";
                     Card chanceCard = board.drawChanceCard();
-                    returnString += "\nChance: " + chanceCard.getDescription();
+                    returnString += "\nEmpty Bottle: " + chanceCard.getDescription();
                     returnString += performCardAction(chanceCard);
-
                     break;
-                case "Community Chest":
-                    returnString += "\nYou landed on Community Chest, draw a Community Chest card.";
+                case "Treasure Chest":
+                    returnString += "\nYou landed on Treasure Chest, draw a Tresure Chest card.";
                     Card communityChestCard = board.drawCommunityChestCard();
-                    returnString += "\nCommunity Chest: " + communityChestCard.getDescription();
+                    returnString += "\nTreasure Chest: " + communityChestCard.getDescription();
                     returnString += performCardAction(communityChestCard);
-
                     break;
                 default:
                     // do nothing
@@ -332,13 +330,13 @@ public class GameFacade {
                 currentPlayer.movePlayerBack(distance);
                 space = board.getBoardSpace(currentPlayer.getLocation());
                 deed = space.getDeed();
-                if(space.getName().equals("Income Tax")){
+                if(space.getName().equals("Door Fee")){
                     int tax = 200;
                     currentPlayer.removeMoney(tax);
                     actionResult += "\nYou moved back to Income Tax.";
                     actionResult += "\nYou paid a Income Tax of $" + tax;
                 }
-                else if(space.getName().equals("New York Avenue")){
+                else if(space.getName().equals("Vaati's Palace")){
                     if(deed.getOwner() instanceof Bank){
                         actionResult += "\nYou moved to " + deed.getName();
                         actionResult += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
@@ -928,7 +926,7 @@ public class GameFacade {
             spaceInfo += "Players in Jail:\n";
             List<String> playerNames2 = new ArrayList<>();
             for (Player player: players){
-                if(player.getLocation() == 40){
+                if(player.isInJail()){
                     playerNames2.add(player.getName());
                 }
             }
