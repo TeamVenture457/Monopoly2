@@ -13,6 +13,8 @@
     tools:context=".frontend.MainActivity"
     tools:showIn="@layout/activity_main">
 
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +53,7 @@
     <TextView
         android:layout_width="180dp"
         android:layout_height="75dp"
-        android:text="Current Player Information will display here. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        android:text="Current Player Information will display here."
         android:id="@+id/CurrentPlayerInfoField"
         android:layout_below="@+id/CurrentPlayerInfoLabel"
         android:layout_alignRight="@+id/CurrentPlayerInfoLabel"
@@ -92,6 +94,7 @@
         android:layout_centerHorizontal="true">
 
         <Button
+            android:onClick="clickSpace0"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace0"
@@ -102,6 +105,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace1"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace1"
@@ -113,6 +117,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace2"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace2"
@@ -124,6 +129,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace3"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace3"
@@ -135,6 +141,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace4"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace4"
@@ -146,6 +153,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace5"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace5"
@@ -157,6 +165,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace6"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace6"
@@ -168,6 +177,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace7"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace7"
@@ -179,6 +189,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace8"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace8"
@@ -190,6 +201,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace9"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace9"
@@ -201,6 +213,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace10"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace10"
@@ -212,6 +225,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace11"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace11"
@@ -223,6 +237,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace12"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace12"
@@ -234,6 +249,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace13"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace13"
@@ -245,6 +261,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace14"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace14"
@@ -256,6 +273,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace15"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace15"
@@ -267,6 +285,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace16"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace16"
@@ -278,6 +297,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace17"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace17"
@@ -289,6 +309,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace18"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace18"
@@ -300,6 +321,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace19"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace19"
@@ -311,6 +333,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace20"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace20"
@@ -322,6 +345,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace21"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace21"
@@ -333,6 +357,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace22"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace22"
@@ -344,6 +369,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace23"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace23"
@@ -355,6 +381,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace24"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace24"
@@ -366,6 +393,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace25"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace25"
@@ -377,6 +405,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace26"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace26"
@@ -388,6 +417,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace27"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace27"
@@ -399,6 +429,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace28"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace28"
@@ -410,6 +441,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace29"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace29"
@@ -421,6 +453,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace30"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace30"
@@ -432,6 +465,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace31"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace31"
@@ -443,6 +477,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace32"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace32"
@@ -454,6 +489,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace33"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace33"
@@ -465,6 +501,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace34"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace34"
@@ -476,6 +513,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace35"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace35"
@@ -487,6 +525,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace36"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace36"
@@ -498,6 +537,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace37"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace37"
@@ -509,6 +549,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace38"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace38"
@@ -520,6 +561,7 @@
             android:textColor="@color/red"
             android:textSize="7sp"/>
         <Button
+            android:onClick="clickSpace39"
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:id="@+id/buttonspace39"
