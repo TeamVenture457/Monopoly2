@@ -317,30 +317,27 @@ public class Board {
     }
 
     public int getNextUtilityPosition(int location) {
-        int position = location;
-        boolean found = false;
-        while(!found){
-            position = (position + 1) % (NUMBEROFSPACES-1);
-            Space space = boardSpaces[position];
-            Property deed = space.getDeed();
-            if(deed instanceof Utility){
-                found = true;
-            }
+        //chance positions 7, 22, and 36
+        //utility positions 12, 28
+        if(location == 22){
+            return 28;
         }
-        return position;
+        else{
+            return 12;
+        }
     }
 
     public int getNextRailroadPosition(int location) {
-        int position = location;
-        boolean found = false;
-        while(!found){
-            position = (position + 1) % (NUMBEROFSPACES-1);
-            Space space = boardSpaces[position];
-            Property deed = space.getDeed();
-            if(deed instanceof Railroad){
-                found = true;
-            }
+        //chance positions 7, 22, and 36
+        //railroads 5, 15, 25, 35
+        if(location == 7){
+            return 15;
         }
-        return position;
+        else if(location == 22){
+            return 25;
+        }
+        else{
+            return 5;
+        }
     }
 }

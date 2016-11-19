@@ -252,7 +252,7 @@ public class GameFacade {
 
             case "moveTo":
                 position = Integer.parseInt(actions.get(1));
-                currentPlayer.movePlayer(position);
+                currentPlayer.movePlayerTo(position);
                 space = board.getBoardSpace(currentPlayer.getLocation());
                 deed = space.getDeed();
                 if(deed != null){
@@ -282,7 +282,7 @@ public class GameFacade {
                 else{
                     position = board.getNextRailroadPosition(currentPlayer.getLocation());
                 }
-                currentPlayer.movePlayer(position);
+                currentPlayer.movePlayerTo(position);
                 space = board.getBoardSpace(currentPlayer.getLocation());
                 deed = space.getDeed();
                 if(deed.getOwner() instanceof Bank){
