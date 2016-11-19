@@ -219,14 +219,14 @@ public class GameFacade {
                     currentPlayerHasMoved = true;
                     break;
                 case "Chance":
-                    returnString += "\n\nYou landed on Chance, draw a Chance card.";
+                    returnString += "\nYou landed on Chance, draw a Chance card.";
                     Card chanceCard = board.drawChanceCard();
                     returnString += "\nChance card:\n" + chanceCard.getCardDescription();
                     returnString += performCardAction(chanceCard);
 
                     break;
                 case "Community Chest":
-                    returnString += "\n\nYou landed on Community Chest, draw a Community Chest card.";
+                    returnString += "\nYou landed on Community Chest, draw a Community Chest card.";
                     Card communityChestCard = board.drawCommunityChestCard();
                     returnString += "\nCommunity Chest card:\n" + communityChestCard.getCardDescription();
                     returnString += performCardAction(communityChestCard);
@@ -263,7 +263,7 @@ public class GameFacade {
                         if(!currentPlayer.equals(owner)) {
                             int rent = deed.calculateRent();
                             payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
-                            actionResult += "\n\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
+                            actionResult += "\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
                             actionResult += "\nYou paid $" + rent + " in rent.";
                         }
                     }else{
@@ -298,12 +298,12 @@ public class GameFacade {
                         if(deed instanceof Utility){
                             int roll = dice.rollDice();
                             rent = roll * 10;
-                            actionResult += "\n\nYou moved to the next Utility, " + deed.getName() + ", Owned by " + deedOwner.getName();
+                            actionResult += "\nYou moved to the next Utility, " + deed.getName() + ", Owned by " + deedOwner.getName();
                             actionResult += "\nYou paid $" + rent + " in rent. Your roll was " + roll + " (card says 10*roll).";
                         }
                         else{
                             rent = 2*deed.calculateRent();
-                            actionResult += "\n\nYou moved to the next Railroad, " + deed.getName() + ", Owned by " + deedOwner.getName();
+                            actionResult += "\nYou moved to the next Railroad, " + deed.getName() + ", Owned by " + deedOwner.getName();
                             actionResult += "\nYou paid $" + rent + " in rent. The rent was " + deed.calculateRent() + " (card says 2*rent).";
                         }
                         payPlayer(currentPlayer, deedOwner, rent);
@@ -314,12 +314,12 @@ public class GameFacade {
             case "collectBank":
                 int collectAmount = Integer.parseInt(actions.get(1));
                 currentPlayer.addMoney(collectAmount);
-                actionResult += "\n\nYou collected " + collectAmount + " from the bank.";
+                actionResult += "\nYou collected " + collectAmount + " from the bank.";
                 break;
 
             case "getOutOfJail":
                 currentPlayer.storeGetOutOfJailCard(card);
-                actionResult += "\n\nYou added the 'Get Out Of Jail' card to your collection for a later use!";
+                actionResult += "\nYou added the 'Get Out Of Jail' card to your collection for a later use!";
                 break;
 
             case "moveBack":
@@ -335,7 +335,7 @@ public class GameFacade {
                 if(space.getName().equals("Income Tax")){
                     int tax = 200;
                     currentPlayer.removeMoney(tax);
-                    actionResult += "\n\nYou moved back to Income Tax.";
+                    actionResult += "\nYou moved back to Income Tax.";
                     actionResult += "\nYou paid a Income Tax of $" + tax;
                 }
                 else if(space.getName().equals("New York Avenue")){
@@ -347,14 +347,14 @@ public class GameFacade {
                         if(!deed.getOwner().equals(currentPlayer)){
                             int rent = deed.calculateRent();
                             payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
-                            actionResult += "\n\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
+                            actionResult += "\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
                             actionResult += "\nYou paid $" + rent + " in rent.";
                         }
                     }
                 }
                 //Community Chest
                 else {
-                    actionResult += "\n\nYou landed on Community Chest, draw a Community Chest card.";
+                    actionResult += "\nYou landed on Community Chest, draw a Community Chest card.";
                     Card communityChestCard = board.drawCommunityChestCard();
                     actionResult += "\nCommunity Chest card:\n" + communityChestCard.getCardDescription();
                     actionResult += performCardAction(communityChestCard);
@@ -364,7 +364,7 @@ public class GameFacade {
             case "goToJail":
                 currentPlayer.putInJail();
                 currentPlayerHasMoved = true;
-                actionResult += "\n\nYou have been placed in jail.";
+                actionResult += "\nYou have been placed in jail.";
                 break;
 
             case "payForBuildings":
@@ -380,13 +380,13 @@ public class GameFacade {
                 }
                 int totalCost = numHouses * pricePerHouse + numHotels * pricePerHotel;
                 currentPlayer.removeMoney(totalCost);
-                actionResult += "\n\nYou paid a total of " + totalCost + " for your " + numHouses + " houses and " + numHotels + " hotels.";
+                actionResult += "\nYou paid a total of " + totalCost + " for your " + numHouses + " houses and " + numHotels + " hotels.";
                 break;
 
             case "payBank":
                 int payAmount = Integer.parseInt(actions.get(1));
                 currentPlayer.removeMoney(payAmount);
-                actionResult += "\n\nYou collected " + payAmount + " from the bank.";
+                actionResult += "\nYou collected " + payAmount + " from the bank.";
                 break;
 
             case "payEachPlayer":
@@ -395,7 +395,7 @@ public class GameFacade {
                     currentPlayer.removeMoney(payAmount);
                     player.addMoney(payAmount);
                 }
-                actionResult += "\n\nYou paid each player $" + payAmount + ".";
+                actionResult += "\nYou paid each player $" + payAmount + ".";
                 break;
 
             case "collectEachPlayer":
@@ -404,11 +404,11 @@ public class GameFacade {
                     player.removeMoney(collectAmount);
                     currentPlayer.addMoney(collectAmount);
                 }
-                actionResult += "\n\nYou collected from each player $" + collectAmount + ".";
+                actionResult += "\nYou collected from each player $" + collectAmount + ".";
                 break;
 
             default:
-                actionResult += "\n\nYou drew a card with an unknown action.";
+                actionResult += "\nYou drew a card with an unknown action: " + actions.get(0);
                 break;
         }
         return actionResult;
@@ -928,7 +928,7 @@ public class GameFacade {
             spaceInfo += "Players in Jail:\n";
             List<String> playerNames2 = new ArrayList<>();
             for (Player player: players){
-                if(player.getLocation() == spaceNumber){
+                if(player.getLocation() == 40){
                     playerNames2.add(player.getName());
                 }
             }
