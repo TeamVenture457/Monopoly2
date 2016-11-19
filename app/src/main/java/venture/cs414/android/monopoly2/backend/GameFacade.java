@@ -537,16 +537,17 @@ public class GameFacade {
     public void sellAProperty(String propertyName, String buyerName, int cost){
         Player buyer = getPlayerByName(buyerName);
         Property property = board.getPropertyByName(propertyName);
-        if(buyer.canAfford(cost)){
+        if(!buyer.canAfford(cost)){
             currentMessage = buyerName + " cannot afford that price!";
         }else {
             currentPlayer.removeFromPropertiesOwned(property);
             buyer.addToPropertiesOwned(property);
             property.setOwner(currentPlayer);
             payPlayer(buyer, currentPlayer, cost);
+            currentMessage = "Transaction Successful! :D";
         }
 
-        currentMessage = "Transaction Successful! :D";
+
     }
 
     public void advanceTurn(){
