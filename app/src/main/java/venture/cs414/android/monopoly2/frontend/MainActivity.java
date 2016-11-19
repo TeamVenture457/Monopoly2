@@ -4,9 +4,6 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
@@ -17,17 +14,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import venture.cs414.android.monopoly2.R;
-import venture.cs414.android.monopoly2.backend.Board;
 import venture.cs414.android.monopoly2.backend.GameFacade;
 
 
@@ -53,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private int currentIndex;
 
 
+    private List<Button> boardButtons;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +71,93 @@ public class MainActivity extends AppCompatActivity {
         currentPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
         otherPlayerInfo = (TextView)findViewById(R.id.AllPlayerInfoField);
         otherPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
+
+
+        Button button0 = (Button) findViewById(R.id.buttonspace0);
+        Button button1 = (Button) findViewById(R.id.buttonspace1);
+        Button button2 = (Button) findViewById(R.id.buttonspace2);
+        Button button3 = (Button) findViewById(R.id.buttonspace3);
+        Button button4 = (Button) findViewById(R.id.buttonspace4);
+        Button button5 = (Button) findViewById(R.id.buttonspace5);
+        Button button6 = (Button) findViewById(R.id.buttonspace6);
+        Button button7 = (Button) findViewById(R.id.buttonspace7);
+        Button button8 = (Button) findViewById(R.id.buttonspace8);
+        Button button9 = (Button) findViewById(R.id.buttonspace9);
+        Button button10 = (Button) findViewById(R.id.buttonspace10);
+        Button button11 = (Button) findViewById(R.id.buttonspace11);
+        Button button12 = (Button) findViewById(R.id.buttonspace12);
+        Button button13 = (Button) findViewById(R.id.buttonspace13);
+        Button button14 = (Button) findViewById(R.id.buttonspace14);
+        Button button15 = (Button) findViewById(R.id.buttonspace15);
+        Button button16 = (Button) findViewById(R.id.buttonspace16);
+        Button button17 = (Button) findViewById(R.id.buttonspace17);
+        Button button18 = (Button) findViewById(R.id.buttonspace18);
+        Button button19 = (Button) findViewById(R.id.buttonspace19);
+        Button button20 = (Button) findViewById(R.id.buttonspace20);
+        Button button21 = (Button) findViewById(R.id.buttonspace21);
+        Button button22 = (Button) findViewById(R.id.buttonspace22);
+        Button button23 = (Button) findViewById(R.id.buttonspace23);
+        Button button24 = (Button) findViewById(R.id.buttonspace24);
+        Button button25 = (Button) findViewById(R.id.buttonspace25);
+        Button button26 = (Button) findViewById(R.id.buttonspace26);
+        Button button27 = (Button) findViewById(R.id.buttonspace27);
+        Button button28 = (Button) findViewById(R.id.buttonspace28);
+        Button button29 = (Button) findViewById(R.id.buttonspace29);
+        Button button30 = (Button) findViewById(R.id.buttonspace30);
+        Button button31 = (Button) findViewById(R.id.buttonspace31);
+        Button button32 = (Button) findViewById(R.id.buttonspace32);
+        Button button33 = (Button) findViewById(R.id.buttonspace33);
+        Button button34 = (Button) findViewById(R.id.buttonspace34);
+        Button button35 = (Button) findViewById(R.id.buttonspace35);
+        Button button36 = (Button) findViewById(R.id.buttonspace36);
+        Button button37 = (Button) findViewById(R.id.buttonspace37);
+        Button button38 = (Button) findViewById(R.id.buttonspace38);
+        Button button39 = (Button) findViewById(R.id.buttonspace39);
+
+
+
+        boardButtons = new ArrayList<>();
+        boardButtons.add(button0);
+        boardButtons.add(button1);
+        boardButtons.add(button2);
+        boardButtons.add(button3);
+        boardButtons.add(button4);
+        boardButtons.add(button5);
+        boardButtons.add(button6);
+        boardButtons.add(button7);
+        boardButtons.add(button8);
+        boardButtons.add(button9);
+        boardButtons.add(button10);
+        boardButtons.add(button11);
+        boardButtons.add(button12);
+        boardButtons.add(button13);
+        boardButtons.add(button14);
+        boardButtons.add(button15);
+        boardButtons.add(button16);
+        boardButtons.add(button17);
+        boardButtons.add(button18);
+        boardButtons.add(button19);
+        boardButtons.add(button20);
+        boardButtons.add(button21);
+        boardButtons.add(button22);
+        boardButtons.add(button23);
+        boardButtons.add(button24);
+        boardButtons.add(button25);
+        boardButtons.add(button26);
+        boardButtons.add(button27);
+        boardButtons.add(button28);
+        boardButtons.add(button29);
+        boardButtons.add(button30);
+        boardButtons.add(button31);
+        boardButtons.add(button32);
+        boardButtons.add(button33);
+        boardButtons.add(button34);
+        boardButtons.add(button35);
+        boardButtons.add(button36);
+        boardButtons.add(button37);
+        boardButtons.add(button38);
+        boardButtons.add(button39);
+
         updateAllInfo();
 
         /*new CountDownTimer(numMiliSeconds, 1000){
@@ -100,6 +185,9 @@ public class MainActivity extends AppCompatActivity {
         turnInfo.setText(gameFacade.getCurrentMessage());
         currentPlayerInfo.setText(gameFacade.getCurrentPlayerInfo());
         otherPlayerInfo.setText(gameFacade.getOtherPlayerInfo());
+        for(Button button: boardButtons){
+            button.setText(gameFacade.getSpaceInfo(boardButtons.indexOf(button)));
+        }
     }
 
     @Override
@@ -361,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
     public void getSpaceInfoForToast(int spaceNumber){
         try {
             //implement call
-            String message = gameFacade.getSpaceInfo(spaceNumber);
+            String message = gameFacade.getClickedSpaceInfo(spaceNumber);
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
