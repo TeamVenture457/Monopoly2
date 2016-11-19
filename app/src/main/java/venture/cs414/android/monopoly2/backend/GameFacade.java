@@ -199,7 +199,6 @@ public class GameFacade {
                     returnString += "\nand moved that many spaces!";
                     returnString += "\nYou landed on 'Go to Jail' and went straight to jail";
                     currentPlayerHasMoved = true;
-                    deed = null;
                     break;
                 case "Chance":
                     returnString += "\n\nYou landed on Chance, draw a Chance card.";
@@ -229,9 +228,9 @@ public class GameFacade {
     private String performCardAction(Card card) {
         List<String> actions = card.getActionDetails();
         String actionResult = "";
-        int position = 0;
-        Space space = null;
-        Property deed = null;
+        int position;
+        Space space;
+        Property deed;
 
         switch(actions.get(0)){
 
