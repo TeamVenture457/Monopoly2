@@ -186,7 +186,8 @@ public class GameFacade {
 
         if(deed != null){
             if(!(deed.getOwner() instanceof Bank)){
-                if(!((Player)deed.getOwner()).equals(currentPlayer)) {
+                Player owner = (Player) deed.getOwner();
+                if(!currentPlayer.equals(owner)) {
                     int rent = deed.calculateRent();
                     payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
                     returnString += "\n\nYou landed on " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
@@ -194,7 +195,7 @@ public class GameFacade {
                 }
             }else{
                 returnString += "\nYou landed on " + deed.getName();
-                //returnString += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                returnString += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
             }
         }else{
             String spaceName = board.getBoardSpaces()[currentPlayer.getLocation()].getName();
@@ -216,7 +217,20 @@ public class GameFacade {
                     returnString += "\nand moved that many spaces!";
                     returnString += "\nYou landed on 'Go to Jail' and went straight to jail";
                     currentPlayerHasMoved = true;
-                    deed = null;
+                    break;
+                case "Chance":
+                    returnString += "\nYou landed on Chance, draw a Chance card.";
+                    Card chanceCard = board.drawChanceCard();
+                    returnString += "\nChance: " + chanceCard.getDescription();
+                    returnString += performCardAction(chanceCard);
+
+                    break;
+                case "Community Chest":
+                    returnString += "\nYou landed on Community Chest, draw a Community Chest card.";
+                    Card communityChestCard = board.drawCommunityChestCard();
+                    returnString += "\nCommunity Chest: " + communityChestCard.getDescription();
+                    returnString += performCardAction(communityChestCard);
+
                     break;
                 default:
                     // do nothing
@@ -227,6 +241,177 @@ public class GameFacade {
         currentMessage = returnString;
 
         return returnString;
+    }
+
+    private String performCardAction(Card card) {
+        List<String> actions = card.getActionDetails();
+        String actionResult = "";
+        int position;
+        Space space;
+        Property deed;
+
+        switch(actions.get(0)){
+
+            case "moveTo":
+                position = Integer.parseInt(actions.get(1));
+                currentPlayer.movePlayer(position);
+                space = board.getBoardSpace(currentPlayer.getLocation());
+                deed = space.getDeed();
+                if(deed != null){
+                    if(!(deed.getOwner() instanceof Bank)){
+                        Player owner = (Player) deed.getOwner();
+                        if(!currentPlayer.equals(owner)) {
+                            int rent = deed.calculateRent();
+                            payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
+                            actionResult += "\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
+                            actionResult += "\nYou paid $" + rent + " in rent.";
+                        }
+                    }else{
+                        actionResult += "\nYou moved to " + deed.getName();
+                        actionResult += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                    }
+                }
+                else{
+                    actionResult += "\nYou moved to " + space.getName();
+                }
+                break;
+
+            case "moveToNext":
+                String deedType = actions.get(1);
+                if(deedType.equals("utility")){
+                    position = board.getNextUtilityPosition(currentPlayer.getLocation());
+                }
+                else{
+                    position = board.getNextRailroadPosition(currentPlayer.getLocation());
+                }
+                currentPlayer.movePlayer(position);
+                space = board.getBoardSpace(currentPlayer.getLocation());
+                deed = space.getDeed();
+                if(deed.getOwner() instanceof Bank){
+                    actionResult += "\nYou moved to " + deed.getName();
+                    actionResult += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                }
+                else{
+                    Player deedOwner = (Player) deed.getOwner();
+                    if(!currentPlayer.equals(deedOwner)){
+                        int rent;
+                        if(deed instanceof Utility){
+                            int roll = dice.rollDice();
+                            rent = roll * 10;
+                            actionResult += "\nYou moved to the next Utility, " + deed.getName() + ", Owned by " + deedOwner.getName();
+                            actionResult += "\nYou paid $" + rent + " in rent. Your roll was " + roll + " (card says 10*roll).";
+                        }
+                        else{
+                            rent = 2*deed.calculateRent();
+                            actionResult += "\nYou moved to the next Railroad, " + deed.getName() + ", Owned by " + deedOwner.getName();
+                            actionResult += "\nYou paid $" + rent + " in rent. The rent was " + deed.calculateRent() + " (card says 2*rent).";
+                        }
+                        payPlayer(currentPlayer, deedOwner, rent);
+                    }
+                }
+                break;
+
+            case "collectBank":
+                int collectAmount = Integer.parseInt(actions.get(1));
+                currentPlayer.addMoney(collectAmount);
+                actionResult += "\nYou collected " + collectAmount + " from the bank.";
+                break;
+
+            case "getOutOfJail":
+                currentPlayer.storeGetOutOfJailCard(card);
+                actionResult += "\nYou added the 'Get Out Of Jail' card to your collection for a later use!";
+                break;
+
+            case "moveBack":
+                //expected distance to move back is 3
+                //so distance should be 37
+                //meaning that from a chance space
+                //they can land on Income Tax, New York Avenue, or
+                //Community Chest
+                int distance = Integer.parseInt(actions.get(1));
+                currentPlayer.movePlayerBack(distance);
+                space = board.getBoardSpace(currentPlayer.getLocation());
+                deed = space.getDeed();
+                if(space.getName().equals("Income Tax")){
+                    int tax = 200;
+                    currentPlayer.removeMoney(tax);
+                    actionResult += "\nYou moved back to Income Tax.";
+                    actionResult += "\nYou paid a Income Tax of $" + tax;
+                }
+                else if(space.getName().equals("New York Avenue")){
+                    if(deed.getOwner() instanceof Bank){
+                        actionResult += "\nYou moved to " + deed.getName();
+                        actionResult += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                    }
+                    else{
+                        if(!deed.getOwner().equals(currentPlayer)){
+                            int rent = deed.calculateRent();
+                            payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
+                            actionResult += "\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
+                            actionResult += "\nYou paid $" + rent + " in rent.";
+                        }
+                    }
+                }
+                //Community Chest
+                else {
+                    actionResult += "\nYou landed on Community Chest, draw a Community Chest card.";
+                    Card communityChestCard = board.drawCommunityChestCard();
+                    actionResult += "\nCommunity Chest:\n" + communityChestCard.getDescription();
+                    actionResult += performCardAction(communityChestCard);
+                }
+                break;
+
+            case "goToJail":
+                currentPlayer.putInJail();
+                currentPlayerHasMoved = true;
+                actionResult += "\nYou have been placed in jail.";
+                break;
+
+            case "payForBuildings":
+                int numHouses = 0;
+                int numHotels = 0;
+                int pricePerHouse = Integer.parseInt(actions.get(1));
+                int pricePerHotel = Integer.parseInt(actions.get(2));
+                for(Property owned : currentPlayer.getPropertiesOwned()){
+                    if(owned instanceof Street){
+                        numHouses += ((Street) owned).getNumHouses();
+                        if(((Street) owned).hasHotel()) numHotels++;
+                    }
+                }
+                int totalCost = numHouses * pricePerHouse + numHotels * pricePerHotel;
+                currentPlayer.removeMoney(totalCost);
+                actionResult += "\nYou paid a total of " + totalCost + " for your " + numHouses + " houses and " + numHotels + " hotels.";
+                break;
+
+            case "payBank":
+                int payAmount = Integer.parseInt(actions.get(1));
+                currentPlayer.removeMoney(payAmount);
+                actionResult += "\nYou paid $" + payAmount + " to the bank.";
+                break;
+
+            case "payEachPlayer":
+                payAmount = Integer.parseInt(actions.get(1));
+                for(Player player : players){
+                    currentPlayer.removeMoney(payAmount);
+                    player.addMoney(payAmount);
+                }
+                actionResult += "\nYou paid each player $" + payAmount + ".";
+                break;
+
+            case "collectEachPlayer":
+                collectAmount = Integer.parseInt(actions.get(1));
+                for(Player player : players){
+                    player.removeMoney(collectAmount);
+                    currentPlayer.addMoney(collectAmount);
+                }
+                actionResult += "\nYou collected from each player $" + collectAmount + ".";
+                break;
+
+            default:
+                actionResult += "\nYou drew a card with an unknown action: " + actions.get(0);
+                break;
+        }
+        return actionResult;
     }
 
     public void payJail() {
@@ -688,5 +873,76 @@ public class GameFacade {
     public boolean playerCanAfford(String playerName, int amount){
         Player player = getPlayerByName(playerName);
         return player.canAfford(amount);
+    }
+
+    public String getSpaceInfo(int spaceNumber){
+        String ownerString = "";
+        String buildings = "Buildings: None\n";
+        Space s1 = board.getBoardSpace(spaceNumber);
+        String spaceInfo = "Space: " + s1.getName() + "\n";
+        Property deed = s1.getDeed();
+        if (deed != null){
+            Owner owner = deed.getOwner();
+            if(owner instanceof Bank){
+                ownerString = "Owner: Bank\n";
+            }
+            else{
+                ownerString = "Owner: " + ((Player) deed.getOwner()).getName() + "\n";
+                if(deed instanceof Street){
+                    Street street = (Street) deed;
+                    int numBuildings = street.getNumberOfBuildings();
+                    if(numBuildings > 0){
+                        if(numBuildings == 5){
+                            buildings = "Buildings: 1 Hotel\n";
+                        }
+                        else{
+                            buildings = "Buildings: " + numBuildings + " House(s)\n";
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            ownerString = "Owner: Not able to be owned.\n";
+        }
+        spaceInfo += ownerString;
+        spaceInfo += buildings;
+        String playersAtLoc = "";
+        playersAtLoc = "Players on Space:\n";
+        List<String> playerNames = new ArrayList<>();
+        for (Player player: players){
+            if(player.getLocation() == spaceNumber){
+                playerNames.add(player.getName());
+            }
+        }
+        if(playerNames.isEmpty()){
+            playersAtLoc += "NONE\n";
+        }
+        else{
+            for(String name: playerNames){
+                playersAtLoc += name + "\n";
+            }
+        }
+        spaceInfo += playersAtLoc;
+        if(spaceNumber == 10){
+            spaceInfo += "Players in Jail:\n";
+            List<String> playerNames2 = new ArrayList<>();
+            for (Player player: players){
+                if(player.getLocation() == 40){
+                    playerNames2.add(player.getName());
+                }
+            }
+            if(playerNames2.isEmpty()){
+                spaceInfo += "NONE\n";
+            }
+            else{
+                for(String name: playerNames2){
+                    spaceInfo += name + "\n";
+                }
+            }
+
+        }
+
+        return spaceInfo;
     }
 }

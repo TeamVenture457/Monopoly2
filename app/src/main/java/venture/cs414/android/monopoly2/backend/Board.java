@@ -11,6 +11,7 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -27,9 +28,9 @@ public class Board {
     private Queue<Card> communityChestCards;
     private Space[] boardSpaces;
     private Context context;
+    final int NUMBEROFSPACES = 41;
 
     public Board(Context context){
-        final int NUMBEROFSPACES = 41;
         boardSpaces = new Space[NUMBEROFSPACES];
         chanceCards = new LinkedList<>();
         communityChestCards = new LinkedList<>();
@@ -92,6 +93,7 @@ public class Board {
     public void fillCards(CardType cardType){
         String xmlFilename;
         Queue<Card> cardQueue;
+        ArrayList<Card> cards = new ArrayList<Card>();
         if(cardType.equals(CardType.CHANCE)){
             cardQueue = chanceCards;
             xmlFilename = "chanceCards.xml";
@@ -117,8 +119,11 @@ public class Board {
                 }
             }
             Card thisCard = new Card(actionList, cardDescription, thisCardType);
-            cardQueue.add(thisCard);
+            //cardQueue.add(thisCard);
+            cards.add(thisCard);
         }
+        Collections.shuffle(cards);
+        cardQueue.addAll(cards);
     }
 
     public void fillBoardSpaces(){
@@ -309,5 +314,33 @@ public class Board {
             }
         }
         return property;
+    }
+
+    public int getNextUtilityPosition(int location) {
+        int position = location;
+        boolean found = false;
+        while(!found){
+            position = (position + 1) % (NUMBEROFSPACES-1);
+            Space space = boardSpaces[position];
+            Property deed = space.getDeed();
+            if(deed instanceof Utility){
+                found = true;
+            }
+        }
+        return position;
+    }
+
+    public int getNextRailroadPosition(int location) {
+        int position = location;
+        boolean found = false;
+        while(!found){
+            position = (position + 1) % (NUMBEROFSPACES-1);
+            Space space = boardSpaces[position];
+            Property deed = space.getDeed();
+            if(deed instanceof Railroad){
+                found = true;
+            }
+        }
+        return position;
     }
 }

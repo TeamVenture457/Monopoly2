@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -60,11 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
         gameFacade = GameFacade.getInstance();
 
-        layout = (RelativeLayout)findViewById(R.id.contentMain);
+        layout = (RelativeLayout)findViewById(R.id.ContentMain);
 
         turnInfo = (TextView)findViewById(R.id.CurrentTurnInfoField);
+        turnInfo.setMovementMethod(new ScrollingMovementMethod());
         currentPlayerInfo = (TextView)findViewById(R.id.CurrentPlayerInfoField);
+        currentPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
         otherPlayerInfo = (TextView)findViewById(R.id.AllPlayerInfoField);
+        otherPlayerInfo.setMovementMethod(new ScrollingMovementMethod());
         updateAllInfo();
 
         /*int numMiliSeconds = (numMinutes * 60 * 1000);
@@ -235,6 +239,138 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void clickSpace0(View view){
+        getSpaceInfoForToast(0);
+    }
+    public void clickSpace1(View view){
+        getSpaceInfoForToast(1);
+    }
+    public void clickSpace2(View view){
+        getSpaceInfoForToast(2);
+    }
+    public void clickSpace3(View view){
+        getSpaceInfoForToast(3);
+    }
+    public void clickSpace4(View view){
+        getSpaceInfoForToast(4);
+    }
+    public void clickSpace5(View view){
+        getSpaceInfoForToast(5);
+    }
+    public void clickSpace6(View view){
+        getSpaceInfoForToast(6);
+    }
+    public void clickSpace7(View view){
+        getSpaceInfoForToast(7);
+    }
+    public void clickSpace8(View view){
+        getSpaceInfoForToast(8);
+    }
+    public void clickSpace9(View view){
+        getSpaceInfoForToast(9);
+    }
+    public void clickSpace10(View view){
+        getSpaceInfoForToast(10);
+    }
+    public void clickSpace11(View view){
+        getSpaceInfoForToast(11);
+    }
+    public void clickSpace12(View view){
+        getSpaceInfoForToast(12);
+    }
+    public void clickSpace13(View view){
+        getSpaceInfoForToast(13);
+    }
+    public void clickSpace14(View view){
+        getSpaceInfoForToast(14);
+    }
+    public void clickSpace15(View view){
+        getSpaceInfoForToast(15);
+    }
+    public void clickSpace16(View view){
+        getSpaceInfoForToast(16);
+    }
+    public void clickSpace17(View view){
+        getSpaceInfoForToast(17);
+    }
+    public void clickSpace18(View view){
+        getSpaceInfoForToast(18);
+    }
+    public void clickSpace19(View view){
+        getSpaceInfoForToast(19);
+    }
+    public void clickSpace20(View view){
+        getSpaceInfoForToast(20);
+    }
+    public void clickSpace21(View view){
+        getSpaceInfoForToast(21);
+    }
+    public void clickSpace22(View view){
+        getSpaceInfoForToast(22);
+    }
+    public void clickSpace23(View view){
+        getSpaceInfoForToast(23);
+    }
+    public void clickSpace24(View view){
+        getSpaceInfoForToast(24);
+    }
+    public void clickSpace25(View view){
+        getSpaceInfoForToast(25);
+    }
+    public void clickSpace26(View view){
+        getSpaceInfoForToast(26);
+    }
+    public void clickSpace27(View view){
+        getSpaceInfoForToast(27);
+    }
+    public void clickSpace28(View view){
+        getSpaceInfoForToast(28);
+    }
+    public void clickSpace29(View view){
+        getSpaceInfoForToast(29);
+    }
+    public void clickSpace30(View view){
+        getSpaceInfoForToast(30);
+    }
+    public void clickSpace31(View view){
+        getSpaceInfoForToast(31);
+    }
+    public void clickSpace32(View view){
+        getSpaceInfoForToast(32);
+    }
+    public void clickSpace33(View view){
+        getSpaceInfoForToast(33);
+    }
+    public void clickSpace34(View view){
+        getSpaceInfoForToast(34);
+    }
+    public void clickSpace35(View view){
+        getSpaceInfoForToast(35);
+    }
+    public void clickSpace36(View view){
+        getSpaceInfoForToast(36);
+    }
+    public void clickSpace37(View view){
+        getSpaceInfoForToast(37);
+    }
+    public void clickSpace38(View view){
+        getSpaceInfoForToast(38);
+    }
+    public void clickSpace39(View view){
+        getSpaceInfoForToast(39);
+    }
+
+    public void getSpaceInfoForToast(int spaceNumber){
+        try {
+            //implement call
+            String message = gameFacade.getSpaceInfo(spaceNumber);
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     /*public void sellProperty(View view){
         Intent intent = new Intent(this, SellProperty.class);

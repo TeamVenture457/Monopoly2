@@ -30,7 +30,14 @@ public class Player extends Owner{
         myCards = new ArrayList<>();
     }
 
+    public void storeGetOutOfJailCard(Card card){
+        myCards.add(card);
+    }
 
+    public Card useGetOutOfJailCard(){
+        if(myCards.isEmpty()) return null;
+        return myCards.remove(0);
+    }
     public String getName() {
         return name;
     }
@@ -98,6 +105,12 @@ public class Player extends Owner{
             addMoney(200);
         }
         location = nextLocation;
+    }
+
+    public void movePlayerBack(int distance){
+        int currentLocation = location;
+        distance = 40 - distance;
+        location = (currentLocation + distance) % 40;
     }
 
     public void putInJail(){
