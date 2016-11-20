@@ -70,7 +70,7 @@ public class GameFacade {
                 //timerText.setText("done!");
                 //endGame();
                 timerString = "Game Finished";
-                gameOver = true;
+                //gameOver = true;
             }
         }.start();
     }
