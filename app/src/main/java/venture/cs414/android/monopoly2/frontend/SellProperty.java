@@ -67,13 +67,12 @@ public class SellProperty extends AppCompatActivity {
 
         popup = new PopupWindow(this);
         popLayout.setOrientation(LinearLayout.VERTICAL);
-        notificationText.setText(playerName + ", would you like to buy " + propertyName + " for $" + cost + "?");
+        notificationText.setText(playerName + ", would you like to buy " + propertyName + " for " + cost + "Rupees?");
         Button yesButton = new Button(this);
         yesButton.setText("YES");
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo this is where the game facade will take care of the sale, and then pass back to main screen.
                 blocker.dismiss();
                 popup.dismiss();
 

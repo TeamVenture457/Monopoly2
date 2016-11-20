@@ -69,6 +69,7 @@ public class GameFacade {
             public void onFinish() {
                 //timerText.setText("done!");
                 //endGame();
+                timerString = "Game Finished";
                 gameOver = true;
             }
         }.start();
@@ -89,7 +90,7 @@ public class GameFacade {
     public String getCurrentPlayerInfo(){
         String description = currentPlayer.getName() + "\n"
                 + "Token: " + currentPlayer.getToken() + "\n"
-                + "$" + currentPlayer.getMoney() + "\n"
+                + currentPlayer.getMoney() + "Rupees\n"
                 + "Position: " + board.getBoardSpace(currentPlayer.getLocation()).getName();
 
         return description;
@@ -99,7 +100,7 @@ public class GameFacade {
         String description = "";
         for(Player player : players){
             if(!player.equals(currentPlayer)){
-                description += player.getName() + " (" + player.getToken() + "): $" + player.getMoney() + "\n";
+                description += player.getName() + " (" + player.getToken() + "): " + player.getMoney() + " Rupees\n";
             }
         }
         return description;
@@ -196,11 +197,11 @@ public class GameFacade {
                     int rent = deed.calculateRent();
                     payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
                     returnString += "\n\nYou landed on " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
-                    returnString += "\nYou paid $" + rent + " in rent.";
+                    returnString += "\nYou paid " + rent + " Rupees in rent.";
                 }
             }else{
                 returnString += "\nYou landed on " + deed.getName();
-                returnString += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                //returnString += "\nIf you'd like to buy it for " + deed.getCost() + " Rupees, press 'Buy Property'";
             }
         }else{
             String spaceName = board.getBoardSpaces()[currentPlayer.getLocation()].getName();
@@ -209,12 +210,12 @@ public class GameFacade {
                 case "Door Fee":
                     tax = 200;
                     player.removeMoney(tax);
-                    returnString += "\nYou paid a " + spaceName + " of $" + tax;
+                    returnString += "\nYou paid a " + spaceName + tax + " rupees";
                     break;
                 case "Mask Merchant":
                     tax = 100;
                     player.removeMoney(tax);
-                    returnString += "\nYou paid a " + spaceName + " of $" + tax;
+                    returnString += "\nYou paid the " + spaceName + tax + " Rupees";
                     break;
                 case "Go To Jail":
                     player.putInJail();
@@ -267,11 +268,11 @@ public class GameFacade {
                             int rent = deed.calculateRent();
                             payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
                             actionResult += "\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
-                            actionResult += "\nYou paid $" + rent + " in rent.";
+                            actionResult += "\nYou paid " + rent + "Rupees in rent.";
                         }
                     }else{
                         actionResult += "\nYou moved to " + deed.getName();
-                        actionResult += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                        actionResult += "\nIf you'd like to buy it for " + deed.getCost() + " Rupees, press 'Buy Property'";
                     }
                 }
                 else{
@@ -292,7 +293,7 @@ public class GameFacade {
                 deed = space.getDeed();
                 if(deed.getOwner() instanceof Bank){
                     actionResult += "\nYou moved to " + deed.getName();
-                    actionResult += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                    //actionResult += "\nIf you'd like to buy it for " + deed.getCost() + " Rupees, press 'Buy Property'";
                 }
                 else{
                     Player deedOwner = (Player) deed.getOwner();
@@ -302,12 +303,12 @@ public class GameFacade {
                             int roll = dice.rollDice();
                             rent = roll * 10;
                             actionResult += "\nYou moved to the next Utility, " + deed.getName() + ", Owned by " + deedOwner.getName();
-                            actionResult += "\nYou paid $" + rent + " in rent. Your roll was " + roll + " (card says 10*roll).";
+                            actionResult += "\nYou paid " + rent + "Rupees in rent. Your roll was " + roll + " (card says 10*roll).";
                         }
                         else{
                             rent = 2*deed.calculateRent();
                             actionResult += "\nYou moved to the next Railroad, " + deed.getName() + ", Owned by " + deedOwner.getName();
-                            actionResult += "\nYou paid $" + rent + " in rent. The rent was " + deed.calculateRent() + " (card says 2*rent).";
+                            actionResult += "\nYou paid " + rent + " Rupees in rent. The rent was " + deed.calculateRent() + " (card says 2*rent).";
                         }
                         payPlayer(currentPlayer, deedOwner, rent);
                     }
@@ -339,19 +340,19 @@ public class GameFacade {
                     int tax = 200;
                     currentPlayer.removeMoney(tax);
                     actionResult += "\nYou moved back to Income Tax.";
-                    actionResult += "\nYou paid a Income Tax of $" + tax;
+                    actionResult += "\nYou paid a Income Tax of " + tax + " Rupees";
                 }
                 else if(space.getName().equals("Vaati's Palace")){
                     if(deed.getOwner() instanceof Bank){
                         actionResult += "\nYou moved to " + deed.getName();
-                        actionResult += "\nIf you'd like to buy it for $" + deed.getCost() + ", press 'Buy Property'";
+                        //actionResult += "\nIf you'd like to buy it for " + deed.getCost() + " Rupees, press 'Buy Property'";
                     }
                     else{
                         if(!deed.getOwner().equals(currentPlayer)){
                             int rent = deed.calculateRent();
                             payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
                             actionResult += "\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
-                            actionResult += "\nYou paid $" + rent + " in rent.";
+                            actionResult += "\nYou paid " + rent + " Rupees in rent.";
                         }
                     }
                 }
@@ -389,7 +390,7 @@ public class GameFacade {
             case "payBank":
                 int payAmount = Integer.parseInt(actions.get(1));
                 currentPlayer.removeMoney(payAmount);
-                actionResult += "\nYou paid $" + payAmount + " to the bank.";
+                actionResult += "\nYou paid " + payAmount + "Rupees to the bank.";
                 break;
 
             case "payEachPlayer":
@@ -398,7 +399,7 @@ public class GameFacade {
                     currentPlayer.removeMoney(payAmount);
                     player.addMoney(payAmount);
                 }
-                actionResult += "\nYou paid each player $" + payAmount + ".";
+                actionResult += "\nYou paid each player " + payAmount + "Rupees.";
                 break;
 
             case "collectEachPlayer":
@@ -407,7 +408,7 @@ public class GameFacade {
                     player.removeMoney(collectAmount);
                     currentPlayer.addMoney(collectAmount);
                 }
-                actionResult += "\nYou collected from each player $" + collectAmount + ".";
+                actionResult += "\nYou collected from each player " + collectAmount + "Rupees.";
                 break;
 
             default:
@@ -648,7 +649,7 @@ public class GameFacade {
         property.mortgage();
         player.addMoney(property.getMortgageValue());
 
-        currentMessage = (player.getName() + " successfully mortgaged " + propName + " for $" + property.getMortgageValue());
+        currentMessage = (player.getName() + " successfully mortgaged " + propName + " for " + property.getMortgageValue() + " Rupees");
     }
 
     public void unmortgageProperty(String propName){
@@ -657,7 +658,7 @@ public class GameFacade {
         if(player.canAfford(property.getUnmortgageValue())){
             property.unmortgage();
             player.removeMoney(property.getUnmortgageValue());
-            currentMessage = (player.getName() + " successfully unmortgaged " + propName + " for $" + property.getUnmortgageValue());
+            currentMessage = (player.getName() + " successfully unmortgaged " + propName + " for " + property.getUnmortgageValue() + " Rupees");
         }else{
             currentMessage = "You could not afford to do that";
         }
@@ -670,7 +671,7 @@ public class GameFacade {
             street.placeHouse();
             player.removeMoney(street.getHouseCost());
             bank.removeHouse();
-            currentMessage = (player.getName() + "successfully bought a house on " + streetName + " for $" + street.getHouseCost());
+            currentMessage = (player.getName() + "successfully bought a house on " + streetName + " for " + street.getHouseCost() + " Rupees");
         }else{
             if(!bank.hasHouses()){
                 currentMessage = "The bank is out of houses!";
@@ -686,7 +687,7 @@ public class GameFacade {
         bank.addHouse();
         player.addMoney(street.getHouseCost() / 2);
 
-        currentMessage = (player.getName() + "successfully sold a house from " + streetName + " for $" + (street.getHouseCost()/2));
+        currentMessage = (player.getName() + "successfully sold a house from " + streetName + " for " + (street.getHouseCost()/2) + " Rupees");
     }
 
     public void buyAHotel(String streetName){
@@ -699,7 +700,7 @@ public class GameFacade {
                 bank.addHouse();
             }
             player.removeMoney(street.getHotelCost());
-            currentMessage = (player.getName() + " successfully bought a hotel on " + streetName + " for $" + street.getHotelCost());
+            currentMessage = (player.getName() + " successfully bought a hotel on " + streetName + " for " + street.getHotelCost() + " Rupees");
         }else{
             if(!bank.hasHotels()){
                 currentMessage = "The bank is out of hotels!";
@@ -719,7 +720,7 @@ public class GameFacade {
         }
         player.addMoney(street.getHotelCost() / 2);
 
-        currentMessage = (player.getName() + " successfully sold a hotel from " + streetName + " for $" + (street.getHotelCost()/2));
+        currentMessage = (player.getName() + " successfully sold a hotel from " + streetName + " for " + (street.getHotelCost()/2) + " Rupees");
     }
 
     public void sellAProperty(String propertyName, String buyerName, int cost){
@@ -730,12 +731,10 @@ public class GameFacade {
         }else {
             currentPlayer.removeFromPropertiesOwned(property);
             buyer.addToPropertiesOwned(property);
-            property.setOwner(currentPlayer);
+            property.setOwner(buyer);
             payPlayer(buyer, currentPlayer, cost);
             currentMessage = "Transaction Successful! :D";
         }
-
-
     }
 
     public void advanceTurn(){
@@ -854,7 +853,7 @@ public class GameFacade {
         Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
         if(deed != null){
             if(deed.getOwner() instanceof Bank){
-                return "Would you like to buy " + deed.getName() + " for $" + deed.getCost() + "?";
+                return "Would you like to buy " + deed.getName() + " for " + deed.getCost() + " Rupees?";
             }
         }
         return null;
