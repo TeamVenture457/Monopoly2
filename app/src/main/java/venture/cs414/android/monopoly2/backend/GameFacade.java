@@ -35,11 +35,47 @@ public class GameFacade {
         return instance;
     }
 
-    public void setUp(int numPlayers, int numMinutes, Context context){
+    public void setUp(int numPlayers, int numMinutes, Context context, boolean radio2, boolean radio3, boolean radio4){
         players = new ArrayList<Player>();
         for (int i = 1; i < numPlayers+1; i++) {
             String playerName = ("Player " + i);
             players.add(new Player(playerName, "P" + i));
+            if(i>1){
+                if(i==2){
+                    if (radio2){
+                        String playerName = ("Player " + i);
+                        players.add(new Player(playerName, "P" + i, true));
+                    }
+                    else{
+                        String playerName = ("Player " + i);
+                        players.add(new Player(playerName, "P" + i, false));
+                    }
+                }
+                else if(i==3){
+                    if (radio3){
+                        String playerName = ("Player " + i);
+                        players.add(new Player(playerName, "P" + i, true));
+                    }
+                    else{
+                        String playerName = ("Player " + i);
+                        players.add(new Player(playerName, "P" + i, false));
+                    }
+                }
+                else{
+                    if (radio4){
+                        String playerName = ("Player " + i);
+                        players.add(new Player(playerName, "P" + i, true));
+                    }
+                    else{
+                        String playerName = ("Player " + i);
+                        players.add(new Player(playerName, "P" + i, false));
+                    }
+                }
+            }
+            else{
+                String playerName = ("Player " + i);
+                players.add(new Player(playerName, "P" + i, false));
+            }
         }
         currentPlayer = players.get(0);
         currentPlayerHasMoved = false;

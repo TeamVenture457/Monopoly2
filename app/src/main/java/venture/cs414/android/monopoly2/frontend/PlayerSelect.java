@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import venture.cs414.android.monopoly2.R;
@@ -18,6 +19,9 @@ public class PlayerSelect extends AppCompatActivity {
     private Spinner numPlayersDrop;
     private Spinner numMinutesDrop;
     private GameFacade gameFacade;
+    private boolean radio2;
+    private boolean radio3;
+    private boolean radio4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +47,36 @@ public class PlayerSelect extends AppCompatActivity {
         int numPlayers = (int)numPlayersDrop.getSelectedItem();
         int numMinutes = (int)numMinutesDrop.getSelectedItem();
         Intent intent = new Intent(this, MainActivity.class);
+
         /*intent.putExtra("numPlayers", numPlayers);
         intent.putExtra("numMinutes", numMinutes);*/
-        gameFacade.setUp(numPlayers, numMinutes, PlayerSelect.this);
+        gameFacade.setUp(numPlayers, numMinutes, PlayerSelect.this, radio2, radio3, radio4);
         startActivity(intent);
         finish();
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.radioButtonPlayer2:
+                if (checked){
+                    radio2 = true;
+                }
+                    break;
+            case R.id.radioButtonPlayer3:
+                if (checked){
+                    radio3 = true;
+                }
+                    break;
+            case R.id.radioButtonPlayer4:
+                if (checked){
+                    radio4 = true;
+                }
+                    break;
+        }
     }
 
 }
