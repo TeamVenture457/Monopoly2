@@ -829,6 +829,25 @@ public class GameFacade {
         }
     }
 
+    public void sellAPropertyToAI(String propertyName, String buyerName, int cost){
+        Player buyer = getPlayerByName(buyerName);
+        Property property = board.getPropertyByName(propertyName);
+        if(!buyer.canAfford(cost)){
+            currentMessage = buyerName + " cannot afford that price!";
+        }else{
+            int diceRoll = dice.rollDice();
+            if(cost <= (property.getCost() * 1.10) && diceRoll > 6){
+                currentPlayer.removeFromPropertiesOwned(property);
+                buyer.addToPropertiesOwned(property);
+                property.setOwner(buyer);
+                payPlayer(buyer, currentPlayer, cost);
+                currentMessage = "Transaction Successful! :D";
+            }else{
+                currentMessage = (buyerName + " Declined your offer.");
+            }
+        }
+    }
+
     public void advanceTurn(){
         if(currentPlayerHasMoved){
             if(currentPlayer.getMoney() <= 0){
@@ -1174,5 +1193,10 @@ public class GameFacade {
         advanceTurn();
         tempString += ("\n" + currentMessage);
         return tempString;
+    }
+
+    public boolean playerIsAI(String playerName){
+        Player player = getPlayerByName(playerName);
+        return player.getPlayerAI();
     }
 }
