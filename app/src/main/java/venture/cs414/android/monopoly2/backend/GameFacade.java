@@ -1096,4 +1096,82 @@ public class GameFacade {
 
         return spaceInfo;
     }
+
+    public String takeAITurn(){
+        String tempString = (currentPlayer.getName() + "(AI) Turn Info:\n");
+        if(!currentPlayer.getPlayerAI()){
+            return null;
+        }
+        if(currentPlayer.isInJail()){
+            Card card = currentPlayer.useGetOutOfJailCard();
+            if(card != null){
+                board.returnCardToDeck(card);
+                tempString += "\nUsed a 'Get Out of Jail Free' card";
+            }
+            else if(currentPlayer.getMoney() > 1000){
+                payJail();
+                tempString += currentMessage;
+            }
+            else if(currentPlayer.getTurnsInJail()==3){
+                payJail();
+                tempString += currentMessage;
+            }
+            else{
+                rollForJail();
+                tempString += currentMessage;
+            }
+        }
+        else{
+            moveCurrentPlayer();
+            tempString += currentMessage;
+
+        }
+        if(getCurrentPropertySale() != null){
+            Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
+            if(currentPlayer.canAfford(deed.getCost())){
+                currentPlayerBuyCurrentProperty();
+                tempString += ("\n" + currentMessage);
+                //Todo auction from AI perspective
+            }
+        }
+        List<String> L1 = getStreetsCanBuyHouses();
+        List<String> L2 = getStreetsCanBuyHotel();
+        if(!L1.isEmpty() && currentPlayer.canAfford(500)){
+            if(dice.getDie1()==2 || dice.getDie2()==6){
+                buyAHouse(L1.get(0));
+                tempString += ("\n" + currentMessage);
+            }
+        }
+        else if(L2.isEmpty() && currentPlayer.canAfford(700)){
+            if(dice.getDie1()==5 || dice.getDie2()==3){
+                buyAHotel(L2.get(0));
+                tempString += ("\n" + currentMessage);
+            }
+        }
+        List<String> L3 = getMortgagableProperties();
+        List<String> L4 = getStreetsCanSellHotel();
+        List<String> L5 = getStreetsCanSellHouse();
+
+        while(currentPlayer.getMoney() < 1){
+            if(!L3.isEmpty()){
+                mortgageProperty(L3.get(0));
+                tempString += ("\n" + currentMessage);
+            }
+            else if(!L4.isEmpty()){
+                sellAHotel(L4.get(0));
+                tempString += ("\n" + currentMessage);
+            }
+            else if(!L5.isEmpty()){
+                sellAHouse(L5.get(0));
+                tempString += ("\n" + currentMessage);
+            }
+            else{
+                break;
+            }
+        }
+
+        advanceTurn();
+        tempString += ("\n" + currentMessage);
+        return tempString;
+    }
 }
