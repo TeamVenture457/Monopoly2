@@ -347,6 +347,7 @@ public class MainActivity extends AppCompatActivity {
                     String message = gameFacade.removeCurrentPlayerFromGame();
                     updateAllInfo();
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    checkAITurn();
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
@@ -561,10 +562,11 @@ public class MainActivity extends AppCompatActivity {
         //Set the text for the popup
         players = gameFacade.getPlayerNames();
         highestBid = 0;
-        highestBidder = null;
+        highestBidder = "None";
         currentIndex = 0;
         notificationText.setText(players.get(0) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
-        + "Current Highest Bid: " + highestBid + " Rupees");
+        + "Current Highest Bid: " + highestBid + " Rupees\n"
+        + "Highest Bidder: " + highestBidder);
 
         //Place layout in the popup
         popLayout.addView(notificationText);
@@ -577,15 +579,13 @@ public class MainActivity extends AppCompatActivity {
         bidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*blockerWindow.dismiss();
-                notificationPopup.dismiss();
-                highestBid = Integer.parseInt(costText.getText().toString());*/
                 String bidString = costText.getText().toString();
-                if(bidString.length() > 5){
+                if (bidString.length() > 5) {
                     notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
                             + "Current Highest Bid: " + highestBid + " Rupees\n"
+                            + "Highest Bidder: " + highestBidder + "\n"
                             + "You cannot afford that bid");
-                }else {
+                } else {
                     int bid = Integer.parseInt(bidString);
                     if (gameFacade.playerCanAfford(players.get(currentIndex), bid)) {
                         if (bid > highestBid) {
@@ -596,11 +596,12 @@ public class MainActivity extends AppCompatActivity {
                                 currentIndex = 0;
                             }
                             notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
-                                    + "Current Highest Bid: " + highestBid + " Rupees");
+                                    + "Current Highest Bid: " + highestBid + " Rupees\n"
+                                    + "Highest Bidder: " + highestBidder);
 
-                            if(players.size() == 1){
+                            if (players.size() == 1) {
                                 try {
-                                    if(highestBidder != null) {
+                                    if (highestBidder != null) {
                                         gameFacade.playerBuyProperty(highestBidder, gameFacade.getCurrentPropertyName(), highestBid);
                                         blockerWindow.dismiss();
                                         notificationPopup.dismiss();
@@ -610,17 +611,22 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (Exception e) {
                                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                                 }
-                            }else {
+                            } else {
                                 notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
-                                        + "Current Highest Bid: " + highestBid + " Rupees");
+                                        + "Current Highest Bid: " + highestBid + " Rupees\n"
+                                        + "Highest Bidder: " + highestBidder);
                             }
                         }
                     } else {
                         notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
                                 + "Current Highest Bid: " + highestBid + " Rupees\n"
+                                + "Highest Bidder: " + highestBidder + "\n"
                                 + "You cannot afford that bid");
                     }
                 }
+
+                getAIBids(notificationText);
+
             }
         });
         popLayout.addView(bidButton);
@@ -649,13 +655,15 @@ public class MainActivity extends AppCompatActivity {
                                 currentIndex = 0;
                             }
                             notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
-                                    + "Current Highest Bid: " + highestBid + " Rupees");
+                                    + "Current Highest Bid: " + highestBid + " Rupees\n"
+                                    + "Highest Bidder: " + highestBidder);
 
                         }
 
                     } catch (Exception e) {
                         Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                     }
+
                 }else {
                     if(players.size() == 0){
                         try {
@@ -668,10 +676,15 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                         }
                     }else {
+                        getAIBids(notificationText);
                         notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
-                                + "Current Highest Bid: " + highestBid + " Rupees");
+                                + "Current Highest Bid: " + highestBid + " Rupees\n"
+                                + "Highest Bidder: " + highestBidder);
                     }
                 }
+
+
+
             }
         });
         popLayout.addView(dontBidButton);
@@ -681,6 +694,67 @@ public class MainActivity extends AppCompatActivity {
 
         placeBlocker();
         notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
+    }
+
+    public void getAIBids(TextView notificationText){
+        while(gameFacade.playerIsAI(players.get(currentIndex))) {
+            int bid = gameFacade.getAIBid(gameFacade.getCurrentPropertyName(), players.get(currentIndex), highestBid);
+            if (bid != 0 && bid > highestBid) {
+                highestBid = bid;
+                highestBidder = players.get(currentIndex);
+                currentIndex++;
+                if (currentIndex >= players.size()) {
+                    currentIndex = 0;
+                }
+                notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+                        + "Current Highest Bid: " + highestBid + " Rupees\n"
+                        + "Highest Bidder: " + highestBidder);
+            }else {
+                players.remove(currentIndex);
+                if (currentIndex >= players.size()) {
+                    currentIndex = 0;
+                }
+                if (players.size() == 1) {
+                    try {
+                        if (highestBidder != null) {
+                            gameFacade.playerBuyProperty(highestBidder, gameFacade.getCurrentPropertyName(), highestBid);
+                            blockerWindow.dismiss();
+                            notificationPopup.dismiss();
+                            updateAllInfo();
+                            Toast.makeText(getApplicationContext(), highestBidder + " won the auction!", Toast.LENGTH_LONG).show();
+                            break;
+                        } else {
+                            currentIndex++;
+                            if (currentIndex >= players.size()) {
+                                currentIndex = 0;
+                            }
+                            notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+                                    + "Current Highest Bid: " + highestBid + " Rupees\n"
+                                    + "Highest Bidder: " + highestBidder);
+                        }
+
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    if (players.size() == 0) {
+                        try {
+                            blockerWindow.dismiss();
+                            notificationPopup.dismiss();
+                            updateAllInfo();
+                            Toast.makeText(getApplicationContext(), "The property went back to the bank", Toast.LENGTH_LONG).show();
+
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+                                + "Current Highest Bid: " + highestBid + " Rupees\n"
+                                + "Highest Bidder: " + highestBidder);
+                    }
+                }
+            }
+        }
     }
 
     public void displayJailWindow(){
@@ -814,6 +888,9 @@ public class MainActivity extends AppCompatActivity {
                     blockerWindow.dismiss();
                     notificationPopup.dismiss();
                     updateAllInfo();
+                    /*if(gameFacade.aiRefusedBuy()){
+                        startAuction();
+                    }*/
                     checkAITurn();
                 }
             });
