@@ -1124,7 +1124,7 @@ public class GameFacade {
     public String takeAITurn(){
         aiRefusedBuy = false;
 
-        String tempString = (currentPlayer.getName() + "(AI) Turn Info:\n");
+        String tempString = (currentPlayer.getName() + " (AI) Turn Info:\n");
         if(!currentPlayer.getPlayerAI()){
             return null;
         }
