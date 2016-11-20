@@ -42,6 +42,7 @@ public class Player extends Owner{
 
     public Card useGetOutOfJailCard(){
         if(myCards.isEmpty()) return null;
+        takeOutOfJail();
         return myCards.remove(0);
     }
 
@@ -115,6 +116,7 @@ public class Player extends Owner{
         }
         location = nextLocation;
     }
+
     public void movePlayerTo(int position){
         int currentLocation = position;
         if(position < currentLocation){

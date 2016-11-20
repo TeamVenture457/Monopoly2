@@ -216,16 +216,7 @@ public class GameFacade {
             currentPlayerHasMoved = true;
         }
 
-		/*if(player.getLocation() == 30){
-			player.putInJail();
-			returnString = "You rolled a " + diceRoll;
-			returnString += "\nand moved that many spaces!";
-			returnString += "\nYou landed in 'Go to Jail' and went straight to jail";
-			currentPlayerHasMoved = true;
-			deed = null;
-		}*/
-
-        if(deed != null){
+        /*if(deed != null){
             if(!(deed.getOwner() instanceof Bank)){
                 Player owner = (Player) deed.getOwner();
                 if(!currentPlayer.equals(owner)) {
@@ -275,11 +266,69 @@ public class GameFacade {
                     // do nothing
                     break;
             }
-        }
+        }*/
+
+        returnString += checkNewSpot();
 
         currentMessage = returnString;
 
         return returnString;
+    }
+
+    private String checkNewSpot(){
+        String returnString = "";
+        Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
+        if(deed != null){
+            if(!(deed.getOwner() instanceof Bank)){
+                Player owner = (Player) deed.getOwner();
+                if(!currentPlayer.equals(owner)) {
+                    int rent = deed.calculateRent();
+                    payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
+                    returnString += "\n\nYou landed on " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
+                    returnString += "\nYou paid " + rent + " Rupees in rent.";
+                }
+            }else{
+                returnString += "\nYou landed on " + deed.getName();
+                //returnString += "\nIf you'd like to buy it for " + deed.getCost() + " Rupees, press 'Buy Property'";
+            }
+        }else {
+            String spaceName = board.getBoardSpaces()[currentPlayer.getLocation()].getName();
+            int tax = 0;
+            switch (spaceName) {
+                case "Door Fee":
+                    tax = 200;
+                    currentPlayer.removeMoney(tax);
+                    returnString += "\nYou paid a " + spaceName + " of " + tax + " Rupees";
+                    break;
+                case "Mask Merchant":
+                    tax = 100;
+                    currentPlayer.removeMoney(tax);
+                    returnString += "\nYou paid the " + spaceName + " " + tax + " Rupees";
+                    break;
+                case "Go To Jail":
+                    currentPlayer.putInJail();
+                    returnString += "\nYou landed on 'Go to Jail' and went straight to jail";
+                    currentPlayerHasMoved = true;
+                    break;
+                case "Empty Bottle":
+                    returnString += "\nYou landed on Empty Bottle, draw a Empty Bottle card.";
+                    Card chanceCard = board.drawChanceCard();
+                    returnString += "\nEmpty Bottle: " + chanceCard.getDescription();
+                    returnString += performCardAction(chanceCard);
+                    break;
+                case "Treasure Chest":
+                    returnString += "\nYou landed on Treasure Chest, draw a Tresure Chest card.";
+                    Card communityChestCard = board.drawCommunityChestCard();
+                    returnString += "\nTreasure Chest: " + communityChestCard.getDescription();
+                    returnString += performCardAction(communityChestCard);
+                    break;
+                default:
+                    // do nothing
+                    break;
+            }
+        }
+
+            return returnString;
     }
 
     private String performCardAction(Card card) {
@@ -461,7 +510,7 @@ public class GameFacade {
         }else{
             currentMessage = "You could not afford to pay bail";
         }
-        currentPlayerHasMoved = true;
+        currentPlayerHasMoved = false;
     }
 
     public void rollForJail(){
@@ -471,6 +520,8 @@ public class GameFacade {
                 currentPlayer.setLocation(10 + amountToMove);
                 currentPlayer.takeOutOfJail();
                 currentMessage = "You rolled a " + amountToMove + " and got out of jail!";
+                currentPlayer.movePlayer(amountToMove);
+                currentMessage += checkNewSpot();
             } else {
                 currentPlayer.incrementTurnsInJail();
                 currentPlayerHasMoved = true;
@@ -482,7 +533,13 @@ public class GameFacade {
     }
 
     public void useJailCard(){
-
+        Card card = currentPlayer.useGetOutOfJailCard();
+        if(card == null){
+            currentMessage = "You do not have a 'Get Out of Jail Free' card!";
+        }else{
+            currentMessage = "You used your 'Get Out of Jail Free' card!";
+            board.returnCardToDeck(card);
+        }
     }
 
     public List<String> getMortgagableProperties(){
