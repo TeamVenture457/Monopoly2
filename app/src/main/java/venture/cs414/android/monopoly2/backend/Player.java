@@ -118,7 +118,7 @@ public class Player extends Owner{
     }
 
     public void movePlayerTo(int position){
-        int currentLocation = position;
+        int currentLocation = this.location;
         if(position < currentLocation){
             addMoney(200);
         }

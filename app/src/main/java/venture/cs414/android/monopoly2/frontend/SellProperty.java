@@ -121,7 +121,14 @@ public class SellProperty extends AppCompatActivity {
             String propName = propertySpinner.getSelectedItem().toString();
             String playerName = playerSpinner.getSelectedItem().toString();
             int cost = Integer.parseInt(textAmount.getText().toString());
-            notify(propName, playerName, cost);
+            if(gameFacade.playerIsAI(playerName)){
+                gameFacade.sellAPropertyToAI(propName, playerName, cost);
+                Intent intent = new Intent(SellProperty.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }else {
+                notify(propName, playerName, cost);
+            }
         }
     }
 

@@ -26,6 +26,9 @@ public class GameFacade {
 
     private boolean gameOver;
 
+    private boolean aiRefusedBuy;
+    private Property auctionProperty;
+
    private static GameFacade instance = new GameFacade();
 
     private GameFacade(){
@@ -36,6 +39,7 @@ public class GameFacade {
     }
 
     public void setUp(int numPlayers, int numMinutes, Context context, boolean radio2, boolean radio3, boolean radio4){
+        aiRefusedBuy = false;
         players = new ArrayList<Player>();
         for (int i = 1; i < numPlayers+1; i++) {
             String playerName;
@@ -176,6 +180,7 @@ public class GameFacade {
     }
 
     public String moveCurrentPlayer(){
+        aiRefusedBuy = false;
         Property deed = null;
         Player player = currentPlayer;
 
@@ -352,7 +357,7 @@ public class GameFacade {
                             int rent = deed.calculateRent();
                             payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
                             actionResult += "\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
-                            actionResult += "\nYou paid " + rent + "Rupees in rent.";
+                            actionResult += "\nYou paid " + rent + " Rupees in rent.";
                         }
                     }else{
                         actionResult += "\nYou moved to " + deed.getName();
@@ -829,6 +834,25 @@ public class GameFacade {
         }
     }
 
+    public void sellAPropertyToAI(String propertyName, String buyerName, int cost){
+        Player buyer = getPlayerByName(buyerName);
+        Property property = board.getPropertyByName(propertyName);
+        if(!buyer.canAfford(cost)){
+            currentMessage = buyerName + " cannot afford that price!";
+        }else{
+            int diceRoll = dice.rollDice();
+            if(cost <= (property.getCost() * 1.10) && diceRoll > 6){
+                currentPlayer.removeFromPropertiesOwned(property);
+                buyer.addToPropertiesOwned(property);
+                property.setOwner(buyer);
+                payPlayer(buyer, currentPlayer, cost);
+                currentMessage = "Transaction Successful! :D";
+            }else{
+                currentMessage = (buyerName + " Declined your offer.");
+            }
+        }
+    }
+
     public void advanceTurn(){
         if(currentPlayerHasMoved){
             if(currentPlayer.getMoney() <= 0){
@@ -1098,7 +1122,9 @@ public class GameFacade {
     }
 
     public String takeAITurn(){
-        String tempString = (currentPlayer.getName() + "(AI) Turn Info:\n");
+        aiRefusedBuy = false;
+
+        String tempString = (currentPlayer.getName() + " (AI) Turn Info:\n");
         if(!currentPlayer.getPlayerAI()){
             return null;
         }
@@ -1130,8 +1156,11 @@ public class GameFacade {
             Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
             if(currentPlayer.canAfford(deed.getCost())){
                 currentPlayerBuyCurrentProperty();
-                tempString += ("\n" + currentMessage);
-                //Todo auction from AI perspective
+                tempString += ("\nBought " + deed.getName() + " for " + deed.getCost() + " Rupees");
+            }else{
+                aiRefusedBuy = true;
+                auctionProperty = deed;
+                tempString += "\n" + currentPlayer.getName() + " did not buy " + deed.getName();
             }
         }
         List<String> L1 = getStreetsCanBuyHouses();
@@ -1142,7 +1171,7 @@ public class GameFacade {
                 tempString += ("\n" + currentMessage);
             }
         }
-        else if(L2.isEmpty() && currentPlayer.canAfford(700)){
+        else if(!L2.isEmpty() && currentPlayer.canAfford(700)){
             if(dice.getDie1()==5 || dice.getDie2()==3){
                 buyAHotel(L2.get(0));
                 tempString += ("\n" + currentMessage);
@@ -1171,7 +1200,31 @@ public class GameFacade {
         }
 
         advanceTurn();
-        tempString += ("\n" + currentMessage);
+        //tempString += ("\n" + currentMessage);
         return tempString;
+    }
+
+    public String getAuctionProperty(){
+        return auctionProperty.getName();
+    }
+
+    public int getAIBid(String propName, String playerName, int highestBid){
+        Property property = board.getPropertyByName(propName);
+        Player player = getPlayerByName(playerName);
+        int bid = property.getCost();
+        if(bid <= highestBid || !player.canAfford(bid)){
+            return 0;
+        }else{
+            return bid;
+        }
+    }
+
+    public boolean aiRefusedBuy(){
+        return aiRefusedBuy;
+    }
+
+    public boolean playerIsAI(String playerName){
+        Player player = getPlayerByName(playerName);
+        return player.getPlayerAI();
     }
 }
