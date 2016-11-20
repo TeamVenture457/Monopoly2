@@ -106,6 +106,13 @@ public class Player extends Owner{
         }
         location = nextLocation;
     }
+    public void movePlayerTo(int position){
+        int currentLocation = position;
+        if(position < currentLocation){
+            addMoney(200);
+        }
+        location = position;
+    }
 
     public void movePlayerBack(int distance){
         int currentLocation = location;
