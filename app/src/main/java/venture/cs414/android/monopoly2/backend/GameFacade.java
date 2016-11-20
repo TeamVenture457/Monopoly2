@@ -106,8 +106,6 @@ public class GameFacade {
             }
 
             public void onFinish() {
-                //timerText.setText("done!");
-                //endGame();
                 timerString = "Game Finished!  Finish your turn!";
                 gameOver = true;
             }
