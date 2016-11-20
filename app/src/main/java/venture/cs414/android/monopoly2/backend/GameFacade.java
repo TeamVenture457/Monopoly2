@@ -210,12 +210,12 @@ public class GameFacade {
                 case "Door Fee":
                     tax = 200;
                     player.removeMoney(tax);
-                    returnString += "\nYou paid a " + spaceName + tax + " Rupees";
+                    returnString += "\nYou paid a " + spaceName + "of " + tax + " Rupees";
                     break;
                 case "Mask Merchant":
                     tax = 100;
                     player.removeMoney(tax);
-                    returnString += "\nYou paid the " + spaceName + tax + " Rupees";
+                    returnString += "\nYou paid the " + spaceName + " " + tax + " Rupees";
                     break;
                 case "Go To Jail":
                     player.putInJail();
