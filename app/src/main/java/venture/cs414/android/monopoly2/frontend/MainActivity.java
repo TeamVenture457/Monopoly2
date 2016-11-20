@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Button> boardButtons;
 
-    Handler timerHandler;
-    Runnable timerRunnable;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,41 +165,27 @@ public class MainActivity extends AppCompatActivity {
 
         updateAllInfo();
 
-       /* timerHandler = new Handler();
-        timerRunnable = new Runnable(){
+        Thread t = new Thread(){
+
             @Override
             public void run(){
-                MainActivity.this.setTitle(gameFacade.getTimerString());
-                timerHandler.postDelayed(this, 500);
-                if(gameFacade.gameIsOver()){
-                    timerHandler.removeCallbacks(this);
-                    //timerHandler.postDelayed(this, 0);
-                    endGame();
+                try{
+                    while(!isInterrupted()){
+                        Thread.sleep(500);
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run(){
+                                setTitle(gameFacade.getTimerString());
+                            }
+                        });
+                    }
+                }catch(InterruptedException e){
+
                 }
             }
         };
 
-        timerRunnable.run();*/
-
-        /*new CountDownTimer(numMiliSeconds, 1000){
-
-            public void onTick(long millisUntilFinished) {
-                int minutes = (((int)millisUntilFinished / 1000) / 60);
-                int seconds = (((int)millisUntilFinished / 1000) % 60);
-                String timerString = "Game Time:\n" + minutes + ":";
-                if(seconds < 10){
-                    timerString += "0";
-                }
-                timerString += seconds;
-                setTitle(timerString);
-            }
-
-            public void onFinish() {
-                //timerText.setText("done!");
-                setTitle("Game Time:\n" + "0:00");
-                //endGame();
-            }
-        }.start();*/
+        t.start();
     }
 
     public void updateAllInfo(){
@@ -216,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
             button.setText(gameFacade.getSpaceInfo(boardButtons.indexOf(button)));
         }
 
+        //setTitle(gameFacade.getTimerString());
 
         if(gameFacade.gameIsOver()){
             endGame();
@@ -342,7 +326,11 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
 
-                checkAITurn();
+                if(gameFacade.gameIsOver()){
+                    endGame();
+                }else {
+                    checkAITurn();
+                }
                 break;
             case R.id.menu_quit:
                 try {
@@ -350,7 +338,11 @@ public class MainActivity extends AppCompatActivity {
                     String message = gameFacade.removeCurrentPlayerFromGame();
                     updateAllInfo();
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                    checkAITurn();
+                    if(gameFacade.gameIsOver()){
+                        endGame();
+                    }else{
+                        checkAITurn();
+                    }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
@@ -657,7 +649,11 @@ public class MainActivity extends AppCompatActivity {
                                         blockerWindow.dismiss();
                                         notificationPopup.dismiss();
                                         updateAllInfo();
-                                        checkAITurn();
+                                        if(gameFacade.gameIsOver()){
+                                            endGame();
+                                        }else {
+                                            checkAITurn();
+                                        }
                                         Toast.makeText(getApplicationContext(), highestBidder + " won the auction!", Toast.LENGTH_LONG).show();
                                     }
                                 } catch (Exception e) {
@@ -700,7 +696,11 @@ public class MainActivity extends AppCompatActivity {
                             blockerWindow.dismiss();
                             notificationPopup.dismiss();
                             updateAllInfo();
-                            checkAITurn();
+                            if(gameFacade.gameIsOver()){
+                                endGame();
+                            }else {
+                                checkAITurn();
+                            }
                             Toast.makeText(getApplicationContext(), highestBidder + " won the auction!", Toast.LENGTH_LONG).show();
                         }else{
                             currentIndex++;
@@ -723,7 +723,11 @@ public class MainActivity extends AppCompatActivity {
                             blockerWindow.dismiss();
                             notificationPopup.dismiss();
                             updateAllInfo();
-                            checkAITurn();
+                            if(gameFacade.gameIsOver()){
+                                endGame();
+                            }else {
+                                checkAITurn();
+                            }
                             Toast.makeText(getApplicationContext(), "The property went back to the bank", Toast.LENGTH_LONG).show();
 
                         } catch (Exception e) {
@@ -775,7 +779,11 @@ public class MainActivity extends AppCompatActivity {
                             blockerWindow.dismiss();
                             notificationPopup.dismiss();
                             updateAllInfo();
-                            checkAITurn();
+                            if(gameFacade.gameIsOver()){
+                                endGame();
+                            }else {
+                                checkAITurn();
+                            }
                             Toast.makeText(getApplicationContext(), highestBidder + " won the auction!", Toast.LENGTH_LONG).show();
                             break;
                         } else {
@@ -797,7 +805,11 @@ public class MainActivity extends AppCompatActivity {
                             blockerWindow.dismiss();
                             notificationPopup.dismiss();
                             updateAllInfo();
-                            checkAITurn();
+                            if(gameFacade.gameIsOver()){
+                                endGame();
+                            }else {
+                                checkAITurn();
+                            }
                             Toast.makeText(getApplicationContext(), "The property went back to the bank", Toast.LENGTH_LONG).show();
 
                         } catch (Exception e) {
@@ -947,7 +959,11 @@ public class MainActivity extends AppCompatActivity {
                     if(gameFacade.aiRefusedBuy()){
                         startAuction();
                     }else {
-                        checkAITurn();
+                        if(gameFacade.gameIsOver()){
+                            endGame();
+                        }else {
+                            checkAITurn();
+                        }
                     }
                 }
             });

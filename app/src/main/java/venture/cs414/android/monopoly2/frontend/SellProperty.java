@@ -59,6 +59,28 @@ public class SellProperty extends AppCompatActivity {
         textAmount = (EditText)findViewById(R.id.amountText);
         textAmount.setInputType(InputType.TYPE_CLASS_NUMBER);
         textAmount.setText("0");
+
+        Thread t = new Thread(){
+
+            @Override
+            public void run(){
+                try{
+                    while(!isInterrupted()){
+                        Thread.sleep(500);
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run(){
+                                setTitle(gameFacade.getTimerString());
+                            }
+                        });
+                    }
+                }catch(InterruptedException e){
+
+                }
+            }
+        };
+
+        t.start();
     }
 
     public void notify(final String propertyName, final String playerName, final int cost){

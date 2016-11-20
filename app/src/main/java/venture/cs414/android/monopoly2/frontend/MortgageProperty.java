@@ -32,6 +32,28 @@ public class MortgageProperty extends AppCompatActivity {
         propertySpinner = (Spinner)findViewById(R.id.SelectPropertyDropdownMortgageProperty);
         ArrayAdapter<String> propertyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gameFacade.getMortgagableProperties());
         propertySpinner.setAdapter(propertyAdapter);
+
+        Thread t = new Thread(){
+
+            @Override
+            public void run(){
+                try{
+                    while(!isInterrupted()){
+                        Thread.sleep(500);
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run(){
+                                setTitle(gameFacade.getTimerString());
+                            }
+                        });
+                    }
+                }catch(InterruptedException e){
+
+                }
+            }
+        };
+
+        t.start();
     }
 
     public void clickMortgageButtonMortgageProperty(View view){
