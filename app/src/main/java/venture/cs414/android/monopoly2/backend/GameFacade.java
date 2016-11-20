@@ -90,7 +90,7 @@ public class GameFacade {
     public String getCurrentPlayerInfo(){
         String description = currentPlayer.getName() + "\n"
                 + "Token: " + currentPlayer.getToken() + "\n"
-                + currentPlayer.getMoney() + "Rupees\n"
+                + currentPlayer.getMoney() + " Rupees\n"
                 + "Position: " + board.getBoardSpace(currentPlayer.getLocation()).getName();
 
         return description;
@@ -100,7 +100,7 @@ public class GameFacade {
         String description = "";
         for(Player player : players){
             if(!player.equals(currentPlayer)){
-                description += player.getName() + " (" + player.getToken() + "): " + player.getMoney() + " Rupees\n";
+                description += player.getName() + " (" + player.getToken() + "):\n" + player.getMoney() + " Rupees\n";
             }
         }
         return description;
@@ -210,7 +210,7 @@ public class GameFacade {
                 case "Door Fee":
                     tax = 200;
                     player.removeMoney(tax);
-                    returnString += "\nYou paid a " + spaceName + tax + " rupees";
+                    returnString += "\nYou paid a " + spaceName + tax + " Rupees";
                     break;
                 case "Mask Merchant":
                     tax = 100;
