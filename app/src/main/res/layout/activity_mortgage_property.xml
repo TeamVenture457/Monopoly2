@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="venture.cs414.android.monopoly2.frontend.MortgageProperty">
+    tools:context="venture.cs414.android.cs414g.frontend.MortgageProperty">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
