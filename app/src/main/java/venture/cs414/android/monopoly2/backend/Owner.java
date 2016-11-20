@@ -23,6 +23,6 @@ public abstract class Owner {
     }
 
     public void removeFromPropertiesOwned(Property property){
-
+        propertiesOwned.remove(property);
     }
 }

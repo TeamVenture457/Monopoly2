@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -31,21 +33,28 @@ public class MainActivity extends AppCompatActivity {
 
     private GameFacade gameFacade;
 
-    TextView timerText;
+    //TextView timerText;
 
-    TextView turnInfo;
-    TextView currentPlayerInfo;
-    TextView otherPlayerInfo;
+    private TextView turnInfo;
+    private TextView currentPlayerInfo;
+    private TextView otherPlayerInfo;
 
-    PopupWindow notificationPopup;
-    PopupWindow blockerWindow;
+    private PopupWindow notificationPopup;
+    private PopupWindow blockerWindow;
 
-    RelativeLayout layout;
-    EditText costText;
+    private RelativeLayout layout;
+    private EditText costText;
 
-    int highestBid;
+    private int highestBid;
+    private String highestBidder;
+    private List<String> players;
+    private int currentIndex;
+
 
     private List<Button> boardButtons;
+
+    Handler timerHandler;
+    Runnable timerRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,8 +165,23 @@ public class MainActivity extends AppCompatActivity {
 
         updateAllInfo();
 
-        /*int numMiliSeconds = (numMinutes * 60 * 1000);
-        new CountDownTimer(numMiliSeconds, 1000) {
+       /* timerHandler = new Handler();
+        timerRunnable = new Runnable(){
+            @Override
+            public void run(){
+                MainActivity.this.setTitle(gameFacade.getTimerString());
+                timerHandler.postDelayed(this, 500);
+                if(gameFacade.gameIsOver()){
+                    timerHandler.removeCallbacks(this);
+                    //timerHandler.postDelayed(this, 0);
+                    endGame();
+                }
+            }
+        };
+
+        timerRunnable.run();*/
+
+        /*new CountDownTimer(numMiliSeconds, 1000){
 
             public void onTick(long millisUntilFinished) {
                 int minutes = (((int)millisUntilFinished / 1000) / 60);
@@ -184,6 +208,10 @@ public class MainActivity extends AppCompatActivity {
         otherPlayerInfo.setText(gameFacade.getOtherPlayerInfo());
         for(Button button: boardButtons){
             button.setText(gameFacade.getSpaceInfo(boardButtons.indexOf(button)));
+        }
+
+        if(gameFacade.gameIsOver()){
+            endGame();
         }
     }
 
@@ -235,7 +263,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //implement call
                     Intent intent = new Intent(this, BuyHouse.class);
-                    //Todo need to pass the serializable object when it is created
                     //intent.putExtra("difficulty", 1);
                     startActivity(intent);
                     finish();
@@ -247,7 +274,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //implement call
                     Intent intent = new Intent(this, SellHouse.class);
-                    //Todo need to pass the serializable object when it is created
                     //intent.putExtra("difficulty", 1);
                     startActivity(intent);
                     finish();
@@ -259,7 +285,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //implement call
                     Intent intent = new Intent(this, BuyHotel.class);
-                    //Todo need to pass the serializable object when it is created
                     //intent.putExtra("difficulty", 1);
                     startActivity(intent);
                     finish();
@@ -271,7 +296,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //implement call
                     Intent intent = new Intent(this, SellHotel.class);
-                    //Todo need to pass the serializable object when it is created
                     //intent.putExtra("difficulty", 1);
                     startActivity(intent);
                     finish();
@@ -283,7 +307,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //implement call
                     Intent intent = new Intent(this, MortgageProperty.class);
-                    //Todo need to pass the serializable object when it is created
                     //intent.putExtra("difficulty", 1);
                     startActivity(intent);
                     finish();
@@ -295,7 +318,6 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //implement call
                     Intent intent = new Intent(this, UnmortgageProperty.class);
-                    //Todo need to pass the serializable object when it is created
                     //intent.putExtra("difficulty", 1);
                     startActivity(intent);
                     finish();
@@ -462,14 +484,13 @@ public class MainActivity extends AppCompatActivity {
 
     /*public void sellProperty(View view){
         Intent intent = new Intent(this, SellProperty.class);
-        //Todo need to pass the serializable object when it is created
         //intent.putExtra("difficulty", 1);
         startActivity(intent);
         finish();
     }*/
 
     public void checkBuyProperty(){
-        String propBuy = gameFacade.getCurrentProperty();
+        String propBuy = gameFacade.getCurrentPropertySale();
         //turnInfo.setText(propBuy);
         if(propBuy != null){
             //Create layouts and views for popup window
@@ -532,10 +553,11 @@ public class MainActivity extends AppCompatActivity {
         popLayout.setOrientation(LinearLayout.VERTICAL);
 
         //Set the text for the popup
-        List<String> names = gameFacade.getPlayerNames();
+        players = gameFacade.getPlayerNames();
         highestBid = 0;
-        notificationText.setText(names.get(0) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
-        + "Current Highest Bid: $" + highestBid);
+        currentIndex = 0;
+        notificationText.setText(players.get(0) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+        + "Current Highest Bid: " + highestBid + " Rupees");
 
         //Place layout in the popup
         popLayout.addView(notificationText);
@@ -543,8 +565,6 @@ public class MainActivity extends AppCompatActivity {
         popLayout.addView(costText);
         popLayout.setBackgroundColor(Color.WHITE);
 
-        List<String> playerNames = gameFacade.getPlayerNames();
-        //String selection = "";
         Button bidButton = new Button(this);
         bidButton.setText("Bid");
         bidButton.setOnClickListener(new View.OnClickListener() {
@@ -553,9 +573,29 @@ public class MainActivity extends AppCompatActivity {
                 /*blockerWindow.dismiss();
                 notificationPopup.dismiss();
                 highestBid = Integer.parseInt(costText.getText().toString());*/
-                int bid = Integer.parseInt(costText.getText().toString());
-                if(bid > highestBid){
-
+                String bidString = costText.getText().toString();
+                if(bidString.length() > 5){
+                    notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+                            + "Current Highest Bid: " + highestBid + " Rupees\n"
+                            + "You cannot afford that bid");
+                }else {
+                    int bid = Integer.parseInt(bidString);
+                    if (gameFacade.playerCanAfford(players.get(currentIndex), bid)) {
+                        if (bid > highestBid) {
+                            highestBid = bid;
+                            highestBidder = players.get(currentIndex);
+                            currentIndex++;
+                            if (currentIndex >= players.size()) {
+                                currentIndex = 0;
+                            }
+                            notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+                                    + "Current Highest Bid: " + highestBid + " Rupees");
+                        }
+                    } else {
+                        notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+                                + "Current Highest Bid: " + highestBid + " Rupees\n"
+                                + "You cannot afford that bid");
+                    }
                 }
             }
         });
@@ -566,9 +606,26 @@ public class MainActivity extends AppCompatActivity {
         dontBidButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*blockerWindow.dismiss();
-                notificationPopup.dismiss();
-                highestBid = Integer.parseInt(costText.getText().toString());*/
+
+                players.remove(currentIndex);
+                if(currentIndex >= players.size()){
+                    currentIndex = 0;
+                }
+                if(players.size() == 1){
+                    try {
+                        gameFacade.playerBuyProperty(highestBidder, gameFacade.getCurrentPropertyName(), highestBid);
+                        blockerWindow.dismiss();
+                        notificationPopup.dismiss();
+                        updateAllInfo();
+                        Toast.makeText(getApplicationContext(), highestBidder + " won the auction!", Toast.LENGTH_LONG).show();
+
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+                    }
+                }else {
+                    notificationText.setText(players.get(currentIndex) + ": Place a bid for: " + gameFacade.getCurrentPropertyName() + "\n"
+                            + "Current Highest Bid: " + highestBid + " Rupees");
+                }
             }
         });
         popLayout.addView(dontBidButton);
@@ -606,7 +663,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button but2 = new Button(this);
-        but2.setText("Pay $50");
+        but2.setText("Pay 50 Rupees");
         but2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -635,6 +692,52 @@ public class MainActivity extends AppCompatActivity {
         popLayout.addView(but);
         popLayout.addView(but2);
         popLayout.addView(but3);
+        notificationPopup.setContentView(popLayout);
+
+        placeBlocker();
+        notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
+    }
+
+    public void endGame(){
+        if(notificationPopup != null) {
+            notificationPopup.dismiss();
+            ;
+        }
+        if(blockerWindow != null) {
+            blockerWindow.dismiss();
+        }
+        String endGameText = gameFacade.endGame();
+        //game controller return winner
+        //Create layouts and views for popup window
+        LinearLayout popLayout = new LinearLayout(this);
+        TextView notificationText = new TextView(this);
+        ImageView lossImage = new ImageView(this);
+        notificationPopup = new PopupWindow(this);
+
+        //Set layout orientation
+        popLayout.setOrientation(LinearLayout.VERTICAL);
+
+        //Set the text for the popup
+        notificationText.setText(endGameText);
+
+        //Create Button to dismiss
+        Button but = new Button(this);
+        but.setText("Dismiss");
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blockerWindow.dismiss();
+                notificationPopup.dismiss();
+                Intent intent = new Intent(MainActivity.this, SplashScreen.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //Place layout in the popup
+        popLayout.addView(notificationText);
+        popLayout.setBackgroundColor(Color.WHITE);
+        popLayout.addView(but);
         notificationPopup.setContentView(popLayout);
 
         placeBlocker();
