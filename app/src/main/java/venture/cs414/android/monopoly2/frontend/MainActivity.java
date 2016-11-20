@@ -338,6 +338,8 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
+
+                checkAITurn();
                 break;
             case R.id.menu_quit:
                 try {
@@ -786,6 +788,45 @@ public class MainActivity extends AppCompatActivity {
 
         placeBlocker();
         notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
+    }
+
+    public void checkAITurn(){
+        String aiTurnInfo = gameFacade.takeAITurn();
+        //turnInfo.setText(propBuy);
+        if(aiTurnInfo != null){
+            //Create layouts and views for popup window
+            LinearLayout popLayout = new LinearLayout(this);
+            TextView salesText = new TextView(this);
+            notificationPopup = new PopupWindow(this);
+
+            //Set layout orientation
+            popLayout.setOrientation(LinearLayout.VERTICAL);
+
+            //Set the text for the popup
+            salesText.setText(aiTurnInfo);
+
+            //Create Button to dismiss
+            Button okButton = new Button(this);
+            okButton.setText("OK!");
+            okButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    blockerWindow.dismiss();
+                    notificationPopup.dismiss();
+                    updateAllInfo();
+                    checkAITurn();
+                }
+            });
+
+            //Place layout in the popup
+            popLayout.addView(salesText);
+            popLayout.setBackgroundColor(Color.WHITE);
+            popLayout.addView(okButton);
+            notificationPopup.setContentView(popLayout);
+
+            placeBlocker();
+            notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
+        }
     }
 
     public void placeBlocker(){

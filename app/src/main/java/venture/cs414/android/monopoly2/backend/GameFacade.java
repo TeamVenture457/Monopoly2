@@ -352,7 +352,7 @@ public class GameFacade {
                             int rent = deed.calculateRent();
                             payPlayer(currentPlayer, (Player) deed.getOwner(), rent);
                             actionResult += "\nYou moved to " + deed.getName() + " Owned by " + ((Player) deed.getOwner()).getName();
-                            actionResult += "\nYou paid " + rent + "Rupees in rent.";
+                            actionResult += "\nYou paid " + rent + " Rupees in rent.";
                         }
                     }else{
                         actionResult += "\nYou moved to " + deed.getName();
@@ -1130,7 +1130,8 @@ public class GameFacade {
             Property deed = board.getBoardSpace(currentPlayer.getLocation()).getDeed();
             if(currentPlayer.canAfford(deed.getCost())){
                 currentPlayerBuyCurrentProperty();
-                tempString += ("\n" + currentMessage);
+                tempString += ("\nBought " + deed.getName() + " for " + deed.getCost() + " Rupees");
+                //tempString += ("\n" + currentMessage);
                 //Todo auction from AI perspective
             }
         }
@@ -1142,7 +1143,7 @@ public class GameFacade {
                 tempString += ("\n" + currentMessage);
             }
         }
-        else if(L2.isEmpty() && currentPlayer.canAfford(700)){
+        else if(!L2.isEmpty() && currentPlayer.canAfford(700)){
             if(dice.getDie1()==5 || dice.getDie2()==3){
                 buyAHotel(L2.get(0));
                 tempString += ("\n" + currentMessage);
