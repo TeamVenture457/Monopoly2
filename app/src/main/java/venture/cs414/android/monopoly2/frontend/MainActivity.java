@@ -204,11 +204,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateAllInfo(){
         turnInfo.setText(gameFacade.getCurrentMessage());
+        turnInfo.scrollTo(0,0);
         currentPlayerInfo.setText(gameFacade.getCurrentPlayerInfo());
+        currentPlayerInfo.scrollTo(0,0);
         otherPlayerInfo.setText(gameFacade.getOtherPlayerInfo());
+        otherPlayerInfo.scrollTo(0,0);
         for(Button button: boardButtons){
             button.setText(gameFacade.getSpaceInfo(boardButtons.indexOf(button)));
         }
+
 
         if(gameFacade.gameIsOver()){
             endGame();

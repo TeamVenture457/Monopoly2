@@ -14,11 +14,11 @@ public class Player extends Owner{
     private boolean inJail;
     private int turnsInJail;
     private int consecutiveTurns;
-
+    private boolean playerAI;
 
     List<Card> myCards;
 
-    public Player(String name, String token){
+    public Player(String name, String token, boolean isAI){
         super();
         this.name = name;
         this. token = token;
@@ -28,6 +28,12 @@ public class Player extends Owner{
         turnsInJail = 0;
         consecutiveTurns = 0;
         myCards = new ArrayList<>();
+        if(isAI){
+            this.playerAI = true;
+        }
+        else{
+            this.playerAI = false;
+        }
     }
 
     public void storeGetOutOfJailCard(Card card){
@@ -38,6 +44,9 @@ public class Player extends Owner{
         if(myCards.isEmpty()) return null;
         return myCards.remove(0);
     }
+
+    public boolean getPlayerAI(){ return playerAI; }
+
     public String getName() {
         return name;
     }
