@@ -951,6 +951,11 @@ public class GameFacade {
             if(player.getLocation() == spaceNumber){
                 playerTokens.add(player.getToken());
             }
+            if(spaceNumber==10){
+                if(player.isInJail()){
+                    playerTokens.add(player.getToken());
+                }
+            }
         }
         if(playerTokens.isEmpty()){
 
