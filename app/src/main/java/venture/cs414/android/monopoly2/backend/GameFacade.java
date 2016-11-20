@@ -390,7 +390,7 @@ public class GameFacade {
             case "payBank":
                 int payAmount = Integer.parseInt(actions.get(1));
                 currentPlayer.removeMoney(payAmount);
-                actionResult += "\nYou paid " + payAmount + "Rupees to the bank.";
+                actionResult += "\nYou paid " + payAmount + " Rupees to the bank.";
                 break;
 
             case "payEachPlayer":
@@ -809,7 +809,7 @@ public class GameFacade {
 
         currentPlayer = winner;
 
-        String returnString = "Time is up!\n"
+        String returnString = "Game Over!\n"
                 + "And the winner is:\n" + getCurrentPlayerInfo();
         return returnString;
     }

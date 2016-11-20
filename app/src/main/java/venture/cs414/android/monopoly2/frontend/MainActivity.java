@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
         updateAllInfo();
 
-        timerHandler = new Handler();
+       /* timerHandler = new Handler();
         timerRunnable = new Runnable(){
             @Override
             public void run(){
@@ -179,7 +179,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        timerRunnable.run();
+        timerRunnable.run();*/
+
         /*new CountDownTimer(numMiliSeconds, 1000){
 
             public void onTick(long millisUntilFinished) {

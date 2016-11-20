@@ -67,7 +67,7 @@ public class SellProperty extends AppCompatActivity {
 
         popup = new PopupWindow(this);
         popLayout.setOrientation(LinearLayout.VERTICAL);
-        notificationText.setText(playerName + ", would you like to buy " + propertyName + " for " + cost + "Rupees?");
+        notificationText.setText(playerName + ", would you like to buy " + propertyName + " for " + cost + " Rupees?");
         Button yesButton = new Button(this);
         yesButton.setText("YES");
         yesButton.setOnClickListener(new View.OnClickListener() {
