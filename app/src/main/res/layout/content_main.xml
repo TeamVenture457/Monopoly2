@@ -572,6 +572,7 @@
             android:text=""
             android:textColor="@color/red"
             android:textSize="7sp"/>
+
         <Button
             android:layout_width="234dp"
             android:layout_height="234dp"
@@ -581,7 +582,8 @@
             android:layout_rowSpan="9"
             android:layout_columnSpan="9"
             android:layout_gravity="center"
-            android:background="@drawable/middlespace" />
+            android:background="@drawable/middlespace"
+            android:onClick="clickSpaceMiddle" />
 
     </GridLayout>
 
