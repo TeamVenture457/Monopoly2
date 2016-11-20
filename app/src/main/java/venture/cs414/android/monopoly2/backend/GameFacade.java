@@ -27,6 +27,7 @@ public class GameFacade {
     private boolean gameOver;
 
     private boolean aiRefusedBuy;
+    private Property auctionProperty;
 
    private static GameFacade instance = new GameFacade();
 
@@ -38,6 +39,7 @@ public class GameFacade {
     }
 
     public void setUp(int numPlayers, int numMinutes, Context context, boolean radio2, boolean radio3, boolean radio4){
+        aiRefusedBuy = false;
         players = new ArrayList<Player>();
         for (int i = 1; i < numPlayers+1; i++) {
             String playerName;
@@ -178,6 +180,7 @@ public class GameFacade {
     }
 
     public String moveCurrentPlayer(){
+        aiRefusedBuy = false;
         Property deed = null;
         Player player = currentPlayer;
 
@@ -1156,6 +1159,8 @@ public class GameFacade {
                 tempString += ("\nBought " + deed.getName() + " for " + deed.getCost() + " Rupees");
             }else{
                 aiRefusedBuy = true;
+                auctionProperty = deed;
+                tempString += "\n" + currentPlayer.getName() + " did not buy " + deed.getName();
             }
         }
         List<String> L1 = getStreetsCanBuyHouses();
@@ -1195,8 +1200,12 @@ public class GameFacade {
         }
 
         advanceTurn();
-        tempString += ("\n" + currentMessage);
+        //tempString += ("\n" + currentMessage);
         return tempString;
+    }
+
+    public String getAuctionProperty(){
+        return auctionProperty.getName();
     }
 
     public int getAIBid(String propName, String playerName, int highestBid){
