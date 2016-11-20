@@ -3,6 +3,8 @@ package venture.cs414.android.monopoly2.frontend;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -474,6 +476,9 @@ public class MainActivity extends AppCompatActivity {
     public void clickSpace39(View view){
         getSpaceInfoForToast(39);
     }
+    public void clickSpaceMiddle(View view){
+        getMiddleSpacePopUp();
+    }
 
     public void getSpaceInfoForToast(int spaceNumber){
         try {
@@ -492,6 +497,46 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }*/
+
+
+
+    public void getMiddleSpacePopUp(){
+        LinearLayout popLayout = new LinearLayout(this);
+        TextView text = new TextView(this);
+        int resID = getResources().getIdentifier("theteam3", "drawable", this.getPackageName());
+        Drawable d1 = getResources().getDrawable(resID);
+
+        notificationPopup = new PopupWindow(this);
+
+        //Set layout orientation
+        popLayout.setOrientation(LinearLayout.VERTICAL);
+        //Set the text for the popup
+        text.setText("The Development Team");
+
+        //Create Button to dismiss
+        Button but = new Button(this);
+        but.setText("Dismiss");
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blockerWindow.dismiss();
+                notificationPopup.dismiss();
+            }
+        });
+
+        //Place layout in the popup
+
+        popLayout.addView(text);
+        popLayout.setBackground(d1);
+        popLayout.addView(but);
+
+        notificationPopup.setContentView(popLayout);
+
+        placeBlocker();
+        notificationPopup.showAtLocation(layout, Gravity.CENTER, 10, 10);
+    }
+
+
 
     public void checkBuyProperty(){
         String propBuy = gameFacade.getCurrentPropertySale();
