@@ -38,7 +38,7 @@ public class GameFacade {
         return instance;
     }
 
-    public void setUp(int numPlayers, int numMinutes, Context context, boolean radio2, boolean radio3, boolean radio4){
+    public void setUp(int numPlayers, Context context, boolean radio2, boolean radio3, boolean radio4){
         aiRefusedBuy = false;
         players = new ArrayList<Player>();
         for (int i = 1; i < numPlayers+1; i++) {
@@ -92,7 +92,7 @@ public class GameFacade {
 
         gameOver = false;
 
-        int numMiliSeconds = (numMinutes * 60 * 1000);
+        /*int numMiliSeconds = (numMinutes * 60 * 1000);
         new CountDownTimer(numMiliSeconds, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -111,7 +111,7 @@ public class GameFacade {
                 timerString = "Game Finished";
                 //gameOver = true;
             }
-        }.start();
+        }.start();*/
     }
 
     public String getTimerString(){

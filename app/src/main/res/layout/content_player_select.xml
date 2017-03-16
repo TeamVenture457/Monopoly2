@@ -31,49 +31,31 @@
         android:layout_marginTop="26dp"
         android:spinnerMode="dropdown"
         android:layout_below="@+id/textSelectPlayers"
-        android:layout_alignLeft="@+id/textTimeLimit"
-        android:layout_alignStart="@+id/textTimeLimit"
-        android:layout_alignRight="@+id/spinnerTime"
-        android:layout_alignEnd="@+id/spinnerTime"
-        android:background="@color/lime"/>
+        android:background="@color/lime"
+        android:layout_alignRight="@+id/chooseAILabel"
+        android:layout_alignEnd="@+id/chooseAILabel" />
+
+    <RadioButton
+        android:text="Player 2"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButtonPlayer2"
+        android:background="@color/lime"
+        android:onClick="onRadioButtonClicked"
+        android:layout_centerVertical="true"
+        />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Select Time Limit"
-        android:id="@+id/textTimeLimit"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:layout_below="@+id/textPlayers"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="45dp"
-        android:textColor="@color/lime"/>
-
-    <Spinner
+        android:text="Choose AI players"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinnerTime"
-        android:spinnerMode="dropdown"
-        android:layout_marginTop="35dp"
-        android:layout_below="@+id/textTimeLimit"
-        android:layout_alignLeft="@+id/textTimeLimit"
-        android:layout_alignStart="@+id/textTimeLimit"
-        android:layout_alignRight="@+id/textTimeLimit"
-        android:layout_alignEnd="@+id/textTimeLimit"
-        android:background="@color/lime"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Minutes"
-        android:id="@+id/textMinutes"
-        android:layout_alignTop="@+id/spinnerTime"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="@color/lime"/>
+        android:id="@+id/chooseAILabel"
+        android:textColor="@color/lime"
+        android:layout_above="@+id/radioButtonPlayer2"
+        android:layout_alignLeft="@+id/radioButtonPlayer2"
+        android:layout_alignStart="@+id/radioButtonPlayer2"
+        android:layout_marginBottom="17dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,58 +63,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Select Number of Players"
         android:id="@+id/textSelectPlayers"
+        android:textColor="@color/lime"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/spinnerNumPlayers"
-        android:layout_alignStart="@+id/spinnerNumPlayers"
-        android:textColor="@color/lime"/>
-
-    <RadioButton
-        android:text="Player 2"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/chooseAILabel"
-        android:layout_alignLeft="@+id/spinnerTime"
-        android:layout_alignStart="@+id/spinnerTime"
-        android:layout_marginBottom="130dp"
-        android:id="@+id/radioButtonPlayer2"
-        android:background="@color/lime"
-        android:onClick="onRadioButtonClicked" />
-
-    <RadioButton
-        android:text="Player 3"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/radioButtonPlayer2"
-        android:layout_alignLeft="@+id/radioButtonPlayer2"
-        android:layout_alignStart="@+id/radioButtonPlayer2"
-        android:layout_marginTop="55dp"
-        android:id="@+id/radioButtonPlayer3"
-        android:background="@color/lime"
-        android:onClick="onRadioButtonClicked" />
-
-    <RadioButton
-        android:text="Player 4"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/radioButtonPlayer3"
-        android:layout_alignLeft="@+id/radioButtonPlayer3"
-        android:layout_alignStart="@+id/radioButtonPlayer3"
-        android:layout_marginTop="22dp"
-        android:id="@+id/radioButtonPlayer4"
-        android:background="@color/lime"
-        android:onClick="onRadioButtonClicked" />
-
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Choose AI players"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textMinutes"
-        android:layout_alignLeft="@+id/radioButtonPlayer2"
-        android:layout_alignStart="@+id/radioButtonPlayer2"
-        android:layout_marginTop="17dp"
-        android:id="@+id/chooseAILabel"
-        android:textColor="@color/lime"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -141,8 +74,32 @@
         android:id="@+id/buttonStartGame"
         android:onClick="clickStartGame"
         android:background="@color/lime"
-        android:layout_below="@+id/radioButtonPlayer4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp" />
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <RadioButton
+        android:text="Player 3"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButtonPlayer3"
+        android:background="@color/lime"
+        android:onClick="onRadioButtonClicked"
+        android:layout_alignTop="@+id/radioButtonPlayer2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="57dp" />
+
+    <RadioButton
+        android:text="Player 4"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButtonPlayer4"
+        android:background="@color/lime"
+        android:onClick="onRadioButtonClicked"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/radioButtonPlayer3"
+        android:layout_alignRight="@+id/radioButtonPlayer3"
+        android:layout_alignEnd="@+id/radioButtonPlayer3" />
 
 </RelativeLayout>
